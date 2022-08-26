@@ -11,7 +11,7 @@ spring:
     type: com.alibaba.druid.pool.DruidDataSource
     driver-class-name: com.mysql.cj.jdbc.Driver
     druid:
-      url: jdbc:mysql://127.0.0.1:3306/Basketball?serverTimezone=UTC
+      url: jdbc:mysql://127.0.0.1:3306/basketball?serverTimezone=UTC
       username: root
       password: root 
       # 初始连接数
@@ -55,7 +55,7 @@ spring:
                   multi-statement-allow: true
 #mybatis配置
 mybatis:
-  type-aliases-package: com.duo.kindergartenll.model
+  type-aliases-package: com.yjy.model
   configuration:
     default-statement-timeout: 30
     map-underscore-to-camel-case: true
