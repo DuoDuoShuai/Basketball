@@ -6,4 +6,11 @@ package com.yjy.model;
  * @Description:
  */
 public class Student {
+    private String studentid;
+    private String studentname;
+    private Long birthday;
+    private String age;
+    private Boolean gender;
+    private String studentnumber;
+    private String studentcode;
 }
