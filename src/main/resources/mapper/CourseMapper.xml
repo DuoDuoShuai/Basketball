@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 命名空间，可以对sql进行分类的一个管理 -->
+<mapper namespace="com.yjy.mapper.CourseMapper">
+    <!--查询-->
+    <select id="findCourse" resultType="com.yjy.model.Course">
+        select course_id courseId,course_name courseName,photo,course_hour courseHour,is_shaky isShaky,course_code courseCode,price,
+               course_state courseState,describe,start_time startTime,
+    </select>
+
+</mapper>
