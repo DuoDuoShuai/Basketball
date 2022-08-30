@@ -21,11 +21,11 @@ public class LayUiDto {
     /**
      * 每页显示条数
      */
-    private Integer page ;
+    private Integer page;
     /**
      * 页码
      */
-    private Integer limit ;
+    private Integer limit;
     /**
      * sql分页起始位置
      */
@@ -50,6 +50,7 @@ public class LayUiDto {
      * 电话
      */
     private String phone;
+
     /**
      * 编号
      */
