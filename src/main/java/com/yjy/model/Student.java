@@ -28,9 +28,7 @@ public class Student {
     /**
      * 出生年月
      */
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
-    private Date sage;
-    private Long birthday;
+    private Long sage;
     /**
      * 学员年龄
      */
@@ -62,13 +60,9 @@ public class Student {
     /**
      * 创建时间
      */
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
-    private Date createTime;
+    private Long createTime;
     /**
      * 更新时间
      */
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
-    private Date updateTime;
-    private Long createTimes;
-    private Long updateTimes;
+    private Long updateTime;
 }
