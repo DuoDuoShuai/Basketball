@@ -20,6 +20,11 @@ public class ParentController {
     @Autowired
     private ParentService parentService;
 
+    /**
+     * 家长信息展示
+     * @param dto
+     * @return
+     */
     @RequestMapping("list")
     public JsonPageResult list(LayUiDto dto){
         JsonPageResult map = parentService.list(dto);
