@@ -9,7 +9,7 @@ import java.util.List;
 /**
  * @Author:黄文倩
  * @CreatTime:2022/8/29
- * @Description:
+ * @Description: TODO
  */
 @Repository
 public interface StudentMapper {
@@ -19,7 +19,6 @@ public interface StudentMapper {
      * @return
      */
     List<Student> list(LayUiDto dto);
-
     /**
      * 列表总数
      * @param dto
@@ -28,11 +27,11 @@ public interface StudentMapper {
     Integer count(LayUiDto dto);
 
     /**
-     * 详情--根据id查
+     * 获取单个对象--根据id查
      * @param studentId
      * @return
      */
-    Student info(Integer studentId);
+    Student load(String studentId);
 
     /**
      * 修改
@@ -46,12 +45,12 @@ public interface StudentMapper {
      * @param studentId
      * @return
      */
-    Integer remove(Integer studentId);
+    Integer remove(String studentId);
 
     /**
      * 增加
      * @param student
      * @return
      */
-    Integer add(Student student);
+    Integer insert(Student student);
 }

@@ -2,21 +2,17 @@ package com.yjy.service;
 
 import com.yjy.dto.LayUiDto;
 import com.yjy.model.Parent;
-import com.yjy.vo.MapVo;
-
+import com.yjy.vo.JsonPageResult;
 /**
- * @author 徐晓瑞
- * @date 2022/8/29 17:14
- * @describe: TODO
+ * @Author:
+ * @CreatTime:2022/8/29
+ * @Description:
  */
 public interface ParentService {
     /**
-     * 家长信息查询全部
-     * @param dto
-     * @return
+     * 列表
      */
-    MapVo list(LayUiDto dto);
-
+    JsonPageResult list(LayUiDto dto);
     /**
      * 添加家长信息
      * @param parent

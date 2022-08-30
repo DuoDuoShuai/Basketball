@@ -3,8 +3,8 @@ package com.yjy.controller;
 import com.yjy.dto.LayUiDto;
 import com.yjy.model.Parent;
 import com.yjy.service.ParentService;
+import com.yjy.vo.JsonPageResult;
 import com.yjy.vo.JsonResult;
-import com.yjy.vo.MapVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -18,7 +18,7 @@ import java.util.UUID;
 /**
  * @author 徐晓瑞
  * @date 2022/8/29 23:24
- * @describe: TODO
+ * @describe: TODO-
  */
 
 @RestController
@@ -29,16 +29,23 @@ public class ParentController {
     private ParentService parentService;
 
     /**
-     * 家长信息查询全部
+     * 家长信息展示
      * @param dto
      * @return
      */
     @RequestMapping("list")
-    public MapVo list(LayUiDto dto){
-        MapVo map = parentService.list(dto);
+    public JsonPageResult list(LayUiDto dto){
+        JsonPageResult map = parentService.list(dto);
         return map;
     }
 
+    /**
+     * 新增
+     * @param parent
+     * @param img
+     * @return
+     * @throws IOException
+     */
     @RequestMapping("insertParent")
     public JsonResult insertParent(Parent parent, MultipartFile img) throws IOException {
         JsonResult success = null;

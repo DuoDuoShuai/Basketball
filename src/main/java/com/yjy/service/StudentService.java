@@ -2,12 +2,12 @@ package com.yjy.service;
 
 import com.yjy.dto.LayUiDto;
 import com.yjy.model.Student;
-import com.yjy.vo.MapVo;
+import com.yjy.vo.JsonPageResult;
 
 /**
  * @Author:黄文倩
  * @CreatTime:2022/8/29
- * @Description:
+ * @Description: TODO
  */
 public interface StudentService {
     /**
@@ -15,14 +15,14 @@ public interface StudentService {
      * @param dto
      * @return 页面表格数据
      */
-    MapVo list(LayUiDto dto);
+    JsonPageResult list(LayUiDto dto);
 
     /**
      * 详情
-     * @param id
+     * @param studentId
      * @return 一个学生对象
      */
-    Student info(Integer id);
+    Student load(String studentId);
 
     /**
      * 修改
@@ -33,22 +33,22 @@ public interface StudentService {
 
     /**
      * 删除
-     * @param id
+     * @param studentId
      * @return 整数i=1
      */
-    Integer remove(Integer id);
+    Integer remove(String studentId);
 
     /**
      * 批量删除
-     * @param ids
+     * @param studentIds
      * @return 整数i=1
      */
-    Integer removeMore(Integer[] ids);
+    Integer removeMore(String[] studentIds);
 
     /**
      * 增加
      * @param student
      * @return 整数i=1
      */
-    Integer add(Student student);
+    Integer insert(Student student);
 }

@@ -1,12 +1,12 @@
 package com.yjy.service;
 
 import com.yjy.dto.LayUiDto;
-import com.yjy.vo.MapVo;
+import com.yjy.vo.JsonPageResult;
 
 /**
  * @author 徐晓瑞
  * @date 2022/8/29 17:14
- * @describe: TODO
+ * @describe: TODO-
  */
 public interface TeacherService {
     /**
@@ -14,5 +14,5 @@ public interface TeacherService {
      * @param dto
      * @return
      */
-    MapVo list(LayUiDto dto);
+    JsonPageResult list(LayUiDto dto);
 }

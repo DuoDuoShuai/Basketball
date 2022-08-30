@@ -4,7 +4,7 @@ import com.yjy.dto.LayUiDto;
 import com.yjy.mapper.StudentMapper;
 import com.yjy.model.Student;
 import com.yjy.service.StudentService;
-import com.yjy.vo.MapVo;
+import com.yjy.vo.JsonPageResult;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -14,8 +14,8 @@ import java.util.UUID;
 
 /**
  * @Author:黄文倩
- * @CreatTime:2022/8/29
- * @Description:
+ * @CreatTime:2022/8/29 TODO
+ * @Description: TODO 修改的生日时间怎么由date类转毫秒值
  */
 @Service
 public class StudentServiceImpl implements StudentService {
@@ -27,25 +27,24 @@ public class StudentServiceImpl implements StudentService {
      * @return 返回mapvo页面表格数据
      */
     @Override
-
-    public MapVo list(LayUiDto dto) {
+    public JsonPageResult list(LayUiDto dto) {
         Integer count = studentMapper.count(dto);
         if(count==0){
-            return MapVo.successPage();
+            return JsonPageResult.successPage();
         }
         List<Student> list = studentMapper.list(dto);
-        MapVo mapVo = MapVo.successPage(list, count);
+        JsonPageResult mapVo = JsonPageResult.successPage(list, count);
         return mapVo;
     }
 
     /**
      * 详情
-     * @param id
+     * @param studentId
      * @return 返回已个学生对象
      */
     @Override
-    public Student info(Integer id) {
-        Student student = studentMapper.info(id);
+    public Student load(String studentId) {
+        Student student = studentMapper.load(studentId);
         return student;
     }
 
@@ -58,33 +57,32 @@ public class StudentServiceImpl implements StudentService {
     @Override
     public Integer update(Student student) {
         Date currentTime=new Date(System.currentTimeMillis());
-        student.setUpdateTimes(currentTime.getTime());
-        student.setBirthday(student.getSage().getTime());
+        student.setUpdateTime(currentTime.getTime());
         Integer update = studentMapper.update(student);
         return update;
     }
 
     /**
      * 删除
-     * @param id
+     * @param studentId
      * @return 成功返回整数i=1
      */
     @Override
-    public Integer remove(Integer id) {
-        Integer remove = studentMapper.remove(id);
+    public Integer remove(String studentId) {
+        Integer remove = studentMapper.remove(studentId);
         return remove;
     }
 
     /**
      * 批量删除
-     * @param ids
+     * @param studentIds
      * @return 成功返回整数i=1
      */
     @Override
-    public Integer removeMore(Integer[] ids) {
+    public Integer removeMore(String[] studentIds) {
         Integer remove=0;
-        for (Integer id : ids) {
-            remove = studentMapper.remove(id);
+        for (String studentId : studentIds) {
+            remove = studentMapper.remove(studentId);
         }
         return remove;
     }
@@ -95,13 +93,12 @@ public class StudentServiceImpl implements StudentService {
      * @return 成功返回整数i=1
      */
     @Override
-    public Integer add(Student student) {
-        student.setId(String.valueOf(UUID.randomUUID()));
+    public Integer insert(Student student) {
+        student.setStudentId(String.valueOf(UUID.randomUUID()));
         Date currentTime=new Date(System.currentTimeMillis());
-        student.setCreateTimes(currentTime.getTime());
-        student.setUpdateTimes(currentTime.getTime());
-        student.setBirthday(student.getSage().getTime());
-        Integer add = studentMapper.add(student);
+        student.setCreateTime(currentTime.getTime());
+        student.setUpdateTime(currentTime.getTime());
+        Integer add = studentMapper.insert(student);
         return add;
     }
 }

@@ -10,7 +10,7 @@ import java.util.List;
 /**
  * @author 徐晓瑞
  * @date 2022/8/29 17:14
- * @describe: TODO
+ * @describe: TODO-
  */
 @Repository
 public interface ParentMapper {
@@ -34,4 +34,5 @@ public interface ParentMapper {
      * @return
      */
     Integer insertParent(Parent parent);
+
 }
