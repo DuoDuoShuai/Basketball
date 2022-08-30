@@ -63,7 +63,7 @@
             var formData = new FormData();//form表单
             formData.append("parentName",data.field.parentName);
             formData.append("parentPhone",data.field.parentPhone);
-            formData.append("parentSex",$("input[name='gender']:checked").val());
+            formData.append("parentSex",$("input[name='parentSex']:checked").val());
             var fileobj = $("#parentPhoto")[0].files[0];
             formData.append("img",fileobj);
             $.ajax({
