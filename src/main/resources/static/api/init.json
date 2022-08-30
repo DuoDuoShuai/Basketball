@@ -49,7 +49,7 @@
         },
         {
           "title": "学员管理",
-          "href": "page/setting.html",
+          "href": "page/student-table.html",
           "icon": "fa fa-gears",
           "target": "_self"
         },

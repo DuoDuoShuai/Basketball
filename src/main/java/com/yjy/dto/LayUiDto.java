@@ -1,10 +1,17 @@
 package com.yjy.dto;
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
 /**
  * @Author:黄文倩
  * @CreatTime:2022/8/29
  * @Description:
  */
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class LayUiDto {
     private static final long serialVersionUID = 5172649115384573373L;
     /**
@@ -32,13 +39,25 @@ public class LayUiDto {
      */
     private Integer state;
     /**
-     * 用户名称
+     * id
+     */
+    private String id;
+    /**
+     * 名称
      */
     private String name;
     /**
-     * 用户电话
+     * 电话
      */
     private String phone;
+    /**
+     * 编号
+     */
+    private String number;
+    /**
+     * 是否显示
+     */
+    private String isShow;
     /**
      * @param page 页码
      * @param limit 每页显示数
@@ -51,61 +70,5 @@ public class LayUiDto {
             this.limit = limit;
         }
         this.dataNum = (this.page - 1) * this.limit;
-    }
-
-    public Integer getPage() {
-        return page;
-    }
-
-    public void setPage(Integer page) {
-        this.page = page;
-    }
-
-    public Integer getLimit() {
-        return limit;
-    }
-
-    public void setLimit(Integer limit) {
-        this.limit = limit;
-    }
-
-    public Integer getDataNum() {
-        return dataNum;
-    }
-
-    public void setDataNum(Integer dataNum) {
-        this.dataNum = dataNum;
-    }
-
-    public String getSort() {
-        return sort;
-    }
-
-    public void setSort(String sort) {
-        this.sort = sort;
-    }
-
-    public Integer getState() {
-        return state;
-    }
-
-    public void setState(Integer state) {
-        this.state = state;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getPhone() {
-        return phone;
-    }
-
-    public void setPhone(String phone) {
-        this.phone = phone;
     }
 }
