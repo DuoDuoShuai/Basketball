@@ -24,7 +24,7 @@
                         <div class="layui-inline">
                             <label class="layui-form-label">学生编号</label>
                             <div class="layui-input-inline">
-                                <input type="text" name="id" placeholder="学生编号" autocomplete="off" class="layui-input">
+                                <input type="text" name="studentId" placeholder="学生编号" autocomplete="off" class="layui-input">
                             </div>
                         </div>
                         <div class="layui-inline">
@@ -83,10 +83,10 @@
             }],
             cols: [ [
                 {type: "checkbox", width: 50},
-                {field: 'id', width: 80, title: '编号', sort: true},
+                {field: 'studentId', width: 80, title: '编号', sort: true},
                 {field: 'studentName', width: 80, title: '姓名'},
-                {field: 'sage', width: 100, title: '生日',templet: "<div>{{layui.util.toDateString(d.sage, 'yyyy-MM-dd HH:mm:ss')}}</div>"},
-                {field: 'age', width: 80, title: '生日'},
+                {field: 'birthday', width: 100, title: '出生年月',templet: "<div>{{layui.util.toDateString(d.birthday, 'yyyy-MM-dd')}}</div>"},
+                {field: 'age', width: 80, title: '年龄'},
                 {
                     field: 'gender', width: 80, title: '性别', sort: true,templet: function (d) {
                         if (d.gender == 1) {
@@ -118,7 +118,7 @@
                     curr: 1
                 }
                 , where: {
-                    id: data.field.id,
+                    id: data.field.studentId,
                     name:data.field.studentName,
                     number:data.field.studentNumber,
                 }
@@ -148,15 +148,15 @@
             } else if (obj.event === 'delete') {  // 监听删除操作
                 var checkStatus = table.checkStatus('currentTableId')
                     , data = checkStatus.data;
-                delList=[];
+                    delList=[];
                 for(var i=0;i<data.length;i++){
-                    delList.push(data[i].id);
+                    delList.push(data[i].studentId);
                 }
                 $.ajax({
                     type:'post',
                     url:'/student/removemore',
                     data:{
-                        ids:delList
+                        studentIds:delList
                     },
                     dataType:'JSON',
                     success:function (da) {

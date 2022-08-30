@@ -1,11 +1,10 @@
 package com.yjy.service.impl;
 
 import com.yjy.dto.LayUiDto;
-import com.yjy.mapper.AdminMapper;
 import com.yjy.mapper.ParentMapper;
 import com.yjy.model.Admin;
 import com.yjy.service.ParentService;
-import com.yjy.vo.MapVo;
+import com.yjy.vo.JsonPageResult;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -23,14 +22,14 @@ public class ParentServiceImpl implements ParentService {
     private ParentMapper parentMapper;
 
     @Override
-    public MapVo list(LayUiDto dto) {
+    public JsonPageResult list(LayUiDto dto) {
         //判断是否有数据
         Integer count = parentMapper.count(dto);
         if(count ==0) {
-            return MapVo.successPage();
+            return JsonPageResult.successPage();
         }
         List<Admin> list = parentMapper.list(dto);
-        MapVo map = MapVo.successPage(list, count);
+        JsonPageResult map = JsonPageResult.successPage(list, count);
         return map;
     }
 }

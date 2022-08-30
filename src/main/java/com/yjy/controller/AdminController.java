@@ -2,9 +2,8 @@ package com.yjy.controller;
 
 import com.yjy.dto.LayUiDto;
 import com.yjy.service.AdminService;
-import com.yjy.vo.MapVo;
+import com.yjy.vo.JsonPageResult;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -22,8 +21,8 @@ public class AdminController {
     private AdminService adminService;
 
     @RequestMapping("list")
-    public MapVo list(LayUiDto dto){
-        MapVo map = adminService.list(dto);
+    public JsonPageResult list(LayUiDto dto){
+        JsonPageResult map = adminService.list(dto);
         return map;
     }
 }

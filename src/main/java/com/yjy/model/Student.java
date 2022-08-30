@@ -20,7 +20,7 @@ public class Student {
     /**
      * 学员id
      */
-    private String id;
+    private String studentId;
     /**
      * 学员姓名
      */
@@ -28,7 +28,7 @@ public class Student {
     /**
      * 出生年月
      */
-    private Long sage;
+    private Long birthday;
     /**
      * 学员年龄
      */

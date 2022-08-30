@@ -31,7 +31,7 @@ public interface StudentMapper {
      * @param studentId
      * @return
      */
-    Student load(Integer studentId);
+    Student load(String studentId);
 
     /**
      * 修改
@@ -45,12 +45,12 @@ public interface StudentMapper {
      * @param studentId
      * @return
      */
-    Integer remove(Integer studentId);
+    Integer remove(String studentId);
 
     /**
      * 增加
      * @param student
      * @return
      */
-    Integer add(Student student);
+    Integer insert(Student student);
 }

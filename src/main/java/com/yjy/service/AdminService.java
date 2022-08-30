@@ -1,11 +1,11 @@
 package com.yjy.service;
 
 import com.yjy.dto.LayUiDto;
-import com.yjy.vo.MapVo;
+import com.yjy.vo.JsonPageResult;
 
 public interface AdminService {
     /**
      * 列表
      */
-    MapVo list(LayUiDto dto);
+    JsonPageResult list(LayUiDto dto);
 }

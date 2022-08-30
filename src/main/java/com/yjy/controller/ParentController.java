@@ -2,7 +2,7 @@ package com.yjy.controller;
 
 import com.yjy.dto.LayUiDto;
 import com.yjy.service.ParentService;
-import com.yjy.vo.MapVo;
+import com.yjy.vo.JsonPageResult;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -21,8 +21,8 @@ public class ParentController {
     private ParentService parentService;
 
     @RequestMapping("list")
-    public MapVo list(LayUiDto dto){
-        MapVo map = parentService.list(dto);
+    public JsonPageResult list(LayUiDto dto){
+        JsonPageResult map = parentService.list(dto);
         return map;
     }
 }
