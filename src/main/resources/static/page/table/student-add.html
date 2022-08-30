@@ -51,7 +51,7 @@
     <div class="layui-form-item">
         <label class="layui-form-label">学员头像</label>
         <div class="layui-input-block">
-            <input type="text" name="photo" id="photo" placeholder="请输入头像" value="" class="layui-input">
+            <input type="file" name="photo" id="photo" placeholder="请输入头像" value="" class="layui-input">
         </div>
     </div>
     <div class="layui-form-item">
@@ -74,6 +74,7 @@
             $ = layui.$,
             datasage,
             longsage;
+
         //监听提交
         form.on('submit(saveBtn)', function (data) {
             // 得到中国标准时间
