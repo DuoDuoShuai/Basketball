@@ -19,7 +19,6 @@ public interface StudentMapper {
      * @return
      */
     List<Student> list(LayUiDto dto);
-
     /**
      * 列表总数
      * @param dto
@@ -28,11 +27,11 @@ public interface StudentMapper {
     Integer count(LayUiDto dto);
 
     /**
-     * 详情--根据id查
+     * 获取单个对象--根据id查
      * @param studentId
      * @return
      */
-    Student info(Integer studentId);
+    Student load(Integer studentId);
 
     /**
      * 修改
