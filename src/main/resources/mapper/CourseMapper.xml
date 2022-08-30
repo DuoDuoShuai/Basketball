@@ -4,9 +4,50 @@
 <!-- 命名空间，可以对sql进行分类的一个管理 -->
 <mapper namespace="com.yjy.mapper.CourseMapper">
     <!--查询-->
-    <select id="findCourse" resultType="com.yjy.model.Course">
-        select course_id courseId,course_name courseName,photo,course_hour courseHour,is_shaky isShaky,course_code courseCode,price,
-               course_state courseState,describe,start_time startTime,
+    <select id="listCourse" resultType="com.yjy.model.Course" parameterType="com.yjy.dto.LayUiDto">
+        select course_id courseId,
+               course_name name,
+               photo,course_hour courseHour,
+               is_shaky isShaky,
+               course_code courseCode,
+               price,
+              course_state courseState,
+               course_describe courseDescribe,
+               start_time startTime,
+               end_time endTime,
+               pay_number payNumber,
+               school_id schoolId,
+             shelf_time shelfTime,
+               shelf_left_time shelfLeftTime,
+               is_show isShow,
+               is_delete isDelete,
+               create_time createTime,
+               update_time updateTime
+        from t_course_info
+     where is_delete=0
+       <if test="name !=null and name !=''">
+           and course_name like concat('%',#{name},'%')
+       </if>
+        limit #{dataNum},#{limit};
     </select>
+
+    <!--总页数-->
+    <select id="count" resultType="java.lang.Integer" parameterType="com.yjy.dto.LayUiDto">
+        select count(1) from t_course_info
+         where is_delete=0
+            <if test="name !=null and name !=''">
+                and course_name like concat('%',#{name},'%')
+            </if>
+    </select>
+
+    <!--添加-->
+    <insert id="insertCourse" parameterType="com.yjy.model.Course">
+      insert into t_course_info(course_id,course_name,photo,course_hour,is_shaky,course_code,price,course_state,course_describe,start_time,end_time,pay_number,
+                                school_id,shelf_time,shelf_left_time,is_show,is_delete,create_time,update_time)
+                                values (#{courseId},#{name},#{courseHour},#{isShaky},#{courseCode},#{price},#{courseState},#{courseDescribe},#{startTime},#{endTime},#{payNumber},
+                                        #{schoolId},#{shelfTime},#{shelfLeftTime},#{isShow},#{isDelete},#{createTime},#{updateTime})
+    </insert>
+
+
 
 </mapper>
