@@ -12,7 +12,7 @@ import java.net.InetAddress;
 import java.net.UnknownHostException;
 
 @SpringBootApplication
-@MapperScan("com.yiy.mapper")
+@MapperScan("com.yjy.mapper")
 public class BasketballApplication {
 
     private final static Logger logger = LoggerFactory.getLogger(BasketballApplication.class);

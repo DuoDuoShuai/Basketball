@@ -2,6 +2,7 @@ package com.yjy.mapper;
 
 import com.yjy.dto.LayUiDto;
 import com.yjy.model.Student;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
@@ -10,6 +11,7 @@ import java.util.List;
  * @CreatTime:2022/8/29
  * @Description:
  */
+@Repository
 public interface StudentMapper {
     /**
      * 列表+查询
@@ -17,24 +19,39 @@ public interface StudentMapper {
      * @return
      */
     List<Student> list(LayUiDto dto);
+
     /**
      * 列表总数
+     * @param dto
+     * @return
      */
     Integer count(LayUiDto dto);
+
     /**
      * 详情--根据id查
+     * @param studentId
+     * @return
      */
-    Student info(Integer userid);
+    Student info(Integer studentId);
+
     /**
      * 修改
+     * @param student
+     * @return
      */
     Integer update(Student student);
+
     /**
      * 删除
+     * @param studentId
+     * @return
      */
     Integer remove(Integer studentId);
+
     /**
      * 增加
+     * @param student
+     * @return
      */
     Integer add(Student student);
 }

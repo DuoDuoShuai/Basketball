@@ -1,8 +1,12 @@
 package com.yjy.model;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.format.annotation.DateTimeFormat;
+
+import java.util.Date;
 
 /**
  * @Author:黄文倩
@@ -16,7 +20,7 @@ public class Student {
     /**
      * 学员id
      */
-    private String studentId;
+    private String id;
     /**
      * 学员姓名
      */
@@ -24,6 +28,8 @@ public class Student {
     /**
      * 出生年月
      */
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    private Date sage;
     private Long birthday;
     /**
      * 学员年龄
@@ -56,9 +62,13 @@ public class Student {
     /**
      * 创建时间
      */
-    private Long createTime;
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    private Date createTime;
     /**
      * 更新时间
      */
-    private Long updateTime;
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    private Date updateTime;
+    private Long createTimes;
+    private Long updateTimes;
 }
