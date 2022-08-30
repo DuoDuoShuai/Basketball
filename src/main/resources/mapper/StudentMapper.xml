@@ -7,7 +7,7 @@
         create_time createTime,
         update_time updateTime
     </sql>
-    <!-- 列表 -->
+    <!-- 列表+查询 -->
     <select id="list" parameterType="com.yjy.dto.LayUiDto" resultType="com.yjy.model.Student">
         select
         <include refid="start"></include>

@@ -3,7 +3,11 @@ package com.yjy.service;
 import com.yjy.dto.LayUiDto;
 import com.yjy.model.Parent;
 import com.yjy.vo.JsonPageResult;
-
+/**
+ * @Author:
+ * @CreatTime:2022/8/29
+ * @Description:
+ */
 public interface ParentService {
     /**
      * 列表

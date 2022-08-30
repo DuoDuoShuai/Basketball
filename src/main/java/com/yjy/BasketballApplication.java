@@ -30,7 +30,7 @@ public class BasketballApplication {
                     " :: 局域网访问地址 : http://"+ addr.getHostAddress() + ":" + port + "\n" +
                     " :: 数据监控地址 : http://"+ addr.getHostAddress() + ":" + port + "/druid\n" +
                     " :: 公网访问地址 : 暂无");
-        } catch (UnknownHostException e) {
+        } catch (UnknownHostException  e) {
             System.err.println(e.getMessage());
         }
     }

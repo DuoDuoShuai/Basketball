@@ -6,7 +6,7 @@ import java.util.List;
 /**
  * @Author:黄文倩
  * @CreatTime:2022/8/29
- * @Description:
+ * @Description: TODO
  */
 public class JsonPageResult {
     private static final long serialVersionUID = -5098903228017788445L;

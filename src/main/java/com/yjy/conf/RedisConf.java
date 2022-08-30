@@ -17,7 +17,7 @@ import org.springframework.util.StringUtils;
  */
 @Configuration
 public class RedisConf {
-	
+
 	@Value("${spring.redis.host}")
 	private String host;
 	@Value("${spring.redis.port}")

@@ -6,7 +6,7 @@ import com.yjy.vo.JsonPageResult;
 /**
  * @author 徐晓瑞
  * @date 2022/8/29 17:14
- * @describe: TODO
+ * @describe: TODO-
  */
 public interface TeacherService {
     /**

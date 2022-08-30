@@ -57,7 +57,7 @@ public class GlobalExceptionHandler {
 			errorPosition = fileName + ":" + lineNumber;
 		}
 		logger.error("异常", e);
-		return JsonResult.error(500, "请求处理异常:"+errorPosition);
+		return JsonResult.error(500, "请求处理异常:"+ errorPosition );
 	}
 
 
