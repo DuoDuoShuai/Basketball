@@ -22,20 +22,20 @@
           "target": "_self",
           "child": [
             {
-              "title": "班级信息管理",
-              "href": "page/welcome-1.html",
+              "title": "管理员信息",
+              "href": "page/admin.html",
               "icon": "fa fa-tachometer",
               "target": "_self"
             },
             {
-              "title": "班级学员关系管理",
-              "href": "page/welcome-2.html",
+              "title": "家长账户信息",
+              "href": "page/parent.html",
               "icon": "fa fa-tachometer",
               "target": "_self"
             },
             {
-              "title": "班级学员关系管理",
-              "href": "page/welcome-2.html",
+              "title": "教练账户信息",
+              "href": "page/teacher.html",
               "icon": "fa fa-tachometer",
               "target": "_self"
             }

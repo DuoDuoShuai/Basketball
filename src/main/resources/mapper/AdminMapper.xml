@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yjy.mapper.AdminMapper">
+    <select id="list" parameterType="com.yjy.dto.LayUiDto" resultType="com.yjy.model.Admin">
+        select admin_id as adminId,admin_name as adminName,admin_password as adminPassword,admin_gender as adminGender,admin_phone as adminPhone,is_delete as isDelete,creat_time as creatTime,update_time as updateTime from t_user_admin where is_delete=0
+        <if test="name !=null and name !=''"> and admin_name like concat('%',#{name},'%') </if>
+        order by admin_id asc limit #{dataNum},#{limit}
+    </select>
+    <!--  总数  -->
+    <select id="count" parameterType="com.yjy.dto.LayUiDto" resultType="java.lang.Integer">
+        select count(1) from t_user_admin where is_delete=0
+        <if test="name !=null and name !=''"> and admin_name like concat('%',#{name},'%') </if>
+    </select>
+</mapper>

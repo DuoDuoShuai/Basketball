@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yjy.mapper.TeacherMapper">
+    <select id="list" parameterType="com.yjy.dto.LayUiDto" resultType="com.yjy.model.Teacher">
+        select teacher_id as teacherId,teacher_name as teacherName,teacher_password as teacherPassword,teacher_phone as teacherPhone,teacher_photo as teacherPhoto,teacher_sex as teacherSex,is_delete as isDelete,teacher_regtime as teacherRegtime,update_time as updateTime from t_user_teacher where is_delete=0
+        <if test="name !=null and name !=''"> and teacher_name like concat('%',#{name},'%') </if>
+        order by teacher_id asc limit #{dataNum},#{limit}
+    </select>
+    <!--  总数  -->
+    <select id="count" parameterType="com.yjy.dto.LayUiDto" resultType="java.lang.Integer">
+        select count(1) from t_user_teacher where is_delete=0
+        <if test="name !=null and name !=''"> and teacher_name like concat('%',#{name},'%') </if>
+    </select>
+</mapper>

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yjy.mapper.ParentMapper">
+    <select id="list" parameterType="com.yjy.dto.LayUiDto" resultType="com.yjy.model.Parent">
+        select parent_id as parentId,parent_name as parentName,parent_phone as parentPhone,parent_photo as parentPhoto,parent_sex as parentSex,is_delete as isDelete,parent_regtime as parentRegtime,update_time as updateTime from t_user_parent where is_delete=0
+        <if test="name !=null and name !=''"> and parent_name like concat('%',#{name},'%') </if>
+        order by parent_id asc limit #{dataNum},#{limit}
+    </select>
+    <!--  总数  -->
+    <select id="count" parameterType="com.yjy.dto.LayUiDto" resultType="java.lang.Integer">
+        select count(1) from t_user_parent where is_delete=0
+        <if test="name !=null and name !=''"> and parent_name like concat('%',#{name},'%') </if>
+    </select>
+</mapper>
