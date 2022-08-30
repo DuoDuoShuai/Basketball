@@ -13,4 +13,9 @@
         select count(1) from t_user_parent where is_delete=0
         <if test="name !=null and name !=''"> and parent_name like concat('%',#{name},'%') </if>
     </select>
+    <!-- 添加用户信息 -->
+    <insert id="insertParent" parameterType="com.yjy.model.Parent">
+        insert into t_user_parent(parent_id,parent_name,parent_phone,parent_photo,parent_sex,parent_regtime)
+        values (#{parentId},#{parentName},#{parentPhone},#{parentPhoto},#{parentSex},#{parentRegtime})
+    </insert>
 </mapper>

@@ -69,8 +69,8 @@
                 {field: 'parentId', width: 80, title: 'ID', sort: true},
                 {field: 'parentName', width: 80, title: '用户名'},
                 {field: 'parentPhone', width: 80, title: '手机号', sort: true},
-                {field: 'parentPhoto', width: 80, title: '头像'},
-                {field: 'parentSex', title: '电话', minWidth: 150},
+                {field: 'parentPhoto', width: 110, title: '头像', templet: '<div><img id="img" src="/images/{{d.parentPhoto}}"></div>'},
+                {field: 'parentSex', title: '电话', width: 80},
                 {field: 'isDelete', width: 80, title: '是否删除', sort: true,templet: function (d) {
                         if (d.isDelete == "0") {
                             return "否";
@@ -78,7 +78,7 @@
                             return "是";
                         }
                     }},
-                {field: 'parentRegtime', width: 80, title: '创建时间', sort: true},
+                {field: 'parentRegtime', width: 170, title: '创建时间', sort: true,templet: "<div>{{layui.util.toDateString(d.parentRegtime, 'yyyy-MM-dd HH:mm:ss')}}</div>"},
                 {field: 'updateTime', width: 80, title: '修改时间'},
                 {title: '操作', minWidth: 150, toolbar: '#currentTableBar', align: "center"}
             ]],
@@ -120,7 +120,7 @@
                     maxmin:true,
                     shadeClose: true,
                     area: ['100%', '100%'],
-                    content: '../page/table/add.html',
+                    content: '../page/table/parent-add.html',
                 });
                 $(window).on("resize", function () {
                     layer.full(index);
@@ -148,7 +148,7 @@
                     maxmin:true,
                     shadeClose: true,
                     area: ['100%', '100%'],
-                    content: '../page/table/edit.html',
+                    content: '../page/table/parent-edit.html',
                 });
                 $(window).on("resize", function () {
                     layer.full(index);

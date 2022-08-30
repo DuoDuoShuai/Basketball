@@ -4,6 +4,7 @@ import com.yjy.dto.LayUiDto;
 import com.yjy.mapper.AdminMapper;
 import com.yjy.mapper.ParentMapper;
 import com.yjy.model.Admin;
+import com.yjy.model.Parent;
 import com.yjy.service.ParentService;
 import com.yjy.vo.MapVo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,6 +23,11 @@ public class ParentServiceImpl implements ParentService {
     @Autowired
     private ParentMapper parentMapper;
 
+    /**
+     * 家长信息查询全部
+     * @param dto
+     * @return
+     */
     @Override
     public MapVo list(LayUiDto dto) {
         //判断是否有数据
@@ -30,7 +36,16 @@ public class ParentServiceImpl implements ParentService {
             return MapVo.successPage();
         }
         List<Admin> list = parentMapper.list(dto);
-        MapVo map = MapVo.successPage(list, count);
-        return map;
+        return MapVo.successPage(list, count);
+    }
+
+    /**
+     * 添加家长信息
+     * @param parent
+     * @return
+     */
+    @Override
+    public Integer insertParent(Parent parent) {
+        return parentMapper.insertParent(parent);
     }
 }

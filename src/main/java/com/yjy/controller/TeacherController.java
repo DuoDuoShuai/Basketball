@@ -20,6 +20,11 @@ public class TeacherController {
     @Autowired
     private TeacherService teacherService;
 
+    /**
+     * 教练信息查询全部
+     * @param dto
+     * @return
+     */
     @RequestMapping("list")
     public MapVo list(LayUiDto dto){
         MapVo map = teacherService.list(dto);

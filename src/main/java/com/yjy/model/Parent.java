@@ -43,9 +43,9 @@ public class Parent {
     /**
      * 注册时间
      */
-    private BigInteger parentRegtime;
+    private Long parentRegtime;
     /**
      * 修改时间
      */
-    private BigInteger updateTime;
+    private Long updateTime;
 }

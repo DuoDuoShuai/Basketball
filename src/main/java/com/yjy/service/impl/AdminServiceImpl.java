@@ -22,6 +22,11 @@ public class AdminServiceImpl implements AdminService {
     @Autowired
     private AdminMapper adminMapper;
 
+    /**
+     * 管理员信息查询全部
+     * @param dto
+     * @return
+     */
     @Override
     public MapVo list(LayUiDto dto) {
         //判断是否有数据
@@ -30,7 +35,6 @@ public class AdminServiceImpl implements AdminService {
             return MapVo.successPage();
         }
         List<Admin> list = adminMapper.list(dto);
-        MapVo map = MapVo.successPage(list, count);
-        return map;
+        return MapVo.successPage(list, count);
     }
 }

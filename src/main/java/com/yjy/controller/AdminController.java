@@ -21,9 +21,13 @@ public class AdminController {
     @Autowired
     private AdminService adminService;
 
+    /**
+     * 管理员信息查询全部
+     * @param dto
+     * @return
+     */
     @RequestMapping("list")
     public MapVo list(LayUiDto dto){
-        MapVo map = adminService.list(dto);
-        return map;
+        return adminService.list(dto);
     }
 }
