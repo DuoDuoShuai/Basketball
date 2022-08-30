@@ -34,4 +34,5 @@ public interface ParentMapper {
      * @return
      */
     Integer insertParent(Parent parent);
+
 }

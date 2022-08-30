@@ -3,6 +3,7 @@ package com.yjy.service.impl;
 import com.yjy.dto.LayUiDto;
 import com.yjy.mapper.ParentMapper;
 import com.yjy.model.Admin;
+import com.yjy.model.Parent;
 import com.yjy.service.ParentService;
 import com.yjy.vo.JsonPageResult;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,5 +32,14 @@ public class ParentServiceImpl implements ParentService {
         List<Admin> list = parentMapper.list(dto);
         JsonPageResult map = JsonPageResult.successPage(list, count);
         return map;
+    }
+    /**
+     * 添加家长信息
+     * @param parent
+     * @return
+     */
+    @Override
+    public Integer insertParent(Parent parent) {
+        return parentMapper.insertParent(parent);
     }
 }
