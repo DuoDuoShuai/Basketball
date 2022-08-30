@@ -1,7 +1,7 @@
 package com.yjy.service;
 
 import com.yjy.dto.LayUiDto;
-import com.yjy.vo.MapVo;
+import com.yjy.vo.JsonPageResult;
 
 /**
  * @author 徐晓瑞
@@ -14,5 +14,5 @@ public interface TeacherService {
      * @param dto
      * @return
      */
-    MapVo list(LayUiDto dto);
+    JsonPageResult list(LayUiDto dto);
 }

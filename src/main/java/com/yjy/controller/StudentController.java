@@ -4,8 +4,7 @@ import com.yjy.dto.LayUiDto;
 import com.yjy.model.Student;
 import com.yjy.service.StudentService;
 import com.yjy.vo.JsonResult;
-import com.yjy.vo.MapVo;
-import org.springframework.beans.BeanUtils;
+import com.yjy.vo.JsonPageResult;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -30,8 +29,8 @@ public class StudentController {
      */
     @RequestMapping("list")
     @ResponseBody
-    public MapVo list(LayUiDto dto){
-        MapVo map = studentService.list(dto);
+    public JsonPageResult list(LayUiDto dto){
+        JsonPageResult map = studentService.list(dto);
         return map;
     }
 
@@ -40,10 +39,10 @@ public class StudentController {
      * @param student
      * @return 返回成功结果
      */
-    @RequestMapping("add")
+    @RequestMapping("insert")
     @ResponseBody
-    public JsonResult add(Student student){
-        Integer add = studentService.add(student);
+    public JsonResult insert(Student student){
+        Integer add = studentService.insert(student);
         JsonResult success = JsonResult.success(add);
         return success;
     }
@@ -63,26 +62,26 @@ public class StudentController {
 
     /**
      * 批量删除
-     * @param ids
+     * @param studentIds
      * @return 返回成功结果
      */
     @RequestMapping("removemore")
     @ResponseBody
-    public JsonResult removeMore(@RequestParam("ids[]")Integer[] ids){
-        Integer remove = studentService.removeMore(ids);
+    public JsonResult removeMore(@RequestParam("studentIds[]")String[] studentIds){
+        Integer remove = studentService.removeMore(studentIds);
         JsonResult success = JsonResult.success(remove);
         return success;
     }
 
     /**
      * 删除
-     * @param id
+     * @param studentId
      * @return 返回成功结果
      */
     @RequestMapping("remove")
     @ResponseBody
-    public JsonResult remove(Integer id){
-        Integer remove = studentService.remove(id);
+    public JsonResult remove(String studentId){
+        Integer remove = studentService.remove(studentId);
         JsonResult success = JsonResult.success(remove);
         return success;
     }

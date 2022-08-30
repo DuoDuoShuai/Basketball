@@ -3,9 +3,9 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.yjy.mapper.StudentMapper">
     <sql id="start">
-        student_id studentId,student_name studentName,DATE_FORMAT(from_unixtime(birthday / 1000), '%Y-%m-%d') sage,age,gender,student_number studentNumber,student_code studentCode,photo,school_id schoolId,
-        DATE_FORMAT(from_unixtime(create_time / 1000), '%Y-%m-%d %T') createTime,
-        DATE_FORMAT(from_unixtime(update_time / 1000), '%Y-%m-%d %T') updateTime
+        student_id studentId,student_name studentName,birthday,age,gender,student_number studentNumber,student_code studentCode,photo,school_id schoolId,
+        create_time createTime,
+        update_time updateTime
     </sql>
     <!-- 列表 -->
     <select id="list" parameterType="com.yjy.dto.LayUiDto" resultType="com.yjy.model.Student">
@@ -16,10 +16,10 @@
         <if test="id !=null and id !=''">
             and student_id like concat('%',#{id},'%')
         </if>
-        <if test="otherName !=null and otherName !=''">
+        <if test="name !=null and name !=''">
             and student_name like concat('%',#{name},'%')
         </if>
-        <if test="numbers !=null and numbers !=''">
+        <if test="number !=null and number !=''">
             and student_number like concat('%',#{number},'%')
         </if>
         order by student_id asc
@@ -34,64 +34,66 @@
         <if test="id !=null and id !=''">
             and student_id like concat('%',#{id},'%')
         </if>
-        <if test="otherName !=null and otherName !=''">
-            and student_name like concat('%',#{otherName},'%')
+        <if test="name !=null and name !=''">
+            and student_name like concat('%',#{name},'%')
         </if>
-        <if test="numbers !=null and numbers !=''">
-            and student_number like concat('%',#{numbers},'%')
+        <if test="number !=null and number !=''">
+            and student_number like concat('%',#{number},'%')
         </if>
     </select>
 
     <!-- 详情 -->
-    <select id="info" resultType="com.yjy.model.Student">
+    <select id="load" resultType="com.yjy.model.Student">
         select
         <include refid="start"></include>
         from t_student_info
-        where id=#{0}
+        where student_id=#{0}
     </select>
     <!-- 修改 -->
     <update id="update" parameterType="com.yjy.model.Student">
         update t_student_info
         <trim prefix="set " suffixOverrides=",">
-            <if test="otherName !=null">student_name=#{otherName},</if>
+            <if test="name !=null">student_name=#{name},</if>
             <if test="birthday !=null">birthday=#{birthday},</if>
             <if test="gender !=null">gender=#{gender},</if>
-            <if test="numbers !=null">student_number=#{numbers},</if>
+            <if test="number !=null">student_number=#{number},</if>
             <if test="photo !=null">photo=#{photo},</if>
             <if test="schoolId !=null">school_id=#{schoolId},</if>
-            <if test="updateTimes !=null">update_time=#{updateTimes},</if>
+            <if test="updateTime !=null">update_time=#{updateTime},</if>
         </trim>
         where student_id=#{id}
     </update>
     <!-- 删除 -->
     <update id="remove">
         update t_student_info set is_delete=1
-        where id=#{arg0}
+        where student_id=#{arg0}
     </update>
     <!-- 增加 -->
-    <insert id="add" parameterType="com.yjy.model.Student">
+    <insert id="insert" parameterType="com.yjy.model.Student">
         insert into t_student_info
         <trim prefix="(" suffix=")" suffixOverrides=",">
-            <if test="id !=null">student_id,</if>
-            <if test="otherName !=null">student_name,</if>
+            <if test="studentId !=null">student_id,</if>
+            <if test="studentName !=null">student_name,</if>
             <if test="birthday !=null">birthday,</if>
+            <if test="age !=null">age,</if>
             <if test="gender !=null">gender,</if>
-            <if test="numbers !=null">student_number,</if>
+            <if test="studentNumber !=null">student_number,</if>
             <if test="photo !=null">photo,</if>
             <if test="schoolId !=null">school_id,</if>
-            <if test="createTimes !=null">create_time,</if>
-            <if test="updateTimes !=null">update_time,</if>
+            <if test="createTime !=null">create_time,</if>
+            <if test="updateTime !=null">update_time,</if>
         </trim>
         <trim prefix="values (" suffix=")" suffixOverrides=",">
-            <if test="id !=null">student_id,</if>
-            <if test="otherName !=null">student_name,</if>
-            <if test="birthday !=null">birthday,</if>
-            <if test="gender !=null">gender,</if>
-            <if test="numbers !=null">student_number,</if>
-            <if test="photo !=null">photo,</if>
-            <if test="schoolId !=null">school_id,</if>
-            <if test="createTimes !=null">create_time,</if>
-            <if test="updateTimes !=null">update_time,</if>
+            <if test="studentId !=null">#{studentId},</if>
+            <if test="studentName !=null">#{studentName},</if>
+            <if test="birthday !=null">#{birthday},</if>
+            <if test="age !=null">#{age},</if>
+            <if test="gender !=null">#{gender},</if>
+            <if test="studentNumber !=null">#{studentNumber},</if>
+            <if test="photo !=null">#{photo},</if>
+            <if test="schoolId !=null">#{schoolId},</if>
+            <if test="createTime !=null">#{createTime},</if>
+            <if test="updateTime !=null">#{updateTime},</if>
         </trim>
     </insert>
 </mapper>

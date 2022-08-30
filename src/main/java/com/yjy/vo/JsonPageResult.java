@@ -8,7 +8,7 @@ import java.util.List;
  * @CreatTime:2022/8/29
  * @Description:
  */
-public class MapVo {
+public class JsonPageResult {
     private static final long serialVersionUID = -5098903228017788445L;
     /**
      * 表格样式-code
@@ -27,15 +27,15 @@ public class MapVo {
      */
     private Integer count;
 
-    public static MapVo successPage() {
-        MapVo vo = new MapVo();
+    public static JsonPageResult successPage() {
+        JsonPageResult vo = new JsonPageResult();
         vo.setData(Collections.emptyList());
         vo.setCount(0);
         return vo;
     }
 
-    public static MapVo successPage(List<?> list, Integer totalCount) {
-        MapVo map = new MapVo();
+    public static JsonPageResult successPage(List<?> list, Integer totalCount) {
+        JsonPageResult map = new JsonPageResult();
         map.setCode(0);
         map.setMsg("");
         map.setCount(totalCount);

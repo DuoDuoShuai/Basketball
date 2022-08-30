@@ -83,10 +83,10 @@
             }],
             cols: [ [
                 {type: "checkbox", width: 50},
-                {field: 'id', width: 80, title: '编号', sort: true},
-                {field: 'otherName', width: 80, title: '姓名'},
-                {field: 'sage', width: 100, title: '生日'},
-                {field: 'age', width: 80, title: '生日'},
+                {field: 'studentId', width: 80, title: '编号', sort: true},
+                {field: 'studentName', width: 80, title: '姓名'},
+                {field: 'birthday', width: 100, title: '出生年月',templet: "<div>{{layui.util.toDateString(d.birthday, 'yyyy-MM-dd')}}</div>"},
+                {field: 'age', width: 80, title: '年龄'},
                 {
                     field: 'gender', width: 80, title: '性别', sort: true,templet: function (d) {
                         if (d.gender == 1) {
@@ -96,12 +96,12 @@
                         }
                     }
                 },
-                {field: 'numbers', width: 135, title: '学员编号'},
+                {field: 'studentNumber', width: 135, title: '学员编号'},
                 {field: 'studentCode', width: 100, title: '学员二维码', sort: true},
                 {field: 'photo', width: 120, title: '学员头像', sort: true},
                 {field: 'schoolId', width: 150, title: '所属校区id', sort: true},
-                {field: 'createTime', width: 120, title: '创建时间', sort: true},
-                {field: 'updateTime', width: 120, title: '更新时间', sort: true},
+                {field: 'createTime', width: 120, title: '创建时间', sort: true,templet: "<div>{{layui.util.toDateString(d.createTime, 'yyyy-MM-dd HH:mm:ss')}}</div>"},
+                {field: 'updateTime', width: 120, title: '更新时间', sort: true,templet: "<div>{{layui.util.toDateString(d.updateTime, 'yyyy-MM-dd HH:mm:ss')}}</div>"},
                 {title: '操作', minWidth: 150, toolbar: '#currentTableBar', align: "center"}
             ] ],
             limits: [10, 15, 20, 25, 50, 100],
@@ -118,9 +118,9 @@
                     curr: 1
                 }
                 , where: {
-                    id: data.field.id,
-                    otherName:data.field.otherName,
-                    numbers:data.field.numbers,
+                    id: data.field.studentId,
+                    name:data.field.studentName,
+                    number:data.field.studentNumber,
                 }
             }, 'data');
 
@@ -148,15 +148,15 @@
             } else if (obj.event === 'delete') {  // 监听删除操作
                 var checkStatus = table.checkStatus('currentTableId')
                     , data = checkStatus.data;
-                delList=[];
+                    delList=[];
                 for(var i=0;i<data.length;i++){
-                    delList.push(data[i].id);
+                    delList.push(data[i].studentId);
                 }
                 $.ajax({
                     type:'post',
                     url:'/student/removemore',
                     data:{
-                        ids:delList
+                        studentIds:delList
                     },
                     dataType:'JSON',
                     success:function (da) {
