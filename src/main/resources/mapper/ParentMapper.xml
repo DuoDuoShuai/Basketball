@@ -18,4 +18,12 @@
         insert into t_user_parent(parent_id,parent_name,parent_phone,parent_photo,parent_sex,parent_regtime)
         values (#{parentId},#{parentName},#{parentPhone},#{parentPhoto},#{parentSex},#{parentRegtime})
     </insert>
+    <!-- 删除用户信息 -->
+    <update id="deleteParent" parameterType="com.yjy.model.Parent">
+        update t_user_parent set is_delete = 1,update_time = #{updateTime} where parent_id = #{parentId}
+    </update>
+    <!-- 修改用户信息 -->
+    <update id="updateParent" parameterType="com.yjy.model.Parent">
+        update t_user_parent set parent_name= #{parentName},parent_phone = #{parentPhoto},parent_photo = #{parentPhoto},parent_sex = #{parentSex},update_time = #{updateTime} where parent_id = #{parentId}
+    </update>
 </mapper>

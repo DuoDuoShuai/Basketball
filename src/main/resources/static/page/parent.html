@@ -128,7 +128,29 @@
             } else if (obj.event === 'delete') {  // 监听删除操作
                 var checkStatus = table.checkStatus('currentTableId')
                     , data = checkStatus.data;
-                layer.alert(JSON.stringify(data));
+                var flag = 0;
+                var str = "";
+                for (var i = 0; i < data.length; i++) {
+                    flag++;
+                    str += data[i].parentId+",";
+                }
+                $.ajax({
+                    url:'/parent/deleteParentMore',
+                    type:'post',
+                    data:{
+                        str:str
+                    },
+                    success:function (dataa) {
+                        var index = layer.alert("删除成功", {
+                            title: '删除成功'
+                        }, function () {
+                            // 关闭弹出层
+                            layer.close(index);
+                            var iframeIndex = parent.layer.getFrameIndex(window.name);
+                            parent.layer.close(iframeIndex);
+                        });
+                    }
+                });
             }
         });
 
@@ -156,8 +178,24 @@
                 return false;
             } else if (obj.event === 'delete') {
                 layer.confirm('真的删除行么', function (index) {
-                    obj.del();
-                    layer.close(index);
+                    $.ajax({
+                        url:'/parent/deleteParent',
+                        type:'post',
+                        data:{
+                            parentId:data.parentId
+                        },
+                        success:function (dataa) {
+                            var index = layer.alert("删除成功", {
+                                title: '删除成功'
+                            }, function () {
+                                // 关闭弹出层
+                                layer.close(index);
+                                var iframeIndex = parent.layer.getFrameIndex(window.name);
+                                parent.layer.close(iframeIndex);
+                                parent.layui.table.reload("currentTableId");
+                            });
+                        }
+                    });
                 });
             }
         });

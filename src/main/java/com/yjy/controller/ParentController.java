@@ -41,8 +41,7 @@ public class ParentController {
 
     /**
      * 新增
-     * @param parent
-     * @param img
+     * @param parent,img
      * @return
      * @throws IOException
      */
@@ -63,5 +62,38 @@ public class ParentController {
             success = JsonResult.success(insert);
         }
         return success;
+    }
+
+    /**
+     * 批量删除家长信息
+     * @param str
+     * @return
+     */
+    @RequestMapping("deleteParentMore")
+    public JsonResult deleteParentMore(String str){
+        Integer integer = parentService.deleteParentMore(str);
+        return JsonResult.success(integer);
+    }
+
+    /**
+     * 删除单条家长信息
+     * @param parentId
+     * @return
+     */
+    @RequestMapping("deleteParent")
+    public JsonResult deleteParent(String parentId){
+        Integer integer = parentService.deleteParent(parentId);
+        return JsonResult.success(integer);
+    }
+
+    /**
+     * 修改删除家长信息
+     * @param parent
+     * @return
+     */
+    @RequestMapping("updateParent")
+    public JsonResult deleteParent(Parent parent){
+        Integer integer = parentService.updateParent(parent);
+        return JsonResult.success(integer);
     }
 }
