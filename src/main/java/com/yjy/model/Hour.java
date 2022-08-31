@@ -26,6 +26,6 @@ public class Hour {
     private String school_id;//所属校区
     private int record;//销课内容（0-课时减一，1课时加一）
     private int isShow;//是否展示（0-否，1-是）
-    private BigInteger create_time;//创建时间
-    private BigInteger update_time;//更新时间
+    private long create_time;//创建时间
+    private long update_time;//更新时间
 }
