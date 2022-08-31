@@ -64,7 +64,8 @@ public class ParentServiceImpl implements ParentService {
             Parent parent = new Parent();
             parent.setParentId(s);
             Date currentTime = new Date(System.currentTimeMillis());
-            parent.setParentRegtime(currentTime.getTime());
+            parent.setUpdateTime(currentTime.getTime());
+            parentMapper.updateTime(parent);
             integer = parentMapper.deleteParent(parent);
         }
         return integer;
@@ -80,7 +81,8 @@ public class ParentServiceImpl implements ParentService {
         Parent parent = new Parent();
         parent.setParentId(parentId);
         Date currentTime = new Date(System.currentTimeMillis());
-        parent.setParentRegtime(currentTime.getTime());
+        parent.setUpdateTime(currentTime.getTime());
+        parentMapper.updateTime(parent);
         return parentMapper.deleteParent(parent);
     }
 
