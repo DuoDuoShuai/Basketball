@@ -120,7 +120,7 @@
                 {field: 'shelfLeftTime', width: 80, title: '下架时间'},
                 {field: 'isShow', width: 80, title: '是否时间'},
                 {field: 'isDelete', width: 80, title: '是否删除'},
-                {field: 'createTime', width: 80, title: '创建时间'},
+                {field: 'createTime', width: 80, title: '创建时间',sort: true,templet: "<div>{{layui.util.toDateString(d.createTime, 'yyyy-MM-dd HH:mm:ss')}}</div>"},
                 {field: 'updateTime', width: 80, title: '更新时间'},
                 {title: '操作', minWidth: 150, toolbar: '#currentTableBar', align: "center"}
             ]],

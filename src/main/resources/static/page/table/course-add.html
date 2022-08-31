@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>layui</title>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link rel="stylesheet" href="../../lib/layui-v2.6.3/css/layui.css" media="all">
+    <link rel="stylesheet" href="../../css/public.css" media="all">
+    <style>
+        body {
+            background-color: #ffffff;
+        }
+    </style>
+</head>
+<body>
+<div class="layui-form layuimini-form">
+    <div class="layui-form-item">
+        <label class="layui-form-label required">课程名</label>
+        <div class="layui-input-block">
+            <input type="text" name="name" lay-verify="required" lay-reqtext="课程名不能为空" placeholder="请输入课程名" value="" class="layui-input">
+            <tip>填写课程名</tip>
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label required">课时</label>
+        <div class="layui-input-block">
+            <input type="text" name="courseHour" lay-verify="required" lay-reqtext="课时不能为空" placeholder="请输入课时" value="" class="layui-input">
+            <tip>填写课时</tip>
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label required">课程描述</label>
+        <div class="layui-input-block">
+            <input type="text" name="courseDescribe" lay-verify="课程描述" placeholder="请输入课程描述" value="" class="layui-input">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label required">&nbsp;&nbsp;是否热门课程</label>
+        <div class="layui-input-block">
+            <input type="radio" name="isShaky" value="1" title="热门课程">
+            <input type="radio" name="isShaky" value="0" title="非热门课程">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label required">课程价格</label>
+        <div class="layui-input-block">
+            <input type="text" name="price" lay-verify="课程价格" placeholder="请输入课程价格"  class="layui-input">
+        </div>
+    </div>
+    <div class="layui-inline">
+        <label class="layui-form-label required">开课时间</label>
+        <div class="layui-input-inline">
+            <input type="text" id="startTime" name="startTime" placeholder="开始时间" lay-verify="detetime" class="layui-input">
+        </div>
+    </div>
+    <div class="layui-inline">
+        <label class="layui-form-label required">结束时间</label>
+        <div class="layui-input-inline">
+            <input type="text" id="endTime" name="endTime" placeholder="结束时间" lay-verify="detetime" class="layui-input">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label required">课程状态</label>
+        <div class="layui-input-block">
+            <input type="radio" name="courseState" value="0" title="未开课">
+            <input type="radio" name="courseState" value="1" title="开课中">
+            <input type="radio" name="courseState" value="2" title="已结束">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label required">是否上架</label>
+        <div class="layui-input-block">
+            <input type="radio" name="isShow" value="0" title="否" >
+            <input type="radio" name="isShow" value="1" title="是">
+        </div>
+    </div>
+   <!-- <div class="layui-form-item">
+        <label class="layui-form-label" style="width: 100px;text-align: center;margin-left: 15%;">课程图</label>
+        <div class="layui-input-block">
+            <img style="width:100px;height:100px;" src="/imgages/${course.photo}">
+            <button type="button" class="layui-btn" id="test1" >
+                <i class="layui-icon">&#xe67c;</i>上传图片
+            </button>
+            <div class="layui-input-block" style="display:inline-block;margin-left:20px;" id="viewPic"></div>
+            <div id="newClerkImg"></div>
+        </div>
+    </div>-->
+
+    <div class="layui-form-item">
+        <label class="layui-form-label">课程图</label>
+        <div class="layui-input-block">
+            <input type="file" name="photo" id="photo" placeholder="请输入头像" value="" class="layui-input">
+        </div>
+    </div>
+    <div class="layui-inline">
+        <label class="layui-form-label required">上架时间</label>
+        <div class="layui-input-inline">
+            <input type="text" id="shelfTime" name="shelfTime" placeholder="上架时间" lay-verify="detetime" class="layui-input">
+        </div>
+    </div>
+
+    <div class="layui-inline">
+        <label class="layui-form-label">选择校区</label>
+        <div class="layui-input-inline">
+            <select name="schoolId" lay-verify="required" lay-search="">
+                <option value="schoolId">直接选择或搜索选择</option>
+                <option value="layer" name="schoolId">layer</option>
+                <option value="form" name="schoolId">form</option>
+                <option value="layim" name="schoolId">layim</option>
+                <option value="element" name="schoolId">element</option>
+            </select>
+        </div>
+    </div>
+
+    <div class="layui-form-item">
+        <div class="layui-input-block">
+            <button class="layui-btn layui-btn-normal" lay-submit lay-filter="saveBtn">确认保存</button>
+        </div>
+    </div>
+</div>
+<script src="../../lib/layui-v2.6.3/layui.js" charset="utf-8"></script>
+<script>
+    layui.use(['form','laydate','upload','layer', 'element','rate'] ,function () {
+        layer = layui.layer;
+        element = layui.element;
+        form = layui.form;
+        rate = layui.rate;
+        upload = layui.upload;
+        form.render();
+        element.render();
+            $ = layui.$;
+           laydate=layui.laydate;
+           //时间选择器初始化，开始时间
+       var start=laydate.render({
+           elem:'#startTime',
+           min:0,//最大值为当前日期
+           trigger:'click',
+           type:'datetime',//日期选择器
+           value:getRecentDay(-3),//默认值30天前
+           done:function(value,date) {
+               if(value && (value>$("#endTime").val())){
+                   /*开始时间大于结束时间时，清空结束时间*/
+                   $("#endTime").val("");
+               }
+               end.config.min={
+                   year :date.year,
+                   month : date.month-1,
+                   date:date.date,
+                   hours:date.hours,
+                   minutes:date.minutes,
+                   seconds :date.seconds
+               };
+
+           }
+       });
+       //结束日期
+        var end=laydate.render({
+            elem:'#endTime',
+            type: 'datetime',//日期时间选择器
+            min:0,//最大值为当前日期
+            value: getRecentDay(0),//默认值昨天
+            done:function(value,date) {
+                start.config.min={
+                    year :date.year,
+                    month : date.month-1,
+                    date:date.date,
+                    hours:date.hours,
+                    minutes:date.minutes,
+                    seconds :date.seconds
+                }
+
+            }
+        })
+        //时间选择器初始化，开始时间
+        var start1=laydate.render({
+            elem:'#shelfTime',
+            min:0,//最大值为当前日期
+            trigger:'click',
+            type:'datetime',//日期选择器
+            value:getRecentDay(-3),//默认值30天前
+            done:function(value,date) {
+                if(value && (value>$("#shelfLeftTime").val())){
+                    /*开始时间大于结束时间时，清空结束时间*/
+                    $("#shelfLeftTime").val("");
+                }
+                end.config.min={
+                    year :date.year,
+                    month : date.month-1,
+                    date:date.date,
+                    hours:date.hours,
+                    minutes:date.minutes,
+                    seconds :date.seconds
+                };
+
+            }
+        });
+
+        //获取近N天
+        function getRecentDay(day){
+            var todate = new  Date();
+            var number = todate.getTime()+1000*60*60*24*day;
+            todate.setTime(number);
+            var fullYear = todate.getFullYear();
+            var tmonth = todate.getMonth();
+            var tdate = todate.getDate();
+            var thours = todate.getHours();
+            var tminutes = todate.getMinutes();
+            var tseconds = todate.getSeconds();
+            tmonth=doHandleMonth(tmonth+1);
+             tdate= doHandleMonth(tdate);
+             return fullYear+"-"+tmonth+"-"+tdate+"-"+thours+"-"+tminutes+"-"+tseconds;
+
+        }
+        //获取近N月
+        function doHandleMonth(month){
+            var m=month;
+            if(month.toString().length==1){
+                m="0"+month;
+            }
+            return m;
+        }
+
+       /* var uploadInst = upload.render({
+            elem: '#test1' //绑定元素
+            , url: '/Course/insertCourse' //上传接口
+            , done: function (res) {
+                layer.msg('上传成功！', {
+                    icon: 1,
+                    time: 2000
+                });
+                var str="<input type='hidden' name='photo' value="+res.photo+" >";
+                $("#newClerkImg").html(str);
+                $("#viewPic").html("新头像预览：<img style='width:100px;height:100px;' src='/imgages/" + res.photo + "'>");
+            }
+            , error: function () {
+                layer.msg('上传失败，请重试！', {
+                    icon: 5,
+                    time: 2000
+                });
+            }
+        });*/
+        //监听提交
+        form.on('submit(saveBtn)', function (data) {
+            // 得到中国标准时间
+            var datasage = new Date($("#startTime").val());
+            // 获取时间戳
+            var longsage=datasage.getTime();
+            // 得到中国标准时间
+            var datasage1 = new Date($("#endTime").val());
+            // 获取时间戳
+            var longsage1=datasage1.getTime();
+            // 得到中国标准时间
+            var datasage2 = new Date($("#shelfTime").val());
+            // 获取时间戳
+            var longsage3=datasage2.getTime();
+            var fromData=new FormData();/*自己创建表单*/
+            fromData.append("name",data.field.name);
+            fromData.append("courseHour",data.field.courseHour);
+            fromData.append("courseDescribe",data.field.courseDescribe);
+            fromData.append("isShaky",data.field.isShaky);
+            fromData.append("price",data.field.price);
+            fromData.append("startTime",longsage);
+            fromData.append("endTime",longsage1);
+            fromData.append("courseState",data.field.courseState);
+            fromData.append("isShow",data.field.isShow);
+            fromData.append("shelfTime",longsage3);
+            fromData.append("schoolId",data.field.schoolId);
+            //fromData.append("shopSate",data.field.shopSate);
+            var fileobj = $("#photo")[0].files[0];
+            fromData.append("img",fileobj);
+
+            $.ajax({
+                url:"/Course/insertCourse",
+                type:"post",
+                data:fromData,
+                processData:false,
+                contentType:false,
+                success:function (da){
+                    if (da== success) {
+                        var index = layer.alert("添加成功", {
+                            title: '最终的提交信息'
+                        }, function () {
+                            // 关闭弹出层
+                            layer.close(index);
+                            var iframeIndex = parent.layer.getFrameIndex(window.name);
+                            //parent.location.reload();
+                            parent.layer.close(iframeIndex);
+                            //window.parent.location.reload();
+                            parent.layui.table.reload("currentTableId");
+                        });
+                        return false;
+                    }
+                }
+            });
+        });
+    });
+</script>
+</body>
+</html>
