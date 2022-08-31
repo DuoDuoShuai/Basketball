@@ -64,7 +64,8 @@ public class TeacherServiceImpl implements TeacherService {
             Teacher teacher = new Teacher();
             teacher.setTeacherId(s);
             Date currentTime = new Date(System.currentTimeMillis());
-            teacher.setTeacherRegtime(currentTime.getTime());
+            teacher.setUpdateTime(currentTime.getTime());
+            teacherMapper.updateTime(teacher);
             integer = teacherMapper.deleteTeacher(teacher);
         }
         return integer;
@@ -80,7 +81,8 @@ public class TeacherServiceImpl implements TeacherService {
         Teacher teacher = new Teacher();
         teacher.setTeacherId(teacherId);
         Date currentTime = new Date(System.currentTimeMillis());
-        teacher.setTeacherRegtime(currentTime.getTime());
+        teacher.setUpdateTime(currentTime.getTime());
+        teacherMapper.updateTime(teacher);
         return teacherMapper.deleteTeacher(teacher);
     }
 

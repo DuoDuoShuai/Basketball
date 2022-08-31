@@ -26,4 +26,8 @@
     <update id="updateTeacher" parameterType="com.yjy.model.Teacher">
         update t_user_teacher set teacher_name= #{teacherName},teacher_phone = #{teacherPhone},teacher_photo = #{teacherPhoto},teacher_sex = #{teacherSex},update_time = #{updateTime} where teacher_id = #{teacherId}
     </update>
+    <!-- 删除时改变修改时间 -->
+    <update id="updateTime" parameterType="com.yjy.model.Teacher">
+        update t_user_teacher set update_time = #{updateTime} where teacher_id = #{teacherId}
+    </update>
 </mapper>
