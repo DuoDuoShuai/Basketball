@@ -44,11 +44,6 @@ public class CourseServiceImpl implements CourseService {
 
     @Override
     public int insertCourse(Course course) {
-        String s = UUID.randomUUID().toString();
-        course.setCourseId(s);
-        //设置时间格式
-        course.setStartTime(System.currentTimeMillis());
-        Integer integer = courseMapper.insertCourse(course);
-        return integer;
+        return courseMapper.insertCourse(course);
     }
 }

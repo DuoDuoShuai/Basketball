@@ -48,4 +48,11 @@ public interface ParentMapper {
      * @return
      */
     Integer updateParent(Parent parent);
+
+    /**
+     * 删除时改变修改时间
+     * @param parent
+     * @return
+     */
+    Integer updateTime(Parent parent);
 }
