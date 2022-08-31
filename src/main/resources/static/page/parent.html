@@ -79,7 +79,7 @@
                         }
                     }},
                 {field: 'parentRegtime', width: 170, title: '创建时间', sort: true,templet: "<div>{{layui.util.toDateString(d.parentRegtime, 'yyyy-MM-dd HH:mm:ss')}}</div>"},
-                {field: 'updateTime', width: 80, title: '修改时间'},
+                {field: 'updateTime', width: 170, title: '修改时间', sort: true,templet: "<div>{{layui.util.toDateString(d.updateTime, 'yyyy-MM-dd HH:mm:ss')}}</div>"},
                 {title: '操作', minWidth: 150, toolbar: '#currentTableBar', align: "center"}
             ]],
             limits: [10, 15, 20, 25, 50, 100],
@@ -171,6 +171,14 @@
                     shadeClose: true,
                     area: ['100%', '100%'],
                     content: '../page/table/parent-edit.html',
+                    success:function () {
+                        var body = layer.getChildFrame('body',index);
+                        body.find('#parentId').val(data.parentId);
+                        body.find('#parentName').val(data.parentName);
+                        body.find('#parentPhone').val(data.parentPhone);
+                        body.find('#parentPhoto').val(data.parentPhoto);
+                        body.find('#parentSex').val(data.parentSex);
+                    }
                 });
                 $(window).on("resize", function () {
                     layer.full(index);

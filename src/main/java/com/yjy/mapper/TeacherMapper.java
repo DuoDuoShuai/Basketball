@@ -2,6 +2,8 @@ package com.yjy.mapper;
 
 import com.yjy.dto.LayUiDto;
 import com.yjy.model.Admin;
+import com.yjy.model.Parent;
+import com.yjy.model.Teacher;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -26,4 +28,25 @@ public interface TeacherMapper {
      * @return
      */
     Integer count(LayUiDto dto);
+
+    /**
+     * 添加教练信息
+     * @param teacher
+     * @return
+     */
+    Integer insertTeacher(Teacher teacher);
+
+    /**
+     * 删除教练信息
+     * @param teacher
+     * @return
+     */
+    Integer deleteTeacher(Teacher teacher);
+
+    /**
+     * 修改教练信息
+     * @param teacher
+     * @return
+     */
+    Integer updateTeacher(Teacher teacher);
 }

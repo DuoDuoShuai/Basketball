@@ -13,4 +13,17 @@
         select count(1) from t_user_teacher where is_delete=0
         <if test="name !=null and name !=''"> and teacher_name like concat('%',#{name},'%') </if>
     </select>
+    <!-- 添加用户信息 -->
+    <insert id="insertTeacher" parameterType="com.yjy.model.Teacher">
+        insert into t_user_teacher(teacher_id,teacher_name,teacher_password,teacher_phone,teacher_photo,teacher_sex,teacher_regtime)
+        values (#{teacherId},#{teacherName},#{teacherPassword},#{teacherPhone},#{teacherPhoto},#{teacherSex},#{teacherRegtime})
+    </insert>
+    <!-- 删除用户信息 -->
+    <update id="deleteTeacher" parameterType="com.yjy.model.Teacher">
+        update t_user_teacher set is_delete = 1,update_time = #{updateTime} where teacher_id = #{teacherId}
+    </update>
+    <!-- 修改用户信息 -->
+    <update id="updateTeacher" parameterType="com.yjy.model.Teacher">
+        update t_user_teacher set teacher_name= #{teacherName},teacher_phone = #{teacherPhone},teacher_photo = #{teacherPhoto},teacher_sex = #{teacherSex},update_time = #{updateTime} where teacher_id = #{teacherId}
+    </update>
 </mapper>

@@ -18,38 +18,38 @@
 <div class="layui-form layuimini-form">
 
     <div class="layui-form-item">
-        <label class="layui-form-label required">家长id</label>
+        <label class="layui-form-label required">教练姓名</label>
         <div class="layui-input-block">
-            <input type="text" name="parentId" id="parentId" lay-verify="required" lay-reqtext="用户名不能为空" placeholder="家长姓名" value="" class="layui-input">
+            <input type="text" name="teacherName" id="teacherName" lay-verify="required" lay-reqtext="用户名不能为空" placeholder="家长姓名" value="" class="layui-input">
         </div>
     </div>
 
     <div class="layui-form-item">
-        <label class="layui-form-label required">家长姓名</label>
+        <label class="layui-form-label required">密码</label>
         <div class="layui-input-block">
-            <input type="text" name="parentName" id="parentName" lay-verify="required" lay-reqtext="用户名不能为空" placeholder="家长姓名" value="" class="layui-input">
+            <input type="text" name="teacherPassword" id="teacherPassword" lay-verify="required" lay-reqtext="用户名不能为空" placeholder="家长姓名" value="" class="layui-input">
         </div>
     </div>
 
     <div class="layui-form-item">
-        <label class="layui-form-label required">家长电话</label>
+        <label class="layui-form-label required">电话</label>
         <div class="layui-input-block">
-            <input type="text" name="parentPhone" id="parentPhone" lay-verify="required" lay-reqtext="用户名不能为空" placeholder="家长电话" value="" class="layui-input">
+            <input type="text" name="teacherPhone" id="teacherPhone" lay-verify="required" lay-reqtext="用户名不能为空" placeholder="家长电话" value="" class="layui-input">
         </div>
     </div>
 
     <div class="layui-form-item">
-        <label class="layui-form-label required">家长头像</label>
+        <label class="layui-form-label required">头像</label>
         <div class="layui-input-block">
-            <input type="file" name="parentPhoto" id="parentPhoto" value="" class="layui-input">
+            <input type="file" name="teacherPhoto" id="teacherPhoto" value="" class="layui-input">
         </div>
     </div>
 
     <div class="layui-form-item">
-        <label class="layui-form-label required">家长性别</label>
+        <label class="layui-form-label required">性别</label>
         <div class="layui-input-block">
-            <input type="radio" name="parentSex" value="true" title="男" checked="">
-            <input type="radio" name="parentSex" value="false" title="女">
+            <input type="radio" name="teacherSex" value="true" title="男" checked="">
+            <input type="radio" name="teacherSex" value="false" title="女">
         </div>
     </div>
     <div class="layui-form-item">
@@ -57,7 +57,6 @@
             <button class="layui-btn layui-btn-normal" lay-submit lay-filter="saveBtn">确认保存</button>
         </div>
     </div>
-</div>
 </div>
 <script src="../../lib/layui-v2.6.3/layui.js" charset="utf-8"></script>
 <script>
@@ -69,26 +68,27 @@
         //监听提交
         form.on('submit(saveBtn)', function (data) {
             var formData = new FormData();//form表单
-            formData.append("parentId",data.field.parentId);
-            formData.append("parentName",data.field.parentName);
-            formData.append("parentPhone",data.field.parentPhone);
-            formData.append("parentSex",$("input[name='parentSex']:checked").val());
-            var fileobj = $("#parentPhoto")[0].files[0];
+            formData.append("teacherName",data.field.teacherName);
+            formData.append("teacherPassword",data.field.teacherPassword);
+            formData.append("teacherPhone",data.field.teacherPhone);
+            formData.append("teacherSex",$("input[name='teacherSex']:checked").val());
+            var fileobj = $("#teacherPhoto")[0].files[0];
             formData.append("img",fileobj);
             $.ajax({
-                url:'/parent/updateParent',
+                url:'/teacher/insertTeacher',
                 type:'post',
                 data:formData,
                 processData:false,
                 contentType:false,
-                success:function (dataa) {
-                    var index = layer.alert("修改成功", {
-                        title: '修改成功'
+                success:function (data) {
+                    var index = layer.alert("添加成功", {
+                        title: '添加成功'
                     }, function () {
                         // 关闭弹出层
                         layer.close(index);
                         var iframeIndex = parent.layer.getFrameIndex(window.name);
                         parent.layer.close(iframeIndex);
+                        parent.layui.table.reload("currentTableId");
                     });
                 }
             });
