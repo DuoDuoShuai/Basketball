@@ -48,9 +48,9 @@ public class Teacher {
     /**
      * 创建时间
      */
-    private BigInteger teacherRegtime;
+    private Long teacherRegtime;
     /**
      * 修改时间
      */
-    private BigInteger updateTime;
+    private Long updateTime;
 }

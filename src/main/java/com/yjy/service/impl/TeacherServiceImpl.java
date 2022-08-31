@@ -3,11 +3,14 @@ package com.yjy.service.impl;
 import com.yjy.dto.LayUiDto;
 import com.yjy.mapper.TeacherMapper;
 import com.yjy.model.Admin;
+import com.yjy.model.Parent;
+import com.yjy.model.Teacher;
 import com.yjy.service.TeacherService;
 import com.yjy.vo.JsonPageResult;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -21,6 +24,11 @@ public class TeacherServiceImpl implements TeacherService {
     @Autowired
     private TeacherMapper teacherMapper;
 
+    /**
+     * 教练信息展示
+     * @param dto
+     * @return
+     */
     @Override
     public JsonPageResult list(LayUiDto dto) {
         //判断是否有数据
@@ -31,5 +39,58 @@ public class TeacherServiceImpl implements TeacherService {
         List<Admin> list = teacherMapper.list(dto);
         JsonPageResult map = JsonPageResult.successPage(list, count);
         return map;
+    }
+
+    /**
+     * 添加教练信息
+     * @param teacher
+     * @return
+     */
+    @Override
+    public Integer insertTeacher(Teacher teacher) {
+        return teacherMapper.insertTeacher(teacher);
+    }
+
+    /**
+     * 批量删除教练信息
+     * @param str
+     * @return
+     */
+    @Override
+    public Integer deleteTeacherMore(String str) {
+        String[] split = str.split(",");
+        Integer integer = 0;
+        for (String s : split) {
+            Teacher teacher = new Teacher();
+            teacher.setTeacherId(s);
+            Date currentTime = new Date(System.currentTimeMillis());
+            teacher.setTeacherRegtime(currentTime.getTime());
+            integer = teacherMapper.deleteTeacher(teacher);
+        }
+        return integer;
+    }
+
+    /**
+     * 删除教练信息
+     * @param teacherId
+     * @return
+     */
+    @Override
+    public Integer deleteTeacher(String teacherId) {
+        Teacher teacher = new Teacher();
+        teacher.setTeacherId(teacherId);
+        Date currentTime = new Date(System.currentTimeMillis());
+        teacher.setTeacherRegtime(currentTime.getTime());
+        return teacherMapper.deleteTeacher(teacher);
+    }
+
+    /**
+     * 修改教练信息
+     * @param teacher
+     * @return
+     */
+    @Override
+    public Integer updateTeacher(Teacher teacher) {
+        return teacherMapper.updateTeacher(teacher);
     }
 }

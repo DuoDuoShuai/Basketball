@@ -40,10 +40,9 @@ public class ParentController {
     }
 
     /**
-     * 新增
+     * 添加家长信息
      * @param parent,img
      * @return
-     * @throws IOException
      */
     @RequestMapping("insertParent")
     public JsonResult insertParent(Parent parent, MultipartFile img) throws IOException {
@@ -87,13 +86,25 @@ public class ParentController {
     }
 
     /**
-     * 修改删除家长信息
+     * 修改家长信息
      * @param parent
      * @return
      */
     @RequestMapping("updateParent")
-    public JsonResult deleteParent(Parent parent){
-        Integer integer = parentService.updateParent(parent);
-        return JsonResult.success(integer);
+    public JsonResult deleteParent(Parent parent,MultipartFile img) throws IOException {
+        JsonResult success = null;
+        if (img != null) {
+            // 设置图片路径
+            String oldname = img.getOriginalFilename();
+            String filepath = "D:\\学习笔记\\9.16笔记\\basketball\\src\\main\\resources\\static\\images\\"+oldname;
+            // 转存图片
+            img.transferTo(new File(filepath));
+            parent.setParentPhoto(oldname);
+            Date currentTime=new Date(System.currentTimeMillis());
+            parent.setUpdateTime(currentTime.getTime());
+            Integer update = parentService.updateParent(parent);
+            success = JsonResult.success(update);
+        }
+        return success;
     }
 }
