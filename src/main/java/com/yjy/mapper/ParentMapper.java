@@ -35,4 +35,17 @@ public interface ParentMapper {
      */
     Integer insertParent(Parent parent);
 
+    /**
+     * 删除家长信息
+     * @param parent
+     * @return
+     */
+    Integer deleteParent(Parent parent);
+
+    /**
+     * 修改家长信息
+     * @param parent
+     * @return
+     */
+    Integer updateParent(Parent parent);
 }
