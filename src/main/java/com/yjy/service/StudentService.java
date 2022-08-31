@@ -36,14 +36,14 @@ public interface StudentService {
      * @param studentId
      * @return 整数i=1
      */
-    Integer remove(String studentId);
+    Integer delete(String studentId);
 
     /**
      * 批量删除
      * @param studentIds
      * @return 整数i=1
      */
-    Integer removeMore(String[] studentIds);
+    Integer deleteMore(String[] studentIds);
 
     /**
      * 增加

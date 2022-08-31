@@ -61,7 +61,7 @@
           "child": [
             {
               "title": "班级信息管理",
-              "href": "page/welcome-1.html",
+              "href": "page/grade-table.html",
               "icon": "fa fa-tachometer",
               "target": "_self"
             },

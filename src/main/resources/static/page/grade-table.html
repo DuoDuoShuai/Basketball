@@ -1,7 +1,4 @@
 <!DOCTYPE html>
-<!--suppress ALL-->
-<!--导入thymeleaf名称空间-->
-<!--lang="en" xmlns:th="http://www.thymeleaf.org"-->
 <html lang="en">
 <head>
     <meta charset="utf-8">
@@ -22,21 +19,21 @@
                 <form class="layui-form layui-form-pane" action="">
                     <div class="layui-form-item">
                         <div class="layui-inline">
-                            <label class="layui-form-label">学生编号</label>
+                            <label class="layui-form-label">班级ID</label>
                             <div class="layui-input-inline">
-                                <input type="text" name="studentId" placeholder="学生编号" autocomplete="off" class="layui-input">
+                                <input type="text" name="gradeId" placeholder="班级ID" autocomplete="off" class="layui-input">
                             </div>
                         </div>
                         <div class="layui-inline">
-                            <label class="layui-form-label">姓名</label>
+                            <label class="layui-form-label">班级名称</label>
                             <div class="layui-input-inline">
-                                <input type="text" name="studentName" placeholder="请输入姓名" autocomplete="off" class="layui-input">
+                                <input type="text" name="gradeName" placeholder="班级名称" autocomplete="off" class="layui-input">
                             </div>
                         </div>
                         <div class="layui-inline">
-                            <label class="layui-form-label">学生学号</label>
+                            <label class="layui-form-label">班级状态</label>
                             <div class="layui-input-inline">
-                                <input type="text" name="studentNumber" placeholder="请输入学生学号" autocomplete="off" class="layui-input">
+                                <input type="text" name="gradeState" placeholder="请输入学生学号" autocomplete="off" class="layui-input">
                             </div>
                         </div>
                         <div class="layui-inline">
@@ -66,7 +63,6 @@
 
 <script src="../lib/layui-v2.6.3/layui.js" charset="utf-8"></script>
 <script>
-    var json;
     layui.use(['form', 'table'], function () {
         var $ = layui.jquery,
             form = layui.form,
@@ -74,7 +70,7 @@
 
         table.render({
             elem: '#currentTableId',
-            url: '/student/list',
+            url: '/grade/list',
             method: 'post',
             toolbar: '#toolbarDemo',
             defaultToolbar: ['filter', 'exports', 'print', {
@@ -84,22 +80,24 @@
             }],
             cols: [ [
                 {type: "checkbox", width: 50},
-                {field: 'studentId', width: 80, title: '编号', sort: true},
-                {field: 'studentName', width: 80, title: '姓名'},
-                {field: 'birthday', width: 100, title: '出生年月',templet: "<div>{{layui.util.toDateString(d.birthday, 'yyyy-MM-dd')}}</div>"},
+                {field: 'gradeId', width: 80, title: '编号', sort: true},
+                {field: 'gradeName', width: 80, title: '名称'},
+                {field: 'teacherName', width: 80, title: '教练名称'},
+                {field: 'gradeTime', width: 80, title: '上课时间'},
                 {field: 'age', width: 80, title: '年龄'},
+                {field: 'photo', width: 120, title: '班级头像', sort: true},
+                {field: 'gradeDescribe', width: 120, title: '班级介绍', sort: true},
                 {
-                    field: 'gender', width: 80, title: '性别', sort: true,templet: function (d) {
-                        if (d.gender == 0) {
-                            return "女";
-                        } else {
-                            return "男";
+                    field: 'gradeState', width: 80, title: '班级状态', sort: true,templet: function (d) {
+                        if (d.gradeState == 0) {
+                            return "未开班";
+                        }else if (d.gradeState == 1){
+                            return "已开班"
+                        }else {
+                            return "已结束";
                         }
                     }
                 },
-                {field: 'studentNumber', width: 135, title: '学员编号'},
-                {field: 'studentCode', width: 100, title: '学员二维码', sort: true},
-                {field: 'photo', width: 120, title: '学员头像', sort: true, templet: '<div><img style="height: 47px" id="img" src="/images/{{d.photo}}"></div>'},
                 {field: 'schoolId', width: 150, title: '所属校区id', sort: true},
                 {field: 'createTime', width: 120, title: '创建时间', sort: true,templet: "<div>{{layui.util.toDateString(d.createTime, 'yyyy-MM-dd HH:mm:ss')}}</div>"},
                 {field: 'updateTime', width: 120, title: '更新时间', sort: true,templet: "<div>{{layui.util.toDateString(d.updateTime, 'yyyy-MM-dd HH:mm:ss')}}</div>"},
@@ -119,9 +117,9 @@
                     curr: 1
                 }
                 , where: {
-                    id: data.field.studentId,
-                    name:data.field.studentName,
-                    number:data.field.studentNumber,
+                    id: data.field.gradeId,
+                    name:data.field.gradeName,
+
                 }
             }, 'data');
 
@@ -149,13 +147,13 @@
             } else if (obj.event === 'delete') {  // 监听删除操作
                 var checkStatus = table.checkStatus('currentTableId')
                     , data = checkStatus.data;
-                    delList=[];
+                delList=[];
                 for(var i=0;i<data.length;i++){
                     delList.push(data[i].studentId);
                 }
                 $.ajax({
                     type:'post',
-                    url:'/student/deleteMore',
+                    url:'/student/removemore',
                     data:{
                         studentIds:delList
                     },
@@ -177,8 +175,13 @@
 
         table.on('tool(currentTableFilter)', function (obj) {
             var data = obj.data;
-            json=JSON.stringify(data);
+            var id=data.id;
             if (obj.event === 'edit') {
+                $.ajax({
+                    type:'post',
+                    url:'/student/info',
+                    data:{id:id}
+                });
                 var index = layer.open({
                     title: '编辑用户',
                     type: 2,
@@ -187,23 +190,6 @@
                     shadeClose: true,
                     area: ['100%', '100%'],
                     content: '../page/table/student-edit.html',
-                    success:function () {
-                        var body = layer.getChildFrame('body',index);
-                        body.find('#studentId').val(data.studentId);
-                        body.find('#studentName').val(data.studentName);
-                        var sage=layui.util.toDateString(data.birthday, 'yyyy-MM-dd')
-                        body.find('#birthday').val(sage);
-                        body.find('#age').val(data.age);
-                        if(data.gender==0){
-                            body.find('#gender').val('女');
-                            console.log("nv")
-                        }else {
-                            body.find('#gender').val('男');
-                        }
-                        body.find('#studentNumber').val(data.studentNumber);
-                        body.find('#photo').val(data.photo);
-                        body.find('#schoolId').val(data.schoolId);
-                    }
                 });
                 $(window).on("resize", function () {
                     layer.full(index);
@@ -212,7 +198,7 @@
             } else if (obj.event === 'delete') {
                 $.ajax({
                     type:'post',
-                    url:'/student/delete',
+                    url:'/student/remove',
                     data:{id:id},
                     dataType:'JSON',
                     success:function (da) {

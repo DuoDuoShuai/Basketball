@@ -1,44 +1,44 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.yjy.mapper.StudentMapper">
+<mapper namespace="com.yjy.mapper.GradeMapper">
     <sql id="start">
-        student_id studentId,student_name studentName,birthday,age,gender,student_number studentNumber,student_code studentCode,photo,school_id schoolId,
+        grade_id gradeId,grade_name gradeName,grade_time gradeTime,photo,grade_describe gradeDescribe,grade_state gradeState,school_id schoolId,
         create_time createTime,
         update_time updateTime
     </sql>
     <!-- 列表+查询 -->
-    <select id="list" parameterType="com.yjy.dto.LayUiDto" resultType="com.yjy.model.Student">
+    <select id="list" parameterType="com.yjy.dto.LayUiDto" resultType="com.yjy.model.Grade">
         select
         <include refid="start"></include>
-        from t_student_info
+        from t_grade_info
         where is_delete=0
         <if test="id !=null and id !=''">
-            and student_id like concat('%',#{id},'%')
+            and grade_id like concat('%',#{id},'%')
         </if>
         <if test="name !=null and name !=''">
-            and student_name like concat('%',#{name},'%')
+            and grade_name like concat('%',#{name},'%')
         </if>
-        <if test="number !=null and number !=''">
-            and student_number like concat('%',#{number},'%')
+        <if test="state !=null and state !=''">
+            and grade_state like concat('%',#{state},'%')
         </if>
-        order by student_id asc
+        order by grade_id asc
         limit #{dataNum},#{limit}
     </select>
     <!-- 总数 -->
     <select id="count" parameterType="com.yjy.dto.LayUiDto" resultType="java.lang.Integer">
         select
         count(1)
-        from t_student_info
+        from t_grade_info
         where is_delete=0
         <if test="id !=null and id !=''">
-            and student_id like concat('%',#{id},'%')
+            and grade_id like concat('%',#{id},'%')
         </if>
         <if test="name !=null and name !=''">
-            and student_name like concat('%',#{name},'%')
+            and grade_name like concat('%',#{name},'%')
         </if>
-        <if test="number !=null and number !=''">
-            and student_number like concat('%',#{number},'%')
+        <if test="state !=null and state !=''">
+            and grade_state like concat('%',#{state},'%')
         </if>
     </select>
 
@@ -64,7 +64,7 @@
         where student_id=#{id}
     </update>
     <!-- 删除 -->
-    <update id="delete">
+    <update id="remove">
         update t_student_info set is_delete=1
         where student_id=#{arg0}
     </update>

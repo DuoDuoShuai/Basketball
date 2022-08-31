@@ -14,8 +14,8 @@ import java.util.UUID;
 
 /**
  * @Author:黄文倩
- * @CreatTime:2022/8/29 TODO
- * @Description: TODO 修改的生日时间怎么由date类转毫秒值
+ * @CreatTime:2022/8/29
+ * @Description: TODO 修改的生日时间怎么由date类转毫秒值 啦啦啦啦
  */
 @Service
 public class StudentServiceImpl implements StudentService {
@@ -68,8 +68,8 @@ public class StudentServiceImpl implements StudentService {
      * @return 成功返回整数i=1
      */
     @Override
-    public Integer remove(String studentId) {
-        Integer remove = studentMapper.remove(studentId);
+    public Integer delete(String studentId) {
+        Integer remove = studentMapper.delete(studentId);
         return remove;
     }
 
@@ -79,10 +79,10 @@ public class StudentServiceImpl implements StudentService {
      * @return 成功返回整数i=1
      */
     @Override
-    public Integer removeMore(String[] studentIds) {
+    public Integer deleteMore(String[] studentIds) {
         Integer remove=0;
         for (String studentId : studentIds) {
-            remove = studentMapper.remove(studentId);
+            remove = studentMapper.delete(studentId);
         }
         return remove;
     }

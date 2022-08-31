@@ -10,6 +10,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
+
+import java.io.File;
+import java.io.IOException;
 
 /**
  * @Author:黄文倩
@@ -41,9 +45,19 @@ public class StudentController {
      */
     @RequestMapping("insert")
     @ResponseBody
-    public JsonResult insert(Student student){
-        Integer add = studentService.insert(student);
-        JsonResult success = JsonResult.success(add);
+    public JsonResult insert(Student student, MultipartFile img)throws IOException {
+        JsonResult success = null;
+        if(img!=null){
+            //设置图片路径
+            String filename=img.getOriginalFilename();
+            String filepath="E:\\upload\\"+filename;
+            //转存文件
+            img.transferTo(new File(filepath));
+            //把文件路径存入student数据表中
+            student.setPhoto(filename);
+            Integer add = studentService.insert(student);
+            success=JsonResult.success(add);
+        }
         return success;
     }
 
@@ -54,9 +68,19 @@ public class StudentController {
      */
     @RequestMapping("edit")
     @ResponseBody
-    public JsonResult edit(Student student){
-        Integer update = studentService.update(student);
-        JsonResult success = JsonResult.success(update);
+    public JsonResult edit(Student student,MultipartFile img)throws IOException{
+        JsonResult success = null;
+        if(img!=null){
+            //设置图片路径
+            String filename=img.getOriginalFilename();
+            String filepath="E:\\upload\\"+filename;
+            //转存文件
+            img.transferTo(new File(filepath));
+            //把文件路径存入student数据表中
+            student.setPhoto(filename);
+            Integer update = studentService.update(student);
+            success = JsonResult.success(update);
+        }
         return success;
     }
 
@@ -65,10 +89,10 @@ public class StudentController {
      * @param studentIds
      * @return 返回成功结果
      */
-    @RequestMapping("removemore")
+    @RequestMapping("deleteMore")
     @ResponseBody
-    public JsonResult removeMore(@RequestParam("studentIds[]")String[] studentIds){
-        Integer remove = studentService.removeMore(studentIds);
+    public JsonResult deleteMore(@RequestParam("studentIds[]")String[] studentIds){
+        Integer remove = studentService.deleteMore(studentIds);
         JsonResult success = JsonResult.success(remove);
         return success;
     }
@@ -78,10 +102,10 @@ public class StudentController {
      * @param studentId
      * @return 返回成功结果
      */
-    @RequestMapping("remove")
+    @RequestMapping("delete")
     @ResponseBody
-    public JsonResult remove(String studentId){
-        Integer remove = studentService.remove(studentId);
+    public JsonResult delete(String studentId){
+        Integer remove = studentService.delete(studentId);
         JsonResult success = JsonResult.success(remove);
         return success;
     }

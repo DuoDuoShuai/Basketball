@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.yjy.mapper.StudentMapper">
+<mapper namespace="com.yjy.mapper.SchoolMapper">
     <sql id="start">
-        student_id studentId,student_name studentName,birthday,age,gender,student_number studentNumber,student_code studentCode,photo,school_id schoolId,
+        school_id schoolId,school_name schoolName,school_describe schoolDescribe,phone,
         create_time createTime,
         update_time updateTime
     </sql>
     <!-- 列表+查询 -->
-    <select id="list" parameterType="com.yjy.dto.LayUiDto" resultType="com.yjy.model.Student">
+    <select id="list" parameterType="com.yjy.dto.LayUiDto" resultType="com.yjy.model.School">
         select
         <include refid="start"></include>
         from t_student_info
@@ -43,14 +43,14 @@
     </select>
 
     <!-- 详情 -->
-    <select id="load" resultType="com.yjy.model.Student">
+    <select id="load" resultType="com.yjy.model.School">
         select
         <include refid="start"></include>
         from t_student_info
         where student_id=#{0}
     </select>
     <!-- 修改 -->
-    <update id="update" parameterType="com.yjy.model.Student">
+    <update id="update" parameterType="com.yjy.model.School">
         update t_student_info
         <trim prefix="set " suffixOverrides=",">
             <if test="name !=null">student_name=#{name},</if>
@@ -69,7 +69,7 @@
         where student_id=#{arg0}
     </update>
     <!-- 增加 -->
-    <insert id="insert" parameterType="com.yjy.model.Student">
+    <insert id="insert" parameterType="com.yjy.model.School">
         insert into t_student_info
         <trim prefix="(" suffix=")" suffixOverrides=",">
             <if test="studentId !=null">student_id,</if>
@@ -96,4 +96,10 @@
             <if test="updateTime !=null">#{updateTime},</if>
         </trim>
     </insert>
+    <select id="listAll" resultType="com.yjy.model.School">
+        select
+        school_id schoolId,school_name schoolName,school_describe schoolDescribe,phone
+        from t_school_info
+        where is_delete=0;
+    </select>
 </mapper>
