@@ -11,7 +11,9 @@ import com.yjy.vo.JsonPageResult;
 public interface ParentService {
 
     /**
-     * 列表
+     * 家长信息展示
+     * @param dto
+     * @return
      */
     JsonPageResult list(LayUiDto dto);
 

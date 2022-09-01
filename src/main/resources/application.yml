@@ -11,8 +11,13 @@ spring:
     time-zone: GMT+8
     date-format: yyyy-MM-dd
   thymeleaf:
-    prefix: classpath:/static/page
+    prefix: classpath:/static/page/
     suffix: .html
+    mode: HTML5
+    encoding: UTF-8
+    servlet:
+      content-type: text/html
+    cache: false
   datasource:
     type: com.alibaba.druid.pool.DruidDataSource
     driver-class-name: com.mysql.cj.jdbc.Driver

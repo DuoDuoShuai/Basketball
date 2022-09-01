@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>后台管理-登陆</title>
@@ -41,18 +41,14 @@
         <div class="admin-header">
             <span>layuimini</span>
         </div>
-        <form class="layui-form" action="">
+        <form class="layui-form" action="/manager/login">
             <div>
                 <i class="layui-icon layui-icon-username admin-icon"></i>
-                <input type="text" name="username" placeholder="请输入用户名" autocomplete="off" class="layui-input admin-input admin-input-username" value="admin">
+                <input type="text" name="username" id="username" placeholder="请输入用户名" autocomplete="off" class="layui-input admin-input admin-input-username" value="">
             </div>
             <div>
                 <i class="layui-icon layui-icon-password admin-icon"></i>
-                <input type="password" name="password" placeholder="请输入密码" autocomplete="off" class="layui-input admin-input" value="123456">
-            </div>
-            <div>
-                <input type="text" name="captcha" placeholder="请输入验证码" autocomplete="off" class="layui-input admin-input admin-input-verify" value="xszg">
-                <img class="admin-captcha" width="90" height="30" src="../images/captcha.jpg">
+                <input type="password" name="password" id="password" placeholder="请输入密码" autocomplete="off" class="layui-input admin-input" value="">
             </div>
             <button class="layui-btn admin-button" lay-submit="" lay-filter="login">登 陆</button>
         </form>
@@ -69,21 +65,22 @@
 
         // 进行登录操作
         form.on('submit(login)', function (data) {
-            data = data.field;
-            if (data.username == '') {
-                layer.msg('用户名不能为空');
-                return false;
-            }
-            if (data.password == '') {
-                layer.msg('密码不能为空');
-                return false;
-            }
-            if (data.captcha == '') {
-                layer.msg('验证码不能为空');
-                return false;
-            }
-            layer.msg('登录成功', function () {
-                window.location = '../index.html';
+            var name = document.getElementById("username");
+            var pwd = document.getElementById("password");
+            //ajax提交信息
+            $.ajax({
+                url:'/manager/login',
+                type:'post',
+                data:{username:name,password:pwd},
+                success: function (msg) {
+                },
+                error: function (msg) {
+                    // 请求失败时执行该函数
+                    layer.alert('请求菜单数据失败！！！', function (index) {
+                        //do something
+                        layer.close(index);
+                    });
+                }
             });
             return false;
         });

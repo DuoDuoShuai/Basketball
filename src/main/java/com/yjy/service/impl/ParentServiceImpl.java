@@ -86,6 +86,11 @@ public class ParentServiceImpl implements ParentService {
         return parentMapper.deleteParent(parent);
     }
 
+    /**
+     * 修改家长信息
+     * @param parent
+     * @return
+     */
     @Override
     public Integer updateParent(Parent parent) {
         return parentMapper.updateParent(parent);

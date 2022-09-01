@@ -13,4 +13,8 @@
         select count(1) from t_user_admin where is_delete=0
         <if test="name !=null and name !=''"> and admin_name like concat('%',#{name},'%') </if>
     </select>
+    <!--  登录认证  -->
+    <select id="loadByAdminName" parameterType="String" resultType="com.yjy.model.Admin">
+        select admin_password as adminPassword from t_user_admin where admin_name = #{adminName}
+    </select>
 </mapper>

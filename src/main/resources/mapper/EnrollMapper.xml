@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yjy.mapper.EnrollMapper">
+    <select id="list" parameterType="com.yjy.dto.LayUiDto" resultType="com.yjy.model.Enroll">
+        select enroll_id as enrollId,school_name as schoolNme,student_name as studentName,pay_type as payType,model,course_name as courseName,creat_time as creatTime from t_enroll_info where is_show=1
+        <if test="name !=null and name !=''"> and student_name like concat('%',#{name},'%') </if>
+        order by enroll_id asc limit #{dataNum},#{limit}
+    </select>
+    <!--  总数  -->
+    <select id="count" parameterType="com.yjy.dto.LayUiDto" resultType="java.lang.Integer">
+        select count(1) from t_enroll_info where is_show=1
+        <if test="name !=null and name !=''"> and student_name like concat('%',#{name},'%') </if>
+    </select>
+</mapper>
