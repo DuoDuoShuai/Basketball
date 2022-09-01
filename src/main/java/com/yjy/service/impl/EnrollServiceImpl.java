@@ -1,9 +1,14 @@
-package com.yjy.service.impl;
+package com.yjy.service.impl;/**
+ * @author 徐晓瑞
+ * @create 2022/9/1 10:29
+ * @describe
+ */
 
 import com.yjy.dto.LayUiDto;
-import com.yjy.mapper.AdminMapper;
+import com.yjy.mapper.EnrollMapper;
 import com.yjy.model.Admin;
-import com.yjy.service.AdminService;
+import com.yjy.model.Enroll;
+import com.yjy.service.EnrollService;
 import com.yjy.vo.JsonPageResult;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -12,29 +17,29 @@ import java.util.List;
 
 /**
  * @author 徐晓瑞
- * @date 2022/8/29 17:11
- * @describe: TODO-
+ * @date 2022/9/1 10:29
+ * @describe:
  */
 
 @Service
-public class AdminServiceImpl implements AdminService {
+public class EnrollServiceImpl implements EnrollService {
 
     @Autowired
-    private AdminMapper adminMapper;
+    private EnrollMapper enrollMapper;
 
     /**
-     * 管理员信息展示
+     * 报名记录信息展示
      * @param dto
      * @return
      */
     @Override
     public JsonPageResult list(LayUiDto dto) {
         //判断是否有数据
-        Integer count = adminMapper.count(dto);
+        Integer count = enrollMapper.count(dto);
         if(count ==0) {
             return JsonPageResult.successPage();
         }
-        List<Admin> list = adminMapper.list(dto);
+        List<Enroll> list = enrollMapper.list(dto);
         JsonPageResult map = JsonPageResult.successPage(list, count);
         return map;
     }

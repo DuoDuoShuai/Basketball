@@ -49,4 +49,11 @@ public interface TeacherMapper {
      * @return
      */
     Integer updateTeacher(Teacher teacher);
+
+    /**
+     * 删除时改变修改时间
+     * @param teacher
+     * @return
+     */
+    Integer updateTime(Teacher teacher);
 }

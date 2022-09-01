@@ -1,11 +1,11 @@
 {
   "homeInfo": {
     "title": "首页",
-    "href": "page/welcome-1.html?t=1"
+    "href": "/page/welcome-1.html?t=1"
   },
   "logoInfo": {
     "title": "LAYUI MINI",
-    "image": "images/logo.png",
+    "image": "/images/logo.png",
     "href": ""
   },
   "menuInfo": [
@@ -23,19 +23,19 @@
           "child": [
             {
               "title": "管理员信息",
-              "href": "page/admin.html",
+              "href": "/page/admin.html",
               "icon": "fa fa-tachometer",
               "target": "_self"
             },
             {
               "title": "家长账户信息",
-              "href": "page/parent.html",
+              "href": "/page/parent.html",
               "icon": "fa fa-tachometer",
               "target": "_self"
             },
             {
               "title": "教练账户信息",
-              "href": "page/teacher.html",
+              "href": "/page/teacher.html",
               "icon": "fa fa-tachometer",
               "target": "_self"
             }
@@ -43,13 +43,13 @@
         },
         {
           "title": "校区管理",
-          "href": "page/menu.html",
+          "href": "/page/menu.html",
           "icon": "fa fa-window-maximize",
           "target": "_self"
         },
         {
           "title": "学员管理",
-          "href": "page/student-table.html",
+          "href": "/page/student-table.html",
           "icon": "fa fa-gears",
           "target": "_self"
         },
@@ -61,13 +61,13 @@
           "child": [
             {
               "title": "班级信息管理",
-              "href": "page/grade-table.html",
+              "href": "/page/welcome-1.html",
               "icon": "fa fa-tachometer",
               "target": "_self"
             },
             {
               "title": "班级学员关系管理",
-              "href": "page/welcome-2.html",
+              "href": "/page/welcome-2.html",
               "icon": "fa fa-tachometer",
               "target": "_self"
             }
@@ -75,25 +75,25 @@
         },
         {
           "title": "课程管理",
-          "href": "page/course.html",
+          "href": "/page/course.html",
           "icon": "fa fa-calendar",
           "target": "_self"
         },
         {
-          "title": "报名管理",
-          "href": "page/welcome-2.html",
+          "title": "报名记录",
+          "href": "/page/enroll.html",
           "icon": "fa fa-file-text",
           "target": "_self"
         },
         {
           "title": "销课管理",
-          "href": "page/welcome-2.html",
+          "href": "/page/welcome-2.html",
           "icon": "fa fa-flag-o",
           "target": "_self"
         },
         {
           "title": "风采管理",
-          "href": "page/welcome-2.html",
+          "href": "/page/welcome-2.html",
           "icon": "fa fa-home",
           "target": "_self"
         },
@@ -105,13 +105,13 @@
           "child": [
             {
               "title": "按钮示例",
-              "href": "page/button.html",
+              "href": "/page/button.html",
               "icon": "fa fa-snowflake-o",
               "target": "_self"
             },
             {
               "title": "弹出层",
-              "href": "page/layer.html",
+              "href": "/page/layer.html",
               "icon": "fa fa-shield",
               "target": "_self"
             }
@@ -127,43 +127,43 @@
       "child": [
         {
           "title": "图标列表",
-          "href": "page/icon.html",
+          "href": "/page/icon.html",
           "icon": "fa fa-dot-circle-o",
           "target": "_self"
         },
         {
           "title": "图标选择",
-          "href": "page/icon-picker.html",
+          "href": "/page/icon-picker.html",
           "icon": "fa fa-adn",
           "target": "_self"
         },
         {
           "title": "颜色选择",
-          "href": "page/color-select.html",
+          "href": "/page/color-select.html",
           "icon": "fa fa-dashboard",
           "target": "_self"
         },
         {
           "title": "下拉选择",
-          "href": "page/table-select.html",
+          "href": "/page/table-select.html",
           "icon": "fa fa-angle-double-down",
           "target": "_self"
         },
         {
           "title": "文件上传",
-          "href": "page/upload.html",
+          "href": "/page/upload.html",
           "icon": "fa fa-arrow-up",
           "target": "_self"
         },
         {
           "title": "富文本编辑器",
-          "href": "page/editor.html",
+          "href": "/page/editor.html",
           "icon": "fa fa-edit",
           "target": "_self"
         },
         {
           "title": "省市县区选择器",
-          "href": "page/area.html",
+          "href": "/page/area.html",
           "icon": "fa fa-rocket",
           "target": "_self"
         }
@@ -183,25 +183,25 @@
           "child": [
             {
               "title": "按钮1",
-              "href": "page/button.html?v=1",
+              "href": "/page/button.html?v=1",
               "icon": "fa fa-calendar",
               "target": "_self",
               "child": [
                 {
                   "title": "按钮2",
-                  "href": "page/button.html?v=2",
+                  "href": "/page/button.html?v=2",
                   "icon": "fa fa-snowflake-o",
                   "target": "_self",
                   "child": [
                     {
                       "title": "按钮3",
-                      "href": "page/button.html?v=3",
+                      "href": "/page/button.html?v=3",
                       "icon": "fa fa-snowflake-o",
                       "target": "_self"
                     },
                     {
                       "title": "表单4",
-                      "href": "page/form.html?v=1",
+                      "href": "/page/form.html?v=1",
                       "icon": "fa fa-calendar",
                       "target": "_self"
                     }
@@ -213,7 +213,7 @@
         },
         {
           "title": "失效菜单",
-          "href": "page/error.html",
+          "href": "/page/error.html",
           "icon": "fa fa-superpowers",
           "target": "_self"
         }

@@ -42,7 +42,6 @@ public class CourseServiceImpl implements CourseService {
      * @param course
      * @return
      */
-
     @Override
     public Integer insertCourse(Course course) {
         course.setCourseId(UUID.randomUUID().toString());
