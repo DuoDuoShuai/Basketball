@@ -24,7 +24,7 @@
     </div>
     <div class="layui-form-item">
         <label class="layui-form-label required">生日</label>
-        <div class="layui-input-block">
+        <div class="layui-input-inline" style="width: 200px;">
             <input type="date" name="sage" id="sage" placeholder="请输入生日" value="" class="layui-input">
         </div>
     </div>
@@ -39,7 +39,6 @@
         <div class="layui-input-block">
             <input type="radio" name="gender" value="true" title="男" >
             <input type="radio" name="gender" value="false" title="女">
-
         </div>
     </div>
     <div class="layui-form-item">
@@ -51,13 +50,16 @@
     <div class="layui-form-item">
         <label class="layui-form-label">学员头像</label>
         <div class="layui-input-block">
-            <input type="file" name="photo" id="photo" placeholder="请输入头像" value="" class="layui-input">
+            <input type="file" name="img" id="photo" placeholder="请选择学员头像" value="" class="province-selector" style="width: 200px;">
+            <img src="" id="img">
         </div>
     </div>
     <div class="layui-form-item">
         <label class="layui-form-label">所属校区id</label>
-        <div class="layui-input-block">
-            <input type="text" name="schoolId" id="schoolId" placeholder="请输入校区" value="" class="layui-input">
+        <div class="layui-input-inline" style="width: 200px;">
+            <select name="schoolId" id="schoolId" class="province-selector" >
+                <option value="">请选择校区</option>
+            </select>
         </div>
     </div>
     <div class="layui-form-item">
@@ -74,6 +76,25 @@
             $ = layui.$,
             datasage,
             longsage;
+        //点击时间-加载校区资源
+        $(function() {
+            var html = "";
+            $.ajax({
+                type:'post',
+                url: '/school/listAll',
+                dataType:'JSON',
+                success: function (data) {
+                    var school = data.data;
+                    //加载数据
+                    for (var i = 0; i < school.length; i++) {
+                        // $("#chosen-select").html('<option value="' + school[i].schoolId + '">' + school[i].schoolName + '</option>');
+                        html += '<option value="' + school[i].schoolId + '">' + school[i].schoolName + '</option>'
+                    }
+                    $("#schoolId").html(html);
+                    form.render('select');
+                }
+            });
+        });
 
         //监听提交
         form.on('submit(saveBtn)', function (data) {
@@ -81,19 +102,23 @@
             datasage = new Date($("#sage").val());
             // 获取时间戳
             longsage=datasage.getTime();
+            var formData = new FormData();//form表单
+            formData.append("studentName",data.field.studentName);
+            formData.append("birthday",longsage);
+            formData.append("age",data.field.age);
+            formData.append("gender",$("input[name='gender']:checked").val());
+            formData.append("studentNumber",data.field.studentNumber);
+            formData.append("schoolId",data.field.schoolId);
+            var fileobj = $("#photo")[0].files[0];
+            formData.append("img",fileobj);
             $.ajax({
                 type:'post',
                 url:'/student/insert',
-                data:{
-                    studentName:$("#studentName").val(),
-                    birthday:longsage,
-                    age:$("#age").val(),
-                    gender: $("input[name='gender']:checked").val(),
-                    studentNumber:$("#studentNumber").val(),
-                    photo:$("#photo").val(),
-                    schoolId:$("#schoolId").val()
-                },
-                dataType:'JSON',
+                data:formData,
+                //ajax2.0可以不用设置请求头，但是jq帮我们自动设置了，这样的话需要我们自己取消掉
+                contentType:false,
+                //不处理数据
+                processData:false,
                 success:function (da) {
                     if (da.data==1){
                         var index = layer.alert("添加成功", {
