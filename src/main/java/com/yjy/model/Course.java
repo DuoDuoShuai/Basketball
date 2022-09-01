@@ -80,7 +80,7 @@ public class Course {
     /**
      * 是否上架(0-否，1-是)
      */
-    private  boolean isShow;
+    private  boolean pure;
     /**
      * 是否删除
      */

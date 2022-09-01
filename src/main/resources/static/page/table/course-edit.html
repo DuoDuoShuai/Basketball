@@ -133,7 +133,7 @@
             var parent_json=eval('('+parent.json+')');
             var isShaky=parent_json.isShaky.toString();
             var courseState= parent_json.courseState.toString();
-            var isShow = parent_json.isShow;
+            var show = parent_json.pure.toString();
             //将图片路径加入
             $("img").attr("src","/images/"+parent_json.photo+"");
             $("#schoolName").text(parent_json.schoolId);
@@ -171,7 +171,7 @@
                 $("#courseState_3").attr("checked","checked");
                 form.render("radio");
             }
-            if( isShow == "false"){
+            if( show == "false"){
                 $("#isShow_1").attr("checked", "checked");
                 form.render("radio");
             }else {

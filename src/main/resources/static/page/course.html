@@ -140,13 +140,15 @@
                 {field: 'schoolId', width: 120, title: '校区'},
                 {field: 'shelfTime', width: 150, title: '上架时间',sort: true,templet: "<div>{{layui.util.toDateString(d.shelfTime, 'yyyy-MM-dd HH:mm:ss')}}</div>"},
                 {field: 'shelfLeftTime', width: 150, title: '下架时间',sort: true,templet: "<div>{{layui.util.toDateString(d.shelfLeftTime, 'yyyy-MM-dd HH:mm:ss')}}</div>"},
-                {field: 'isShow', width: 50, title: '上架状态',templet: function (d) {
-                        if (d.isShow == 0) {
+                {field: 'pure', width: 50, title: '上架状态',
+                    templet: function (d) {
+                        if (d.pure ==0) {
                             return "未上架";
-                        } else  {
+                        }else {
                             return "已上架";
                         }
-                    } },
+                    }
+                },
                 {field: 'createTime', width: 150, title: '创建时间',sort: true,templet: "<div>{{layui.util.toDateString(d.createTime, 'yyyy-MM-dd HH:mm:ss')}}</div>"},
                 {field: 'updateTime', width: 150, title: '更新时间',sort: true,templet: "<div>{{layui.util.toDateString(d.updateTime, 'yyyy-MM-dd HH:mm:ss')}}</div>"},
                 {title: '操作', minWidth: 150, toolbar: '#currentTableBar', align: "center"}
@@ -204,8 +206,8 @@
         table.on('tool(currentTableFilter)', function (obj) {
             var data = obj.data;
             json = JSON.stringify(data);
+            console.log(json);
             if (obj.event === 'edit') {
-
                 var index = layer.open({
                     title: '修改课程',
                     type: 2,
@@ -222,6 +224,7 @@
                         body.find("#name").val(data.name);
                         body.find("#courseHour").val(data.courseHour);
                         body.find("#courseDescribe").val(data.courseDescribe);
+                        body.find("#price").val(data.price);
                         body.find("#isShaky").attr("checked","checked");
                          // body.find("input[name=isShaky][value='0,1']").attr("checked",data.isShaky=="0,1" ? true : false);
                          // body.find("input[name=isShaky][value=0]").attr("checked",data.isShaky=="0" ? true : false);
@@ -237,7 +240,12 @@
                         body.find("#startTime").val(sage);
                         body.find("#endTime").val(sage);
                         body.find("#courseState").val(data.courseState);
-                        body.find("#isShow").val(data.isShow);
+                        //body.find("#isShow").val(data.isShow);
+                        if(data.isShow==0){
+                           body.find("#isShow").val('未上架');
+                        }else {
+                            body.find('#isShow').val('已上架');
+                        }
                         body.find("#shelfTime").val(sage);
                         body.find("#photo").val(data.photo)
 
