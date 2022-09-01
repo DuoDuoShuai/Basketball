@@ -11,34 +11,28 @@
     <select id="list" parameterType="com.yjy.dto.LayUiDto" resultType="com.yjy.model.School">
         select
         <include refid="start"></include>
-        from t_student_info
+        from t_school_info
         where is_delete=0
         <if test="id !=null and id !=''">
-            and student_id like concat('%',#{id},'%')
+            and school_id like concat('%',#{id},'%')
         </if>
         <if test="name !=null and name !=''">
-            and student_name like concat('%',#{name},'%')
+            and school_name like concat('%',#{name},'%')
         </if>
-        <if test="number !=null and number !=''">
-            and student_number like concat('%',#{number},'%')
-        </if>
-        order by student_id asc
+        order by school_id asc
         limit #{dataNum},#{limit}
     </select>
     <!-- 总数 -->
     <select id="count" parameterType="com.yjy.dto.LayUiDto" resultType="java.lang.Integer">
         select
         count(1)
-        from t_student_info
+        from t_school_info
         where is_delete=0
         <if test="id !=null and id !=''">
-            and student_id like concat('%',#{id},'%')
+            and school_id like concat('%',#{id},'%')
         </if>
         <if test="name !=null and name !=''">
-            and student_name like concat('%',#{name},'%')
-        </if>
-        <if test="number !=null and number !=''">
-            and student_number like concat('%',#{number},'%')
+            and school_name like concat('%',#{name},'%')
         </if>
     </select>
 
@@ -46,52 +40,39 @@
     <select id="load" resultType="com.yjy.model.School">
         select
         <include refid="start"></include>
-        from t_student_info
-        where student_id=#{0}
+        from t_school_info
+        where school_id=#{0}
     </select>
     <!-- 修改 -->
     <update id="update" parameterType="com.yjy.model.School">
-        update t_student_info
+        update t_school_info
         <trim prefix="set " suffixOverrides=",">
-            <if test="name !=null">student_name=#{name},</if>
-            <if test="birthday !=null">birthday=#{birthday},</if>
-            <if test="gender !=null">gender=#{gender},</if>
-            <if test="number !=null">student_number=#{number},</if>
-            <if test="photo !=null">photo=#{photo},</if>
-            <if test="schoolId !=null">school_id=#{schoolId},</if>
+            <if test="schoolName !=null">school_name=#{schoolName},</if>
+            <if test="schoolDescribe !=null">school_describe=#{schoolDescribe},</if>
+            <if test="phone !=null">phone=#{phone},</if>
             <if test="updateTime !=null">update_time=#{updateTime},</if>
         </trim>
-        where student_id=#{id}
+        where school_id=#{id}
     </update>
     <!-- 删除 -->
     <update id="delete">
-        update t_student_info set is_delete=1
-        where student_id=#{arg0}
+        update t_school_info set is_delete=1
+        where school_id=#{arg0}
     </update>
     <!-- 增加 -->
     <insert id="insert" parameterType="com.yjy.model.School">
-        insert into t_student_info
+        insert into t_school_info
         <trim prefix="(" suffix=")" suffixOverrides=",">
-            <if test="studentId !=null">student_id,</if>
-            <if test="studentName !=null">student_name,</if>
-            <if test="birthday !=null">birthday,</if>
-            <if test="age !=null">age,</if>
-            <if test="gender !=null">gender,</if>
-            <if test="studentNumber !=null">student_number,</if>
-            <if test="photo !=null">photo,</if>
-            <if test="schoolId !=null">school_id,</if>
+            <if test="schoolName !=null">school_name,</if>
+            <if test="schoolDescribe !=null">school_describe,</if>
+            <if test="phone !=null">phone,</if>
             <if test="createTime !=null">create_time,</if>
             <if test="updateTime !=null">update_time,</if>
         </trim>
         <trim prefix="values (" suffix=")" suffixOverrides=",">
-            <if test="studentId !=null">#{studentId},</if>
-            <if test="studentName !=null">#{studentName},</if>
-            <if test="birthday !=null">#{birthday},</if>
-            <if test="age !=null">#{age},</if>
-            <if test="gender !=null">#{gender},</if>
-            <if test="studentNumber !=null">#{studentNumber},</if>
-            <if test="photo !=null">#{photo},</if>
-            <if test="schoolId !=null">#{schoolId},</if>
+            <if test="schoolName !=null">#{schoolName},</if>
+            <if test="schoolDescribe !=null">#{schoolDescribe},</if>
+            <if test="phone !=null">#{phone},</if>
             <if test="createTime !=null">#{createTime},</if>
             <if test="updateTime !=null">#{updateTime},</if>
         </trim>

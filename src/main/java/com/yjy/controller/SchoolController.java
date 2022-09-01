@@ -1,7 +1,9 @@
 package com.yjy.controller;
 
+import com.yjy.dto.LayUiDto;
 import com.yjy.service.impl.SchoolServiceImpl;
 import com.yjy.support.SchoolSupport;
+import com.yjy.vo.JsonPageResult;
 import com.yjy.vo.JsonResult;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -24,5 +26,10 @@ public class SchoolController {
     @ResponseBody
     public JsonResult listAll(){
         return JsonResult.success(schoolSupport.listAll());
+    }
+    @RequestMapping("list")
+    @ResponseBody
+    public JsonPageResult list(LayUiDto dto){
+        return schoolService.list(dto);
     }
 }
