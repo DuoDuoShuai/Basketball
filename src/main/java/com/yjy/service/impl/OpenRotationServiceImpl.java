@@ -3,12 +3,15 @@ package com.yjy.service.impl;
 import com.yjy.dto.LayUiDto;
 import com.yjy.mapper.OpenRotationMapper;
 import com.yjy.model.OpenRotation;
+import com.yjy.model.Parent;
 import com.yjy.service.OpenRotationService;
 import com.yjy.vo.JsonPageResult;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.List;
+import java.util.UUID;
 
 /**
  * @author 任凭
@@ -36,5 +39,84 @@ public class OpenRotationServiceImpl implements OpenRotationService {
         List<OpenRotation> list = openRotationMapper.listOpenRotation(dto);
         JsonPageResult mapVo = JsonPageResult.successPage(list, count);
         return mapVo;
+    }
+
+    /**
+     * 详情
+     *
+     * @param openRotationId
+     * @return 返回一个OpenRotation对象
+     */
+    @Override
+    public OpenRotation loadOpenRotation(String openRotationId) {
+        OpenRotation openRotation = openRotationMapper.loadOpenRotation(openRotationId);
+        return openRotation;
+    }
+
+    /**
+     * 增加
+     *
+     * @param openRotation
+     * @return 整数num=1
+     */
+    @Override
+    public Integer insertOpenRotation(OpenRotation openRotation) {
+        openRotation.setRotationId(String.valueOf(UUID.randomUUID()));
+        Date currentTime = new Date(System.currentTimeMillis());
+        openRotation.setCreatTime(currentTime.getTime());
+        openRotation.setUpdateTime(currentTime.getTime());
+        Integer insert = openRotationMapper.insertOpenRotation(openRotation);
+        return insert;
+    }
+
+    /**
+     * 删除
+     *
+     * @param openRotationId
+     * @return 整数delete=1
+     */
+    @Override
+    public Integer deleteOpenRotation(String openRotationId) {
+        OpenRotation openRotation = new OpenRotation();
+        openRotation.setRotationId(openRotationId);
+        Date currentTime = new Date(System.currentTimeMillis());
+        openRotation.setUpdateTime(currentTime.getTime());
+        openRotationMapper.updateTime(openRotation);
+        return openRotationMapper.deleteOpenRotation(openRotation);
+    }
+
+    /**
+     * 批量删除
+     *
+     * @param openRotationIds
+     * @return 返回多个对象delete参数
+     */
+    @Override
+    public Integer deleteMore(String openRotationIds) {
+        String[] split = openRotationIds.split(",");
+        Integer integer = 0;
+        for (String s : split) {
+            OpenRotation openRotation = new OpenRotation();
+            openRotation.setRotationId(s);
+            Date currentTime = new Date(System.currentTimeMillis());
+            openRotation.setUpdateTime(currentTime.getTime());
+            openRotationMapper.updateTime(openRotation);
+            integer = openRotationMapper.deleteOpenRotation(openRotation);
+        }
+        return integer;
+    }
+
+    /**
+     * 修改
+     *
+     * @param openRotation
+     * @return 整数update=1
+     */
+    @Override
+    public Integer updateOpenRotation(OpenRotation openRotation) {
+        Date currentTime = new Date(System.currentTimeMillis());
+        openRotation.setUpdateTime(currentTime.getTime());
+        Integer update = openRotationMapper.updateOpenRotation(openRotation);
+        return update;
     }
 }

@@ -77,6 +77,25 @@
                     templet: '<div><img id="img" src="/images/{{d.rotationName}}"></div>'
                 },
                 {
+                    field: 'rotation_type', width: 80, title: '信息类型', sort: true, templet: function (d) {
+                        if (d.isShow == "0") {
+                            return "跳转";
+                        } else {
+                            return "排序";
+                        }
+                    }
+                },
+                {field: 'sort', width: 80, title: '排序优先级', sort: true},
+                {
+                    field: 'isShow', width: 80, title: '是否展示', sort: true, templet: function (d) {
+                        if (d.isShow == "0") {
+                            return "否";
+                        } else {
+                            return "是";
+                        }
+                    }
+                },
+                {
                     field: 'isDelete', width: 80, title: '是否删除', sort: true, templet: function (d) {
                         if (d.isDelete == "0") {
                             return "否";
@@ -120,7 +139,7 @@
                     curr: 1
                 }
                 , where: {
-                    name: data.field.parentName
+                    name: data.field.schoolName
                 }
             }, 'data');
 
