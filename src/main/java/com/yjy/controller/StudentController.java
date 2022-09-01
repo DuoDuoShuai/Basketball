@@ -45,20 +45,9 @@ public class StudentController {
      */
     @RequestMapping("insert")
     @ResponseBody
-    public JsonResult insert(Student student, MultipartFile img)throws IOException {
-        JsonResult success = null;
-        if(img!=null){
-            //设置图片路径
-            String filename=img.getOriginalFilename();
-            String filepath="E:\\upload\\"+filename;
-            //转存文件
-            img.transferTo(new File(filepath));
-            //把文件路径存入student数据表中
-            student.setPhoto(filename);
-            Integer add = studentService.insert(student);
-            success=JsonResult.success(add);
-        }
-        return success;
+    public JsonResult insert(Student student, MultipartFile img){
+        Integer insert = studentService.insert(student, img);
+        return JsonResult.success(insert);
     }
 
     /**
@@ -68,20 +57,9 @@ public class StudentController {
      */
     @RequestMapping("edit")
     @ResponseBody
-    public JsonResult edit(Student student,MultipartFile img)throws IOException{
-        JsonResult success = null;
-        if(img!=null){
-            //设置图片路径
-            String filename=img.getOriginalFilename();
-            String filepath="E:\\upload\\"+filename;
-            //转存文件
-            img.transferTo(new File(filepath));
-            //把文件路径存入student数据表中
-            student.setPhoto(filename);
-            Integer update = studentService.update(student);
-            success = JsonResult.success(update);
-        }
-        return success;
+    public JsonResult edit(Student student,MultipartFile img){
+        Integer update = studentService.update(student, img);
+        return JsonResult.success(update);
     }
 
     /**
