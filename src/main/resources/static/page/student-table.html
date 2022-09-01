@@ -212,7 +212,7 @@
                 $.ajax({
                     type:'post',
                     url:'/student/delete',
-                    data:{id:id},
+                    data:{schoolId:schoolId},
                     dataType:'JSON',
                     success:function (da) {
                         if(da){
