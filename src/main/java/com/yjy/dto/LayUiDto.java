@@ -50,7 +50,18 @@ public class LayUiDto {
      * 电话
      */
     private String phone;
-
+    /**
+     * 性别
+     */
+    private Boolean gender;
+    /**
+     * 年龄
+     */
+    private String age;
+    /**
+     * 校区名称
+     */
+    private String schoolName;
     /**
      * 编号
      */
