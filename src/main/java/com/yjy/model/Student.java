@@ -50,9 +50,9 @@ public class Student {
      */
     private String photo;
     /**
-     * 校区id
+     * 校区名称
      */
-    private String schoolId;
+    private String schoolName;
     /**
      * 是否删除（0-否，1-是）
      */

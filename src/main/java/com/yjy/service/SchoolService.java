@@ -1,16 +1,18 @@
 package com.yjy.service;
 
 import com.yjy.dto.LayUiDto;
+import com.yjy.model.School;
 import com.yjy.model.Student;
 import com.yjy.vo.JsonPageResult;
-import org.springframework.web.multipart.MultipartFile;
+
+import java.util.List;
 
 /**
  * @Author:黄文倩
- * @CreatTime:2022/8/29
- * @Description: TODO
+ * @CreatTime:2022/8/31
+ * @Description:
  */
-public interface StudentService {
+public interface SchoolService {
     /**
      * 列表
      * @param dto
@@ -20,37 +22,36 @@ public interface StudentService {
 
     /**
      * 详情
-     * @param studentId
+     * @param schoolId
      * @return 一个学生对象
      */
-    Student load(String studentId);
+    School load(String schoolId);
 
     /**
      * 修改
-     * @param student
-     * @param img
+     * @param school
      * @return 整数i=1
      */
-    Integer update(Student student,MultipartFile img);
+    Integer update(School school);
 
     /**
      * 删除
-     * @param studentId
+     * @param schoolId
      * @return 整数i=1
      */
-    Integer delete(String studentId);
+    Integer delete(String schoolId);
+
     /**
      * 批量删除
-     * @param studentIds
+     * @param schoolIds
      * @return 整数i=1
      */
-    Integer deleteMore(String[] studentIds);
+    Integer deleteMore(String[] schoolIds);
 
     /**
      * 增加
-     * @param student
-     * @param img
+     * @param school
      * @return 整数i=1
      */
-    Integer insert(Student student, MultipartFile img);
+    Integer insert(School school);
 }

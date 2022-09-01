@@ -1,62 +1,44 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.yjy.mapper.StudentMapper">
+<mapper namespace="com.yjy.mapper.GradeMapper">
     <sql id="start">
-        student_id studentId,student_name studentName,birthday,age,gender,student_number studentNumber,student_code studentCode,photo,school_name schoolName,
+        grade_id gradeId,grade_name gradeName,grade_time gradeTime,photo,grade_describe gradeDescribe,grade_state gradeState,school_id schoolId,
         create_time createTime,
         update_time updateTime
     </sql>
     <!-- 列表+查询 -->
-    <select id="list" parameterType="com.yjy.dto.LayUiDto" resultType="com.yjy.model.Student">
+    <select id="list" parameterType="com.yjy.dto.LayUiDto" resultType="com.yjy.model.Grade">
         select
         <include refid="start"></include>
-        from t_student_info
+        from t_grade_info
         where is_delete=0
         <if test="id !=null and id !=''">
-            and student_id like concat('%',#{id},'%')
+            and grade_id like concat('%',#{id},'%')
         </if>
         <if test="name !=null and name !=''">
-            and student_name like concat('%',#{name},'%')
+            and grade_name like concat('%',#{name},'%')
         </if>
-        <if test="number !=null and number !=''">
-            and student_number like concat('%',#{number},'%')
+        <if test="state !=null and state !=''">
+            and grade_state like concat('%',#{state},'%')
         </if>
-        <if test="gender !=null and gender !=''">
-            and gender like concat('%',#{gender},'%')
-        </if>
-        <if test="age !=null and age !=''">
-            and age like concat('%',#{age},'%')
-        </if>
-        <if test="schoolName !=null and schoolName !=''">
-            and school_name like concat('%',#{schoolName},'%')
-        </if>
-        order by student_id asc
+        order by grade_id asc
         limit #{dataNum},#{limit}
     </select>
     <!-- 总数 -->
     <select id="count" parameterType="com.yjy.dto.LayUiDto" resultType="java.lang.Integer">
         select
         count(1)
-        from t_student_info
+        from t_grade_info
         where is_delete=0
         <if test="id !=null and id !=''">
-            and student_id like concat('%',#{id},'%')
+            and grade_id like concat('%',#{id},'%')
         </if>
         <if test="name !=null and name !=''">
-            and student_name like concat('%',#{name},'%')
+            and grade_name like concat('%',#{name},'%')
         </if>
-        <if test="number !=null and number !=''">
-            and student_number like concat('%',#{number},'%')
-        </if>
-        <if test="gender !=null and gender !=''">
-            and gender like concat('%',#{gender},'%')
-        </if>
-        <if test="age !=null and age !=''">
-            and age like concat('%',#{age},'%')
-        </if>
-        <if test="schoolName !=null and schoolName !=''">
-            and school_name like concat('%',#{schoolName},'%')
+        <if test="state !=null and state !=''">
+            and grade_state like concat('%',#{state},'%')
         </if>
     </select>
 
@@ -71,27 +53,20 @@
     <update id="update" parameterType="com.yjy.model.Student">
         update t_student_info
         <trim prefix="set " suffixOverrides=",">
-            <if test="studentName !=null">student_name=#{studentName},</if>
+            <if test="name !=null">student_name=#{name},</if>
             <if test="birthday !=null">birthday=#{birthday},</if>
             <if test="gender !=null">gender=#{gender},</if>
-            <if test="studentName !=null">student_number=#{studentName},</if>
+            <if test="number !=null">student_number=#{number},</if>
             <if test="photo !=null">photo=#{photo},</if>
-            <if test="schoolName !=null">school_name=#{schoolName},</if>
+            <if test="schoolId !=null">school_id=#{schoolId},</if>
             <if test="updateTime !=null">update_time=#{updateTime},</if>
         </trim>
-        where student_id=#{studentId}
+        where student_id=#{id}
     </update>
     <!-- 删除 -->
-    <update id="delete">
-        update t_student_info
-        set is_delete=1
+    <update id="remove">
+        update t_student_info set is_delete=1
         where student_id=#{arg0}
-    </update>
-    <!-- 删除时更新时间 -->
-    <update id="updateTime" parameterType="com.yjy.model.Student">
-        update t_student_info
-        set update_time=#{updateTime}
-        where student_id=#{studentId}
     </update>
     <!-- 增加 -->
     <insert id="insert" parameterType="com.yjy.model.Student">
@@ -104,7 +79,7 @@
             <if test="gender !=null">gender,</if>
             <if test="studentNumber !=null">student_number,</if>
             <if test="photo !=null">photo,</if>
-            <if test="schoolName !=null">school_name,</if>
+            <if test="schoolId !=null">school_id,</if>
             <if test="createTime !=null">create_time,</if>
             <if test="updateTime !=null">update_time,</if>
         </trim>
@@ -116,7 +91,7 @@
             <if test="gender !=null">#{gender},</if>
             <if test="studentNumber !=null">#{studentNumber},</if>
             <if test="photo !=null">#{photo},</if>
-            <if test="schoolName !=null">#{schoolName},</if>
+            <if test="schoolId !=null">#{schoolId},</if>
             <if test="createTime !=null">#{createTime},</if>
             <if test="updateTime !=null">#{updateTime},</if>
         </trim>
