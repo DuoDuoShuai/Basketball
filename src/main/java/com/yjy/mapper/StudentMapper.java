@@ -48,6 +48,13 @@ public interface StudentMapper {
     Integer delete(String studentId);
 
     /**
+     * 删除时修改时间
+     * @param student
+     * @return
+     */
+    Integer updateTime(Student student);
+
+    /**
      * 增加
      * @param student
      * @return

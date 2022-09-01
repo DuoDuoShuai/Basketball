@@ -3,6 +3,7 @@ package com.yjy.service;
 import com.yjy.dto.LayUiDto;
 import com.yjy.model.Student;
 import com.yjy.vo.JsonPageResult;
+import org.springframework.web.multipart.MultipartFile;
 
 /**
  * @Author:黄文倩
@@ -27,9 +28,10 @@ public interface StudentService {
     /**
      * 修改
      * @param student
+     * @param img
      * @return 整数i=1
      */
-    Integer update(Student student);
+    Integer update(Student student,MultipartFile img);
 
     /**
      * 删除
@@ -37,7 +39,6 @@ public interface StudentService {
      * @return 整数i=1
      */
     Integer delete(String studentId);
-
     /**
      * 批量删除
      * @param studentIds
@@ -48,7 +49,8 @@ public interface StudentService {
     /**
      * 增加
      * @param student
+     * @param img
      * @return 整数i=1
      */
-    Integer insert(Student student);
+    Integer insert(Student student, MultipartFile img);
 }

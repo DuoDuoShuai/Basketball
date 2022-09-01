@@ -30,7 +30,7 @@
     <div class="layui-form-item">
         <label class="layui-form-label required">生日</label>
         <div class="layui-input-block">
-            <input type="date" name="birthday" id="birthday" placeholder="请输入生日" class="layui-input">
+            <input type="date" name="sage" id="birthday" placeholder="请输入生日" class="layui-input">
         </div>
     </div>
     <div class="layui-form-item">
@@ -41,8 +41,9 @@
     </div>
     <div class="layui-form-item">
         <label class="layui-form-label required">性别</label>
-        <div class="layui-input-block">
-            <input type="text" name="gender" id="gender" placeholder="请输入性别" class="layui-input">
+        <div class="layui-input-block" id="sex">
+            <input type="radio" name="gender" value="true" title="男" id="men">
+            <input type="radio" name="gender" value="false" title="女" id="women">
         </div>
     </div>
     <div class="layui-form-item">
@@ -59,10 +60,9 @@
         </div>
     </div>
     <div class="layui-form-item">
-        <label class="layui-form-label">所属校区id</label>
+        <label class="layui-form-label">所属校区</label>
         <div class="layui-input-inline" style="width: 200px;">
-            <select name="schoolId" id="schoolId" class="province-selector" >
-                <option value=""><div id="schoolName"></div></option>
+            <select name="schoolNames" id="schoolNames" class="province-selector" >
             </select>
         </div>
     </div>
@@ -78,15 +78,19 @@
     layui.use(['form'], function () {
         var form = layui.form,
             layer = layui.layer,
-            $ = layui.$;
+            $ = layui.$,
+            html="",
+            datasage,
+            longsage;
         $(function () {
             //从父层获取值，json是父层的全局js变量、eval是将带有json格式的字符串转为json对象
             var parent_json=eval('('+parent.json+')');
             //将图片路径加入
             $("img").attr("src","/images/"+parent_json.photo+"");
-            $("#schoolName").text(parent_json.schoolId);
+            var schoolName=parent_json.schoolName;
+            var gender=parent_json.gender.toString();
             //校区资源
-            var html = "";
+            html += '<option value="' + schoolName + '">' + schoolName + '</option>'
             $.ajax({
                 type:'post',
                 url: '/school/listAll',
@@ -95,34 +99,48 @@
                     var school = data.data;
                     //加载数据
                     for (var i = 0; i < school.length; i++) {
-                        // $("#chosen-select").html('<option value="' + school[i].schoolId + '">' + school[i].schoolName + '</option>');
-                        html += '<option value="' + school[i].schoolId + '">' + school[i].schoolName + '</option>'
+                        if(school[i].schoolName != schoolName){
+                            html += '<option value="' + school[i].schoolName + '">' + school[i].schoolName + '</option>'
+                        }
                     }
-                    $("#schoolId").html(html);
+                    $("#schoolNames").html(html);
                     form.render('select');
                 }
             });
+            //性别
+            if(gender == "false"){
+                $("#women").attr("checked","checked");
+                form.render('radio');
+            }else {
+                $("#men").attr("checked","checked");
+                form.render('radio');
+            }
         });
         //监听提交
         form.on('submit(saveBtn)', function (data) {
             // 得到中国标准时间
-            datasage = new Date($("#sage").val());
+            datasage = new Date($("#birthday").val());
             // 获取时间戳
             longsage=datasage.getTime();
+            console.log($("#birthday").val());
             var formData = new FormData();//form表单
+            formData.append("studentId",data.field.studentId);
             formData.append("studentName",data.field.studentName);
             formData.append("birthday",longsage);
             formData.append("age",data.field.age);
             formData.append("gender",$("input[name='gender']:checked").val());
             formData.append("studentNumber",data.field.studentNumber);
-            formData.append("schoolId",data.field.schoolId);
+            formData.append("schoolName",data.field.schoolNames);
             var fileobj = $("#photo")[0].files[0];
             formData.append("img",fileobj);
             $.ajax({
                 type:'post',
-                url:'edit',
+                url:'/student/edit',
                 data:formData,
-                dataType:'JSON',
+                //ajax2.0可以不用设置请求头，但是jq帮我们自动设置了，这样的话需要我们自己取消掉
+                contentType:false,
+                //不处理数据
+                processData:false,
                 success:function (da) {
                     if(da.data==1){
                         var index = layer.alert("修改成功", {
@@ -132,6 +150,7 @@
                             layer.close(index);
                             var iframeIndex = parent.layer.getFrameIndex(window.name);
                             parent.layer.close(iframeIndex);
+                            parent.layui.table.reload("currentTableId");
                         });
                     }
                 }

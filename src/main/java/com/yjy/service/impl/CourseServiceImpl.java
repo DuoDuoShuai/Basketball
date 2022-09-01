@@ -41,7 +41,6 @@ public class CourseServiceImpl implements CourseService {
      * @param course
      * @return
      */
-
     @Override
     public int insertCourse(Course course) {
         return courseMapper.insertCourse(course);

@@ -2,12 +2,12 @@
 <html>
 <head>
     <meta charset="utf-8">
-    <title> layui </title>
+    <title>layui</title>
     <meta name="renderer" content="webkit">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-    <link rel="stylesheet" href="/lib/layui-v2.6.3/css/layui.css" media="all">
-    <link rel="stylesheet" href="/css/public.css" media="all">
+    <link rel="stylesheet" href="../lib/layui-v2.6.3/css/layui.css" media="all">
+    <link rel="stylesheet" href="../css/public.css" media="all">
 </head>
 <body>
 <div class="layuimini-container">
@@ -19,9 +19,9 @@
                 <form class="layui-form layui-form-pane" action="">
                     <div class="layui-form-item">
                         <div class="layui-inline">
-                            <label class="layui-form-label">用户姓名</label>
+                            <label class="layui-form-label">学生姓名</label>
                             <div class="layui-input-inline">
-                                <input type="text" name="parentName" autocomplete="off" class="layui-input">
+                                <input type="text" name="studentName" autocomplete="off" class="layui-input">
                             </div>
                         </div>
                         <div class="layui-inline">
@@ -48,9 +48,8 @@
 
     </div>
 </div>
-<script src="/lib/layui-v2.6.3/layui.js" charset="utf-8"></script>
+<script src="../lib/layui-v2.6.3/layui.js" charset="utf-8"></script>
 <script>
-    var json;
     layui.use(['form', 'table'], function () {
         var $ = layui.jquery,
             form = layui.form,
@@ -58,7 +57,7 @@
 
         table.render({
             elem: '#currentTableId',
-            url: '/parent/list',
+            url: '/enroll/list',
             toolbar: '#toolbarDemo',
             defaultToolbar: ['filter', 'exports', 'print', {
                 title: '提示',
@@ -67,20 +66,13 @@
             }],
             cols: [[
                 {type: "checkbox", width: 50},
-                {field: 'parentId', width: 80, title: 'ID', sort: true},
-                {field: 'parentName', width: 80, title: '用户名'},
-                {field: 'parentPhone', width: 80, title: '手机号', sort: true},
-                {field: 'parentPhoto', width: 110, title: '头像', templet: '<div><img id="img" src="/images/{{d.parentPhoto}}"></div>'},
-                {field: 'parentSex', title: '性别', width: 80},
-                {field: 'isDelete', width: 80, title: '是否删除', sort: true,templet: function (d) {
-                        if (d.isDelete == "0") {
-                            return "否";
-                        } else {
-                            return "是";
-                        }
-                    }},
-                {field: 'parentRegtime', width: 170, title: '创建时间', sort: true,templet: "<div>{{layui.util.toDateString(d.parentRegtime, 'yyyy-MM-dd HH:mm:ss')}}</div>"},
-                {field: 'updateTime', width: 170, title: '修改时间', sort: true,templet: "<div>{{layui.util.toDateString(d.updateTime, 'yyyy-MM-dd HH:mm:ss')}}</div>"},
+                {field: 'enrollId', width: 80, title: '报名记录ID', sort: true},
+                {field: 'schoolNme', width: 80, title: '校区名称'},
+                {field: 'studentName', width: 80, title: '学生姓名', sort: true},
+                {field: 'payType', width: 80, title: '支付方式'},
+                {field: 'model', title: '支付渠道', minWidth: 150},
+                {field: 'courseName', width: 80, title: '所报课程名称', sort: true},
+                {field: 'creatTime', width: 80, title: '创建时间'},
                 {title: '操作', minWidth: 150, toolbar: '#currentTableBar', align: "center"}
             ]],
             limits: [10, 15, 20, 25, 50, 100],
@@ -102,7 +94,7 @@
                     curr: 1
                 }
                 , where: {
-                    name:data.field.parentName
+                    name:data.field.studentName
                 }
             }, 'data');
 
@@ -121,7 +113,7 @@
                     maxmin:true,
                     shadeClose: true,
                     area: ['100%', '100%'],
-                    content: '../page/table/parent-add.html',
+                    content: '../page/table/add.html',
                 });
                 $(window).on("resize", function () {
                     layer.full(index);
@@ -129,29 +121,7 @@
             } else if (obj.event === 'delete') {  // 监听删除操作
                 var checkStatus = table.checkStatus('currentTableId')
                     , data = checkStatus.data;
-                var flag = 0;
-                var str = "";
-                for (var i = 0; i < data.length; i++) {
-                    flag++;
-                    str += data[i].parentId+",";
-                }
-                $.ajax({
-                    url:'/parent/deleteParentMore',
-                    type:'post',
-                    data:{
-                        str:str
-                    },
-                    success:function (dataa) {
-                        var index = layer.alert("删除成功", {
-                            title: '删除成功'
-                        }, function () {
-                            // 关闭弹出层
-                            layer.close(index);
-                            var iframeIndex = parent.layer.getFrameIndex(window.name);
-                            parent.layer.close(iframeIndex);
-                        });
-                    }
-                });
+                layer.alert(JSON.stringify(data));
             }
         });
 
@@ -162,7 +132,6 @@
 
         table.on('tool(currentTableFilter)', function (obj) {
             var data = obj.data;
-            json=JSON.stringify(data);
             if (obj.event === 'edit') {
 
                 var index = layer.open({
@@ -172,19 +141,7 @@
                     maxmin:true,
                     shadeClose: true,
                     area: ['100%', '100%'],
-                    content: '../page/table/parent-edit.html',
-                    success:function () {
-                        var body = layer.getChildFrame('body',index);
-                        body.find('#parentId').val(data.parentId);
-                        body.find('#parentName').val(data.parentName);
-                        body.find('#parentPhone').val(data.parentPhone);
-                        body.find('#parentPhoto').val(data.parentPhoto);
-                        if(data.parentSex==0){
-                            body.find('#parentSex').val('女');
-                        }else {
-                            body.find('#parentSex').val('男');
-                        }
-                    }
+                    content: '../page/table/edit.html',
                 });
                 $(window).on("resize", function () {
                     layer.full(index);
@@ -192,24 +149,8 @@
                 return false;
             } else if (obj.event === 'delete') {
                 layer.confirm('真的删除行么', function (index) {
-                    $.ajax({
-                        url:'/parent/deleteParent',
-                        type:'post',
-                        data:{
-                            parentId:data.parentId
-                        },
-                        success:function (dataa) {
-                            var index = layer.alert("删除成功", {
-                                title: '删除成功'
-                            }, function () {
-                                // 关闭弹出层
-                                layer.close(index);
-                                var iframeIndex = parent.layer.getFrameIndex(window.name);
-                                parent.layer.close(iframeIndex);
-                                parent.layui.table.reload("currentTableId");
-                            });
-                        }
-                    });
+                    obj.del();
+                    layer.close(index);
                 });
             }
         });

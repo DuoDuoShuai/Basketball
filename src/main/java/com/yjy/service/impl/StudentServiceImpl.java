@@ -5,9 +5,13 @@ import com.yjy.mapper.StudentMapper;
 import com.yjy.model.Student;
 import com.yjy.service.StudentService;
 import com.yjy.vo.JsonPageResult;
+import com.yjy.vo.JsonResult;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.Date;
 import java.util.List;
 import java.util.UUID;
@@ -21,6 +25,10 @@ import java.util.UUID;
 public class StudentServiceImpl implements StudentService {
     @Autowired
     private StudentMapper studentMapper;
+    /**
+     * 获取当前时间
+     */
+    private Date currentTime=new Date(System.currentTimeMillis());
     /**
      * 列表
      * @param dto
@@ -55,10 +63,23 @@ public class StudentServiceImpl implements StudentService {
      * @return 成功返回整数i=1
      */
     @Override
-    public Integer update(Student student) {
-        Date currentTime=new Date(System.currentTimeMillis());
-        student.setUpdateTime(currentTime.getTime());
-        Integer update = studentMapper.update(student);
+    public Integer update(Student student,MultipartFile img) {
+        Integer update=0;
+        try {
+            if (img != null) {
+                //设置图片路径
+                String filename = img.getOriginalFilename();
+                String filepath = "E:\\upload\\" + filename;
+                //转存文件
+                img.transferTo(new File(filepath));
+                //把文件路径存入student数据表中
+                student.setPhoto(filename);
+                student.setUpdateTime(currentTime.getTime());
+                update= studentMapper.update(student);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         return update;
     }
 
@@ -69,8 +90,13 @@ public class StudentServiceImpl implements StudentService {
      */
     @Override
     public Integer delete(String studentId) {
-        Integer remove = studentMapper.delete(studentId);
-        return remove;
+        Integer delete = studentMapper.delete(studentId);
+        if(delete==1){
+            Student student=new Student();
+            student.setUpdateTime(currentTime.getTime());
+            return studentMapper.updateTime(student);
+        }
+        return delete;
     }
 
     /**
@@ -80,11 +106,16 @@ public class StudentServiceImpl implements StudentService {
      */
     @Override
     public Integer deleteMore(String[] studentIds) {
-        Integer remove=0;
+        Integer delete=0;
         for (String studentId : studentIds) {
-            remove = studentMapper.delete(studentId);
+            delete = studentMapper.delete(studentId);
+            if(delete==1){
+                Student student=new Student();
+                student.setUpdateTime(currentTime.getTime());
+                studentMapper.updateTime(student);
+            }
         }
-        return remove;
+        return delete;
     }
 
     /**
@@ -93,12 +124,25 @@ public class StudentServiceImpl implements StudentService {
      * @return 成功返回整数i=1
      */
     @Override
-    public Integer insert(Student student) {
-        student.setStudentId(String.valueOf(UUID.randomUUID()));
-        Date currentTime=new Date(System.currentTimeMillis());
-        student.setCreateTime(currentTime.getTime());
-        student.setUpdateTime(currentTime.getTime());
-        Integer add = studentMapper.insert(student);
-        return add;
+    public Integer insert(Student student, MultipartFile img) {
+        Integer insert=0;
+        try {
+            if (img != null) {
+                //设置图片路径
+                String filename = img.getOriginalFilename();
+                String filepath = "E:\\upload\\" + filename;
+                //转存文件
+                img.transferTo(new File(filepath));
+                //把文件路径存入student数据表中
+                student.setPhoto(filename);
+                student.setStudentId(String.valueOf(UUID.randomUUID()));
+                student.setCreateTime(currentTime.getTime());
+                student.setUpdateTime(currentTime.getTime());
+                insert= studentMapper.insert(student);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return insert;
     }
 }
