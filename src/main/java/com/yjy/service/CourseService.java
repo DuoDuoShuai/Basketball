@@ -11,8 +11,24 @@ import com.yjy.vo.JsonPageResult;
  * @describe:TODO
  */
 public interface CourseService {
-    /*查询*/
+    /**
+     * 查询课程
+     * @param dto
+     * @return
+     */
     public JsonPageResult listCourse(LayUiDto dto);
-   /*添加*/
-    public int insertCourse(Course course);
+
+    /**
+     * 添加课程
+     * @param course
+     * @return
+     */
+    public Integer insertCourse(Course course);
+
+    /**
+     * 修改课程
+     * @param course
+     * @return
+     */
+    public Integer updateCourse(Course course);
 }

@@ -46,7 +46,7 @@
     <div class="layui-form-item">
         <label class="layui-form-label required">课程价格</label>
         <div class="layui-input-block">
-            <input type="text" name="price" lay-verify="课程价格" placeholder="请输入课程价格"  class="layui-input">
+            <input type="text" id="price" name="price" lay-verify="课程价格" placeholder="请输入课程价格"  class="layui-input">
         </div>
     </div>
     <div class="layui-inline">
@@ -72,8 +72,8 @@
     <div class="layui-form-item">
         <label class="layui-form-label required">是否上架</label>
         <div class="layui-input-block">
-            <input type="radio" name="isShow" value="0" title="否" >
-            <input type="radio" name="isShow" value="1" title="是">
+            <input type="radio" name="isShow" value="true" title="否" >
+            <input type="radio" name="isShow" value="false" title="是">
         </div>
     </div>
    <!-- <div class="layui-form-item">
@@ -105,7 +105,7 @@
         <label class="layui-form-label">选择校区</label>
         <div class="layui-input-inline">
             <select name="schoolId" lay-verify="required" lay-search="">
-                <option value="schoolId">直接选择或搜索选择</option>
+                <option value="直接选择或搜索选择" name="schoolId">直接选择或搜索选择</option>
                 <option value="layer" name="schoolId">layer</option>
                 <option value="form" name="schoolId">form</option>
                 <option value="layim" name="schoolId">layim</option>
@@ -120,6 +120,7 @@
         </div>
     </div>
 </div>
+
 <script src="../../lib/layui-v2.6.3/layui.js" charset="utf-8"></script>
 <script>
     layui.use(['form','laydate','upload','layer', 'element','rate'] ,function () {
@@ -254,7 +255,7 @@
             // 得到中国标准时间
             var datasage2 = new Date($("#shelfTime").val());
             // 获取时间戳
-            var longsage3=datasage2.getTime();
+            var longsage2=datasage2.getTime();
             var fromData=new FormData();/*自己创建表单*/
             fromData.append("name",data.field.name);
             fromData.append("courseHour",data.field.courseHour);
@@ -263,9 +264,9 @@
             fromData.append("price",data.field.price);
             fromData.append("startTime",longsage);
             fromData.append("endTime",longsage1);
-            fromData.append("courseState",data.field.courseState);
-            fromData.append("isShow",data.field.isShow);
-            fromData.append("shelfTime",longsage3);
+            fromData.append("courseState",$("input[name='courseState']:checked").val());
+            fromData.append("isShow",$("input[name='isShow']:checked").val());
+            fromData.append("shelfTime",longsage2);
             fromData.append("schoolId",data.field.schoolId);
             //fromData.append("shopSate",data.field.shopSate);
             var fileobj = $("#photo")[0].files[0];
@@ -278,7 +279,6 @@
                 processData:false,
                 contentType:false,
                 success:function (da){
-                    if (da== success) {
                         var index = layer.alert("添加成功", {
                             title: '最终的提交信息'
                         }, function () {
@@ -291,7 +291,7 @@
                             parent.layui.table.reload("currentTableId");
                         });
                         return false;
-                    }
+
                 }
             });
         });

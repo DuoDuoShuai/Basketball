@@ -86,8 +86,12 @@
 
     </div>
 </div>
+<script type="text/html" id="zizeng">
+    {{d.LAY_TABLE_INDEX+1}}
+</script>
 <script src="../lib/layui-v2.6.3/layui.js" charset="utf-8"></script>
 <script>
+    var json;
     layui.use(['form', 'table'], function () {
         var $ = layui.jquery,
             form = layui.form,
@@ -104,24 +108,47 @@
             }],
             cols: [[
                 {type: "checkbox", width: 50},
-                {field: 'courseId', width: 80, title: 'ID', sort: true},
+                {field: 'courseId', width:50, title: 'ID',templet:'#zizeng'},
                 {field: 'name', width: 80, title: '课程名字'},
-                {field: 'photo', width: 80, title: '课程图片', sort: true},
-                {field: 'courseHour', width: 80, title: '课程课时'},
-                {field: 'isShaky', title: '是否活动课程', minWidth: 150},
-                {field: 'courseCode', width: 80, title: '二维码', sort: true},
-                {field: 'price', width: 80, title: '价格', sort: true},
-                {field: 'courseState', width: 80, title: '课程状态'},
+                {field: 'photo', width: 80, title: '课程图片', align: 'center', templet: function (d) {
+                        var str = "<img style='width:110px;height:100px;' src='/images/" + d.photo + "' />";
+                        return str;
+                    }
+                    },
+                {field: 'courseHour', width: 50, title: '课程课时'},
+                {field: 'isShaky', width: 50,title: '活动课程状态',templet: function (d) {
+            if (d.isShaky == 0) {
+                return "非活动课程";
+            } else  {
+                return "活动课程";
+            }
+        } },
+                {field: 'price', width: 50, title: '价格', sort: true},
+                {field: 'courseState', width: 50, title: '课程状态',templet: function (d) {
+                        if (d.courseState == 0) {
+                            return "未开课";
+                        } else if(d.courseState ==1) {
+                            return "已开课";
+                        }else {
+                            return "已结束";
+                        }
+                    } },
                 {field: 'courseDescribe', width: 135, title: '课程描述', sort: true},
-                {field: 'startTime', width: 80, title: '结束时间'},
-                {field: 'payNumber', width: 80, title: '购买人数'},
-                {field: 'schoolId', width: 80, title: '校区id'},
-                {field: 'shelfTime', width: 80, title: '上架上架'},
-                {field: 'shelfLeftTime', width: 80, title: '下架时间'},
-                {field: 'isShow', width: 80, title: '是否时间'},
-                {field: 'isDelete', width: 80, title: '是否删除'},
-                {field: 'createTime', width: 80, title: '创建时间',sort: true,templet: "<div>{{layui.util.toDateString(d.createTime, 'yyyy-MM-dd HH:mm:ss')}}</div>"},
-                {field: 'updateTime', width: 80, title: '更新时间'},
+                {field: 'startTime', width: 150, title: '开课时间',sort: true,templet: "<div>{{layui.util.toDateString(d.startTime, 'yyyy-MM-dd HH:mm:ss')}}</div>"},
+                {field: 'endTime', width: 150, title: '结束时间',sort: true,templet: "<div>{{layui.util.toDateString(d.endTime, 'yyyy-MM-dd HH:mm:ss')}}</div>"},
+                {field: 'payNumber', width: 50, title: '购买人数'},
+                {field: 'schoolId', width: 120, title: '校区'},
+                {field: 'shelfTime', width: 150, title: '上架时间',sort: true,templet: "<div>{{layui.util.toDateString(d.shelfTime, 'yyyy-MM-dd HH:mm:ss')}}</div>"},
+                {field: 'shelfLeftTime', width: 150, title: '下架时间',sort: true,templet: "<div>{{layui.util.toDateString(d.shelfLeftTime, 'yyyy-MM-dd HH:mm:ss')}}</div>"},
+                {field: 'isShow', width: 50, title: '上架状态',templet: function (d) {
+                        if (d.isShow == 0) {
+                            return "未上架";
+                        } else  {
+                            return "已上架";
+                        }
+                    } },
+                {field: 'createTime', width: 150, title: '创建时间',sort: true,templet: "<div>{{layui.util.toDateString(d.createTime, 'yyyy-MM-dd HH:mm:ss')}}</div>"},
+                {field: 'updateTime', width: 150, title: '更新时间',sort: true,templet: "<div>{{layui.util.toDateString(d.updateTime, 'yyyy-MM-dd HH:mm:ss')}}</div>"},
                 {title: '操作', minWidth: 150, toolbar: '#currentTableBar', align: "center"}
             ]],
             limits: [10, 15, 20, 25, 50, 100],
@@ -176,16 +203,45 @@
 
         table.on('tool(currentTableFilter)', function (obj) {
             var data = obj.data;
+            json = JSON.stringify(data);
             if (obj.event === 'edit') {
 
                 var index = layer.open({
-                    title: '编辑用户',
+                    title: '修改课程',
                     type: 2,
                     shade: 0.2,
                     maxmin:true,
                     shadeClose: true,
                     area: ['100%', '100%'],
-                    content: '../page/table/edit.html',
+                    content: '../page/table/course-edit.html',
+                    success:function () {
+                        /*product_name,city_name,send_time,product_price,product_desc*/
+                        /*表单数据回显，把表格当前显示到子页面的表单内，find后括号内的是子页面表单的id*/
+                        var body = layer.getChildFrame('body',index);
+                        body.find("#id").val(data.id);
+                        body.find("#name").val(data.name);
+                        body.find("#courseHour").val(data.courseHour);
+                        body.find("#courseDescribe").val(data.courseDescribe);
+                        body.find("#isShaky").attr("checked","checked");
+                         // body.find("input[name=isShaky][value='0,1']").attr("checked",data.isShaky=="0,1" ? true : false);
+                         // body.find("input[name=isShaky][value=0]").attr("checked",data.isShaky=="0" ? true : false);
+                        if(data.isShaky==0){
+                            $("#isShaky_1").prop("checked","checked")
+                            form.render('radio');
+                        }else {
+                            $("#isShaky_2").prop("checked", "checked");
+                            form.render('radio');
+                        }
+                        //console.log(body.find("input[name=isShaky][value=1]"))
+                        var sage=layui.util.toDateString(data.birthday, 'yyyy-MM-dd HH:mm:ss');
+                        body.find("#startTime").val(sage);
+                        body.find("#endTime").val(sage);
+                        body.find("#courseState").val(data.courseState);
+                        body.find("#isShow").val(data.isShow);
+                        body.find("#shelfTime").val(sage);
+                        body.find("#photo").val(data.photo)
+
+                    }
                 });
                 $(window).on("resize", function () {
                     layer.full(index);

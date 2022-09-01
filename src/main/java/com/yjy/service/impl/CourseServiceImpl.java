@@ -8,6 +8,7 @@ import com.yjy.vo.JsonPageResult;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 
@@ -43,7 +44,23 @@ public class CourseServiceImpl implements CourseService {
      */
 
     @Override
-    public int insertCourse(Course course) {
+    public Integer insertCourse(Course course) {
+        course.setCourseId(UUID.randomUUID().toString());
+        Date currentTime=new Date(System.currentTimeMillis());
+        course.setUpdateTime(currentTime.getTime());
+        course.setStartTime(currentTime.getTime());
         return courseMapper.insertCourse(course);
+    }
+
+    /**
+     * 修改课程
+     * @param course
+     * @return
+     */
+    @Override
+    public Integer updateCourse(Course course) {
+        Date currentTime=new Date(System.currentTimeMillis());
+        course.setUpdateTime(currentTime.getTime());
+        return null;
     }
 }

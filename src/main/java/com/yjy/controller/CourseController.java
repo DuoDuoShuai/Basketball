@@ -13,6 +13,8 @@ import org.springframework.web.multipart.MultipartFile;
 import javax.annotation.Resource;
 import java.io.File;
 import java.io.IOException;
+import java.util.Date;
+import java.util.UUID;
 
 /**
  * @author 哆哆
@@ -49,17 +51,23 @@ public class CourseController {
     @RequestMapping("insertCourse")
     @ResponseBody
     public JsonResult insertCourse(Course course, MultipartFile img) throws IOException {
+        JsonResult success=null;
         if(img !=null){
             //设置图片路劲
             String originalFilename = img.getOriginalFilename();
-            String filepath="E:\\IDEA\\basketball\\src\\main\\resources\\static\\upload\\"+originalFilename;
+            String filepath="E:\\IDEA\\basketball\\src\\main\\resources\\static\\images\\"+originalFilename;
             //转存
             img.transferTo(new File(filepath));
             course.setPhoto(originalFilename);
+            Integer integer = courseService.insertCourse(course);
+            success = JsonResult.success(integer);
         }
-        int i = courseService.insertCourse(course);
-        JsonResult success = JsonResult.success(i);
         return success;
     }
 
+/*  @RequestMapping("updateCourse")
+  @ResponseBody
+    public JsonResult updateCourse(Course course){
+
+  }*/
 }
