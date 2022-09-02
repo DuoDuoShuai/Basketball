@@ -3,6 +3,7 @@ package com.yjy.controller;
 import com.yjy.dto.LayUiDto;
 import com.yjy.model.Student;
 import com.yjy.service.StudentService;
+import com.yjy.support.StudentSupport;
 import com.yjy.vo.JsonResult;
 import com.yjy.vo.JsonPageResult;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +15,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.List;
 
 /**
  * @Author:黄文倩
@@ -25,7 +27,8 @@ import java.io.IOException;
 public class StudentController {
     @Autowired
     private StudentService studentService;
-
+    @Autowired
+    private StudentSupport studentSupport;
     /**
      * 列表
      * @param dto
@@ -86,5 +89,28 @@ public class StudentController {
         Integer remove = studentService.delete(studentId);
         JsonResult success = JsonResult.success(remove);
         return success;
+    }
+
+    /**
+     * 接口-根据id查单个学员信息
+     * @param studentId
+     * @return
+     */
+    @RequestMapping("loadById")
+    @ResponseBody
+    public JsonResult loadById(String studentId){
+        Student student = studentSupport.loadById(studentId);
+        return JsonResult.success(student);
+    }
+
+    /**
+     * 接口-查询全部
+     * @return
+     */
+    @RequestMapping("listAll")
+    @ResponseBody
+    public JsonResult listAll(){
+        List<Student> list = studentSupport.listAll();
+        return JsonResult.success(list);
     }
 }

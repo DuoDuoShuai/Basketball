@@ -3,6 +3,7 @@ package com.yjy.controller;
 import com.yjy.dto.LayUiDto;
 import com.yjy.model.Teacher;
 import com.yjy.service.TeacherService;
+import com.yjy.util.QiniuFile;
 import com.yjy.vo.JsonPageResult;
 import com.yjy.vo.JsonResult;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,7 +19,7 @@ import java.util.UUID;
 /**
  * @author 徐晓瑞
  * @date 2022/8/29 23:29
- * @describe: TODO-
+ * @describe:
  */
 
 @RestController
@@ -45,21 +46,8 @@ public class TeacherController {
      */
     @RequestMapping("insertTeacher")
     public JsonResult insertTeacher(Teacher teacher, MultipartFile img) throws IOException {
-        JsonResult success = null;
-        if (img != null) {
-            // 设置图片路径
-            String oldname = img.getOriginalFilename();
-            String filepath = "D:\\学习笔记\\9.16笔记\\basketball\\src\\main\\resources\\static\\images\\"+oldname;
-            // 转存图片
-            img.transferTo(new File(filepath));
-            teacher.setTeacherPhoto(oldname);
-            teacher.setTeacherId(UUID.randomUUID().toString());
-            Date currentTime=new Date(System.currentTimeMillis());
-            teacher.setTeacherRegtime(currentTime.getTime());
-            Integer insert = teacherService.insertTeacher(teacher);
-            success = JsonResult.success(insert);
-        }
-        return success;
+        Integer integer = teacherService.insertTeacher(teacher, img);
+        return JsonResult.success(integer);
     }
 
     /**
@@ -91,19 +79,7 @@ public class TeacherController {
      */
     @RequestMapping("updateTeacher")
     public JsonResult deleteParent(Teacher teacher,MultipartFile img) throws IOException {
-        JsonResult success = null;
-        if (img != null) {
-            // 设置图片路径
-            String oldname = img.getOriginalFilename();
-            String filepath = "D:\\学习笔记\\9.16笔记\\basketball\\src\\main\\resources\\static\\images\\"+oldname;
-            // 转存图片
-            img.transferTo(new File(filepath));
-            teacher.setTeacherPhoto(oldname);
-            Date currentTime=new Date(System.currentTimeMillis());
-            teacher.setUpdateTime(currentTime.getTime());
-            Integer update = teacherService.updateTeacher(teacher);
-            success = JsonResult.success(update);
-        }
-        return success;
+        Integer integer = teacherService.updateTeacher(teacher, img);
+        return JsonResult.success(integer);
     }
 }

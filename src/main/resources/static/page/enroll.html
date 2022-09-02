@@ -32,19 +32,7 @@
             </div>
         </fieldset>
 
-        <script type="text/html" id="toolbarDemo">
-            <div class="layui-btn-container">
-                <button class="layui-btn layui-btn-normal layui-btn-sm data-add-btn" lay-event="add"> 添加 </button>
-                <button class="layui-btn layui-btn-sm layui-btn-danger data-delete-btn" lay-event="delete"> 删除 </button>
-            </div>
-        </script>
-
         <table class="layui-hide" id="currentTableId" lay-filter="currentTableFilter"></table>
-
-        <script type="text/html" id="currentTableBar">
-            <a class="layui-btn layui-btn-normal layui-btn-xs data-count-edit" lay-event="edit">编辑</a>
-            <a class="layui-btn layui-btn-xs layui-btn-danger data-count-delete" lay-event="delete">删除</a>
-        </script>
 
     </div>
 </div>
@@ -70,10 +58,16 @@
                 {field: 'schoolNme', width: 80, title: '校区名称'},
                 {field: 'studentName', width: 80, title: '学生姓名', sort: true},
                 {field: 'payType', width: 80, title: '支付方式'},
-                {field: 'model', title: '支付渠道', minWidth: 150},
-                {field: 'courseName', width: 80, title: '所报课程名称', sort: true},
+                {field: 'model', title: '支付渠道',width: 80, sort: true,templet: function (d) {
+                        if (d.model) {
+                            return "线上";
+                        } else {
+                            return "线下";
+                        }
+                    }},
+                {field: 'courseName', width: 110, title: '所报课程名称', sort: true},
                 {field: 'creatTime', width: 80, title: '创建时间'},
-                {title: '操作', minWidth: 150, toolbar: '#currentTableBar', align: "center"}
+                {title: '', minWidth: 150, toolbar: '#currentTableBar', align: "center"}
             ]],
             limits: [10, 15, 20, 25, 50, 100],
             limit: 15,
@@ -99,60 +93,6 @@
             }, 'data');
 
             return false;
-        });
-
-        /**
-         * toolbar监听事件
-         */
-        table.on('toolbar(currentTableFilter)', function (obj) {
-            if (obj.event === 'add') {  // 监听添加操作
-                var index = layer.open({
-                    title: '添加用户',
-                    type: 2,
-                    shade: 0.2,
-                    maxmin:true,
-                    shadeClose: true,
-                    area: ['100%', '100%'],
-                    content: '../page/table/add.html',
-                });
-                $(window).on("resize", function () {
-                    layer.full(index);
-                });
-            } else if (obj.event === 'delete') {  // 监听删除操作
-                var checkStatus = table.checkStatus('currentTableId')
-                    , data = checkStatus.data;
-                layer.alert(JSON.stringify(data));
-            }
-        });
-
-        //监听表格复选框选择
-        table.on('checkbox(currentTableFilter)', function (obj) {
-            console.log(obj)
-        });
-
-        table.on('tool(currentTableFilter)', function (obj) {
-            var data = obj.data;
-            if (obj.event === 'edit') {
-
-                var index = layer.open({
-                    title: '编辑用户',
-                    type: 2,
-                    shade: 0.2,
-                    maxmin:true,
-                    shadeClose: true,
-                    area: ['100%', '100%'],
-                    content: '../page/table/edit.html',
-                });
-                $(window).on("resize", function () {
-                    layer.full(index);
-                });
-                return false;
-            } else if (obj.event === 'delete') {
-                layer.confirm('真的删除行么', function (index) {
-                    obj.del();
-                    layer.close(index);
-                });
-            }
         });
 
     });

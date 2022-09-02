@@ -22,14 +22,37 @@ public class SchoolController {
     private SchoolServiceImpl schoolService;
     @Autowired
     private SchoolSupport schoolSupport;
-    @RequestMapping("listAll")
-    @ResponseBody
-    public JsonResult listAll(){
-        return JsonResult.success(schoolSupport.listAll());
-    }
+
+    /**
+     * 列表
+     * @param dto
+     * @return
+     */
     @RequestMapping("list")
     @ResponseBody
     public JsonPageResult list(LayUiDto dto){
         return schoolService.list(dto);
     }
+
+    /**
+     * 接口-查询全部校区
+     * @return
+     */
+    @RequestMapping("listAll")
+    @ResponseBody
+    public JsonResult listAll(){
+        return JsonResult.success(schoolSupport.listAll());
+    }
+
+    /**
+     * 接口-根据校区名称拆查询单个校区
+     * @param schoolName
+     * @return
+     */
+    @RequestMapping("loadByName")
+    @ResponseBody
+    public JsonResult loadByName(String schoolName){
+        return JsonResult.success(schoolSupport.loadByName(schoolName));
+    }
+
 }
