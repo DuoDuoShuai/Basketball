@@ -71,6 +71,10 @@ public class LayUiDto {
      */
     private String isShow;
     /**
+     * 学员名字
+     */
+    private String studentName;
+    /**
      * @param page 页码
      * @param limit 每页显示数
      */

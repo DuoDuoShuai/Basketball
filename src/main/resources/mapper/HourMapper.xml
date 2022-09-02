@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 命名空间，可以对sql进行分类的一个管理 -->
+<mapper namespace="com.yjy.mapper.HourMapper">
+    <!--查询-->
+    <select id="listHour" resultType="com.yjy.model.Hour" parameterType="com.yjy.dto.LayUiDto">
+       select hour_id hourId,
+              student_name studentName,
+              course_name courseName,
+              teacher_name teacherName,
+              course_hour  courseHour,
+              remain_hour remainHour,
+              reason     reason,
+             school_name schoolName;
+             record  record,
+             is_show pure,
+            create_time  createTime,
+            update_time   updateTime
+        from t_hour_info
+     where
+       <if test="studentName !=null and studentName !=''">
+           and student_name like concat('%',#{studentName},'%')
+       </if>
+        limit #{dataNum},#{limit};
+    </select>
+
+    <!--总页数-->
+    <select id="count" resultType="java.lang.Integer" parameterType="com.yjy.dto.LayUiDto">
+        select count(1) from t_hour_info
+         where
+            <if test="studentName !=null and studentName !=''">
+                and student_name like concat('%',#{studentName},'%')
+            </if>
+    </select>
+
+</mapper>

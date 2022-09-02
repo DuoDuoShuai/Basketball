@@ -106,12 +106,8 @@
     <div class="layui-inline">
         <label class="layui-form-label">选择校区</label>
         <div class="layui-input-inline">
-            <select name="schoolId" lay-verify="required" lay-search="">
-                <option value="直接选择或搜索选择" name="schoolId">直接选择或搜索选择</option>
-                <option value="layer" name="schoolId">layer</option>
-                <option value="form" name="schoolId">form</option>
-                <option value="layim" name="schoolId">layim</option>
-                <option value="element" name="schoolId">element</option>
+            <select name="schoolName" id="schoolName" lay-verify="required" lay-search="">
+                <option value="直接选择或搜索选择" name="schoolName">直接选择或搜索选择</option>
             </select>
         </div>
     </div>
@@ -128,6 +124,7 @@
     layui.use(['form','laydate','upload','layer', 'element','rate'], function () {
         var form = layui.form,
             layer = layui.layer,
+            html="",
             $ = layui.$;
         laydate=layui.laydate;
         laydate.render({
@@ -140,11 +137,12 @@
             var isShaky=parent_json.isShaky.toString();
             var courseState= parent_json.courseState.toString();
             var pure = parent_json.pure.toString();
+            var schoolName = parent_json.schoolName;
             //将图片路径加入
             $("img").attr("src","/images/"+parent_json.photo+"");
             //$("#schoolName").text(parent_json.schoolId);
             //校区资源
-            var html = "";
+            html += '<option value="' + schoolName + '">' + schoolName + '</option>'
             $.ajax({
                 type:'post',
                 url: '/school/listAll',
@@ -153,10 +151,11 @@
                     var school = data.data;
                     //加载数据
                     for (var i = 0; i < school.length; i++) {
-                        // $("#chosen-select").html('<option value="' + school[i].schoolId + '">' + school[i].schoolName + '</option>');
-                        html += '<option value="' + school[i].schoolId + '">' + school[i].schoolName + '</option>'
+                        if(school[i].schoolName != schoolName){
+                            html += '<option value="' + school[i].schoolName + '">' + school[i].schoolName + '</option>'
+                        }
                     }
-                    $("#schoolId").html(html);
+                    $("#schoolName").html(html);
                     form.render('select');
                 }
             });
@@ -202,6 +201,7 @@
             // 获取时间戳
             var longsage2=datasage2.getTime();
             var fromData=new FormData();/*自己创建表单*/
+            fromData.append("courseId",data.field.courseId);
             fromData.append("name",data.field.name);
             fromData.append("courseHour",data.field.courseHour);
             fromData.append("courseDescribe",data.field.courseDescribe);
@@ -212,10 +212,11 @@
             fromData.append("courseState",$("input[name='courseState']:checked").val());
             fromData.append("pure",$("input[name='pure']:checked").val());
             fromData.append("shelfTime",longsage2);
-            fromData.append("schoolId",data.field.schoolId);
+            fromData.append("schoolName",data.field.schoolName);
             //fromData.append("shopSate",data.field.shopSate);
             var fileobj = $("#photo")[0].files[0];
             fromData.append("img",fileobj);
+
             $.ajax({
                 type:'post',
                 url:'/Course/updateCourse',
@@ -225,7 +226,6 @@
                 //不处理数据
                 processData:false,
                 success:function (da) {
-                    if (da.data == 1) {
                         var index = layer.alert("修改成功", {
                             title: '最终的提交信息'
                         }, function () {
@@ -233,9 +233,10 @@
                             layer.close(index);
                             var iframeIndex = parent.layer.getFrameIndex(window.name);
                             parent.layer.close(iframeIndex);
+                            parent.layui.table.reload("currentTableId");
                         });
 
-                    }
+
                 }
             });
             return false;

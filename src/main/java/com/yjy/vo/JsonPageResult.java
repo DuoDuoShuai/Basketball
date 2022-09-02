@@ -1,5 +1,8 @@
 package com.yjy.vo;
 
+import com.yjy.model.Course;
+import com.yjy.model.School;
+
 import java.util.Collections;
 import java.util.List;
 
@@ -42,6 +45,7 @@ public class JsonPageResult {
         map.setData(list);
         return map;
     }
+
 
     public Integer getCode() {
         return code;

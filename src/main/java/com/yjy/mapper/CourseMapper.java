@@ -36,5 +36,27 @@ public interface CourseMapper {
   */
  public Integer insertCourse(Course course);
 
+    /**
+     * 修改课程
+     * @param course
+     * @return
+     */
+
  public Integer updateCourse(Course course);
+
+    /**
+     * 删除课程
+     * @param courseId
+     * @return
+     */
+
+ public Integer deleteCourse(String courseId);
+
+    /**
+     * 删除时更新时间
+     * @param course
+     * @return
+     */
+
+    public Integer deleteTime(Course course);
 }

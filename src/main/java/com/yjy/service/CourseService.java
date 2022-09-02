@@ -2,6 +2,7 @@ package com.yjy.service;
 
 import com.yjy.dto.LayUiDto;
 import com.yjy.model.Course;
+import com.yjy.model.School;
 import com.yjy.vo.JsonPageResult;
 
 /**
@@ -31,4 +32,22 @@ public interface CourseService {
      * @return
      */
     public Integer updateCourse(Course course);
+
+    /**
+     * 删除课程
+     * @param courseId
+     * @return
+     */
+
+    public Integer deleteCourse(String courseId);
+
+    /**
+     * 批量删除
+     * @param courseIds
+     * @return
+     */
+    public Integer delete(String[] courseIds);
+
+
+
 }

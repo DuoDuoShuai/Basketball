@@ -17,7 +17,7 @@
                start_time startTime,
                end_time endTime,
                pay_number payNumber,
-               school_id schoolId,
+               school_name schoolName,
                shelf_time shelfTime,
                shelf_left_time shelfLeftTime,
                is_show pure,
@@ -43,13 +43,43 @@
 
     <!--添加-->
     <insert id="insertCourse" parameterType="com.yjy.model.Course">
-      insert into t_course_info(course_id,course_name,photo,course_hour,is_shaky,price,course_state,course_describe,start_time,end_time,school_id,shelf_time,shelf_left_time,is_show,is_delete,create_time,update_time)
-                        values (#{courseId},#{name},#{photo},#{courseHour},#{isShaky},#{price},#{courseState},#{courseDescribe},#{startTime},#{endTime},#{schoolId},#{shelfTime},#{shelfLeftTime},#{pure},#{isDelete},#{createTime},#{updateTime})
+      insert into t_course_info(course_id,course_name,photo,course_hour,is_shaky,price,course_state,course_describe,start_time,end_time,school_name,shelf_time,shelf_left_time,is_show,is_delete,create_time,update_time)
+                        values (#{courseId},#{name},#{photo},#{courseHour},#{isShaky},#{price},#{courseState},#{courseDescribe},#{startTime},#{endTime},#{schoolName},#{shelfTime},#{shelfLeftTime},#{pure},#{isDelete},#{createTime},#{updateTime})
     </insert>
 
    <!--修改-->
     <update id="updateCourse" parameterType="com.yjy.model.Course">
-        update t_course_info set course_name=#{name},photo=#{photo},course_hour=#{courseHour},is_shaky=#{isShaky},price=#{price},course_state=#{courseState},course_describe=#{courseDescribe},start_time=#{startTime},end_time=#{endTime},school_id=#{schoolId},shelf_time=#{shelfTime},shelf_left_time=#{shelfLeftTime},is_show=#{pure},update_time=#{updateTime} where course_id=#{courseId}
+        update t_course_info
+        <trim prefix="set" suffixOverrides=",">
+                <if test="name !=null">course_name=#{name},</if>
+                <if test="photo !=null">photo=#{photo},</if>
+                <if test="courseHour !=null">course_hour=#{courseHour},</if>
+                <if test="isShaky !=null">is_shaky=#{isShaky},</if>
+                <if test="price !=null">price=#{price},</if>
+                <if test="courseState !=null">course_state=#{courseState},</if>
+                <if test="courseDescribe !=null">course_describe=#{courseDescribe},</if>
+                <if test="startTime !=null">start_time=#{startTime},</if>
+                <if test="endTime !=null">end_time=#{endTime},</if>
+                <if test="schoolName !=null">school_name=#{schoolName},</if>
+                <if test="shelfTime !=null">shelf_time=#{shelfTime},</if>
+                <if test="shelfLeftTime !=null">shelf_left_time=#{shelfLeftTime},</if>
+                <if test="pure !=null">is_show=#{pure},</if>
+                <if test="updateTime !=null">update_time=#{updateTime}</if>
+        </trim>
+        where course_id=#{courseId}
     </update>
 
+    <!--删除课程-->
+    <update id="deleteCourse">
+        update t_course_info
+          set is_delete=1
+         where course_id=#{courseId}
+    </update>
+
+    <!-- 删除时更新时间 -->
+    <update id="deleteTime" parameterType="com.yjy.model.Course">
+        update t_course_info
+        set update_time=#{updateTime}
+        where course_id=#{courseId}
+    </update>
 </mapper>

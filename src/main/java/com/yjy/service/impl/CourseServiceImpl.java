@@ -2,7 +2,10 @@ package com.yjy.service.impl;
 
 import com.yjy.dto.LayUiDto;
 import com.yjy.mapper.CourseMapper;
+import com.yjy.mapper.SchoolMapper;
 import com.yjy.model.Course;
+import com.yjy.model.School;
+import com.yjy.model.Student;
 import com.yjy.service.CourseService;
 import com.yjy.vo.JsonPageResult;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,9 +25,14 @@ import java.util.UUID;
 public class CourseServiceImpl implements CourseService {
     @Autowired
     private CourseMapper courseMapper;
-    /*
-     * 查询列表
-     * */
+    @Autowired
+    private SchoolMapper schoolMapper;
+
+    /**
+     * 查询课程
+     * @param dto
+     * @return
+     */
     @Override
     public JsonPageResult listCourse(LayUiDto dto) {
         /*判断是否有数据*/
@@ -33,7 +41,7 @@ public class CourseServiceImpl implements CourseService {
             return JsonPageResult.successPage();
         }
         List<Course> course = courseMapper.listCourse(dto);
-        JsonPageResult mapVo = JsonPageResult.successPage(course, count);
+        JsonPageResult mapVo = JsonPageResult.successPage(course,count);
         return mapVo;
     }
 
@@ -60,6 +68,46 @@ public class CourseServiceImpl implements CourseService {
     public Integer updateCourse(Course course) {
         Date currentTime=new Date(System.currentTimeMillis());
         course.setUpdateTime(currentTime.getTime());
-        return null;
+        return courseMapper.updateCourse(course);
     }
+    /**
+     * 删除课程
+     * @param courseId
+     * @return
+     */
+    @Override
+    public Integer deleteCourse(String courseId) {
+        Integer delete = courseMapper.deleteCourse(courseId);
+        if(delete==1){
+            Course course = new Course();
+            Date currentTime=new Date(System.currentTimeMillis());
+            course.setUpdateTime(currentTime.getTime());
+            return courseMapper.deleteTime(course);
+        }
+        return delete;
+    }
+
+    /**
+     * 批量删除
+     * @param courseIds
+     * @return
+     */
+
+    @Override
+    public Integer delete(String[] courseIds) {
+        Integer delete=0;
+        for (String courseId : courseIds) {
+            delete = courseMapper.deleteCourse(courseId);
+            if(delete==1){
+                Course course = new Course();
+                Date currentTime=new Date(System.currentTimeMillis());
+                course.setUpdateTime(currentTime.getTime());
+                courseMapper.deleteTime(course);
+            }
+        }
+        return delete;
+    }
+
+
+
 }

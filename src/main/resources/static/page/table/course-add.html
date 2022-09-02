@@ -104,12 +104,8 @@
     <div class="layui-inline">
         <label class="layui-form-label">选择校区</label>
         <div class="layui-input-inline">
-            <select name="schoolId" lay-verify="required" lay-search="">
-                <option value="直接选择或搜索选择" name="schoolId">直接选择或搜索选择</option>
-                <option value="layer" name="schoolId">layer</option>
-                <option value="form" name="schoolId">form</option>
-                <option value="layim" name="schoolId">layim</option>
-                <option value="element" name="schoolId">element</option>
+            <select name="schoolName" id="schoolName" lay-verify="required" lay-search="">
+                <option value="直接选择或搜索选择" name="schoolName">直接选择或搜索选择</option>
             </select>
         </div>
     </div>
@@ -204,7 +200,25 @@
             }
             return m;
         }
-
+        //点击时间-加载校区资源
+        $(function() {
+            var html = "";
+            $.ajax({
+                type:'post',
+                url: '/school/listAll',
+                dataType:'JSON',
+                success: function (data) {
+                    var school = data.data;
+                    //加载数据
+                    for (var i = 0; i < school.length; i++) {
+                        // $("#chosen-select").html('<option value="' + school[i].schoolId + '">' + school[i].schoolName + '</option>');
+                        html += '<option value="' + school[i].schoolName + '">' + school[i].schoolName + '</option>'
+                    }
+                    $("#schoolName").html(html);
+                    form.render('select');
+                }
+            });
+        });
        /* var uploadInst = upload.render({
             elem: '#test1' //绑定元素
             , url: '/Course/insertCourse' //上传接口
@@ -249,7 +263,7 @@
             fromData.append("courseState",$("input[name='courseState']:checked").val());
             fromData.append("pure",$("input[name='pure']:checked").val());
             fromData.append("shelfTime",longsage2);
-            fromData.append("schoolId",data.field.schoolId);
+            fromData.append("schoolName",data.field.schoolName);
             //fromData.append("shopSate",data.field.shopSate);
             var fileobj = $("#photo")[0].files[0];
             fromData.append("img",fileobj);
