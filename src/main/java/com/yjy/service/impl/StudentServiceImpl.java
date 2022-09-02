@@ -52,7 +52,7 @@ public class StudentServiceImpl implements StudentService {
      */
     @Override
     public Student load(String studentId) {
-        Student student = studentMapper.load(studentId);
+        Student student = studentMapper.loadById(studentId);
         return student;
     }
 

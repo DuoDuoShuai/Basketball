@@ -27,13 +27,6 @@ public interface StudentMapper {
     Integer count(LayUiDto dto);
 
     /**
-     * 获取单个对象--根据id查
-     * @param studentId
-     * @return
-     */
-    Student load(String studentId);
-
-    /**
      * 修改
      * @param student
      * @return
@@ -60,4 +53,17 @@ public interface StudentMapper {
      * @return
      */
     Integer insert(Student student);
+
+    /**
+     * 接口-查询全部学员
+     * @return
+     */
+    List<Student> listAll();
+
+    /**
+     * 接口-根据id查获取单个对象
+     * @param studentId
+     * @return
+     */
+    Student loadById(String studentId);
 }

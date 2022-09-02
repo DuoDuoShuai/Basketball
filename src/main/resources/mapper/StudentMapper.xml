@@ -60,13 +60,6 @@
         </if>
     </select>
 
-    <!-- 详情 -->
-    <select id="load" resultType="com.yjy.model.Student">
-        select
-        <include refid="start"></include>
-        from t_student_info
-        where student_id=#{0}
-    </select>
     <!-- 修改 -->
     <update id="update" parameterType="com.yjy.model.Student">
         update t_student_info
@@ -121,4 +114,17 @@
             <if test="updateTime !=null">#{updateTime},</if>
         </trim>
     </insert>
+
+    <!-- 接口-详情 -->
+    <select id="loadById" resultType="com.yjy.model.Student">
+        select
+        <include refid="start"></include>
+        from t_student_info
+        where student_id=#{0}
+    </select>
+    <select id="listAll" resultType="com.yjy.model.Student">
+        select
+        <include refid="start"></include>
+        from t_student_info
+    </select>
 </mapper>
