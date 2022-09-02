@@ -9,12 +9,12 @@ import java.math.BigInteger;
 /**
  * @author 徐晓瑞
  * @date 2022/8/29 16:14
- * @describe: TODO-
+ * @describe:
  */
 
-@Data //自动生成get和set方法
-@AllArgsConstructor//有参构造
-@NoArgsConstructor//无参构造
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class Admin {
     /**
      * 管理员id

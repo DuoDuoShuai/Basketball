@@ -49,14 +49,15 @@
         <label class="layui-form-label required">头像</label>
         <div class="layui-input-block">
             <input type="file" name="teacherPhoto" id="teacherPhoto" value="" class="layui-input">
+            <img src="">
         </div>
     </div>
 
     <div class="layui-form-item">
         <label class="layui-form-label required">性别</label>
         <div class="layui-input-block">
-            <input type="radio" name="teacherSex" value="true" title="男" checked="">
-            <input type="radio" name="teacherSex" value="false" title="女">
+            <input type="radio" name="teacherSex" id="men" value="true" title="男" checked="">
+            <input type="radio" name="teacherSex" id="women" value="false" title="女">
         </div>
     </div>
     <div class="layui-form-item">
@@ -73,6 +74,20 @@
             layer = layui.layer,
             $ = layui.$;
 
+        $(function () {
+            //从父层获取值，json是父层的全局js变量、eval是将带有json格式的字符串转为json对象
+            var parent_json=eval('('+parent.json+')');
+            //将图片路径加入
+            $("img").attr("src","http://rhh64czm7.hn-bkt.clouddn.com/"+parent_json.teacherPhoto+"");
+            var gender=parent_json.teacherSex.toString();
+            if(gender == "false"){
+                $("#women").attr("checked","checked");
+                form.render('radio');
+            }else {
+                $("#men").attr("checked","checked");
+                form.render('radio');
+            }
+        });
         //监听提交
         form.on('submit(saveBtn)', function (data) {
             var formData = new FormData();//form表单

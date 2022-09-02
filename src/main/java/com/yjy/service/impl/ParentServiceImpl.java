@@ -5,10 +5,14 @@ import com.yjy.mapper.ParentMapper;
 import com.yjy.model.Admin;
 import com.yjy.model.Parent;
 import com.yjy.service.ParentService;
+import com.yjy.util.QiniuFile;
 import com.yjy.vo.JsonPageResult;
+import com.yjy.vo.JsonResult;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.util.Date;
 import java.util.List;
 import java.util.UUID;
@@ -47,7 +51,15 @@ public class ParentServiceImpl implements ParentService {
      * @return
      */
     @Override
-    public Integer insertParent(Parent parent) {
+    public Integer insertParent(Parent parent, MultipartFile img) {
+        try {
+            parent.setParentId(UUID.randomUUID().toString());
+            Date currentTime=new Date(System.currentTimeMillis());
+            parent.setParentRegtime(currentTime.getTime());
+            parent.setParentPhoto(QiniuFile.uploadFile(img.getBytes()));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         return parentMapper.insertParent(parent);
     }
 
@@ -92,7 +104,14 @@ public class ParentServiceImpl implements ParentService {
      * @return
      */
     @Override
-    public Integer updateParent(Parent parent) {
+    public Integer updateParent(Parent parent,MultipartFile img) {
+        try {
+            Date currentTime=new Date(System.currentTimeMillis());
+            parent.setUpdateTime(currentTime.getTime());
+            parent.setParentPhoto(QiniuFile.uploadFile(img.getBytes()));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         return parentMapper.updateParent(parent);
     }
 }

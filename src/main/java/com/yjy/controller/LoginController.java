@@ -1,8 +1,4 @@
-package com.yjy.controller;/**
- * @author 徐晓瑞
- * @create 2022/8/31 23:27
- * @describe
- */
+package com.yjy.controller;
 
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.AuthenticationException;
