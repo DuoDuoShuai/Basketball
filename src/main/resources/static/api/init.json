@@ -43,7 +43,7 @@
         },
         {
           "title": "校区管理",
-          "href": "/page/menu.html",
+          "href": "/page/school-table.html",
           "icon": "fa fa-window-maximize",
           "target": "_self"
         },

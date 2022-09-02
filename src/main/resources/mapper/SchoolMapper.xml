@@ -3,7 +3,7 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.yjy.mapper.SchoolMapper">
     <sql id="start">
-        school_id schoolId,school_name schoolName,school_describe schoolDescribe,phone,
+        school_id schoolId,school_name schoolName,school_describe schoolDescribe,phone,address,
         create_time createTime,
         update_time updateTime
     </sql>
@@ -44,8 +44,15 @@
             <if test="schoolDescribe !=null">school_describe=#{schoolDescribe},</if>
             <if test="phone !=null">phone=#{phone},</if>
             <if test="updateTime !=null">update_time=#{updateTime},</if>
+            <if test="address !=null">address=#{address},</if>
         </trim>
-        where school_id=#{id}
+        where school_id=#{schoolId}
+    </update>
+    <!-- 删除时修改时间 -->
+    <update id="updateTime" parameterType="com.yjy.model.School">
+        update t_school_info
+        set update_time=#{updateTime}
+        where school_id=#{schoolId}
     </update>
     <!-- 删除 -->
     <update id="delete">
@@ -56,16 +63,20 @@
     <insert id="insert" parameterType="com.yjy.model.School">
         insert into t_school_info
         <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="schoolId !=null">school_id,</if>
             <if test="schoolName !=null">school_name,</if>
             <if test="schoolDescribe !=null">school_describe,</if>
             <if test="phone !=null">phone,</if>
+            <if test="address !=null">address,</if>
             <if test="createTime !=null">create_time,</if>
             <if test="updateTime !=null">update_time,</if>
         </trim>
         <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="schoolId !=null">#{schoolId},</if>
             <if test="schoolName !=null">#{schoolName},</if>
             <if test="schoolDescribe !=null">#{schoolDescribe},</if>
             <if test="phone !=null">#{phone},</if>
+            <if test="address !=null">#{address},</if>
             <if test="createTime !=null">#{createTime},</if>
             <if test="updateTime !=null">#{updateTime},</if>
         </trim>
