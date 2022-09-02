@@ -73,9 +73,9 @@
                 {field: 'parentPhoto', width: 110, title: '头像', templet: '<div><img id="img" src="http://rhh64czm7.hn-bkt.clouddn.com/{{d.parentPhoto}}"></div>'},
                 {field: 'parentSex', title: '性别', width: 80, sort: true,templet: function (d) {
                         if (d.parentSex) {
-                            return "女";
-                        } else {
                             return "男";
+                        } else {
+                            return "女";
                         }
                     }},
                 {field: 'isDelete', width: 80, title: '是否删除', sort: true,templet: function (d) {

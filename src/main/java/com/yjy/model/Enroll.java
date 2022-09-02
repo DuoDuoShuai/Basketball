@@ -10,9 +10,9 @@ import lombok.NoArgsConstructor;
  * @describe:
  */
 
-@Data //自动生成get和set方法
-@AllArgsConstructor//有参构造
-@NoArgsConstructor//无参构造
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class Enroll {
 
     /**

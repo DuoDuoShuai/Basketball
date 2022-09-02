@@ -4,6 +4,7 @@ import com.yjy.dto.LayUiDto;
 import com.yjy.model.Parent;
 import com.yjy.model.Teacher;
 import com.yjy.vo.JsonPageResult;
+import org.springframework.web.multipart.MultipartFile;
 
 /**
  * @author 徐晓瑞
@@ -24,7 +25,7 @@ public interface TeacherService {
      * @param teacher
      * @return
      */
-    Integer insertTeacher(Teacher teacher);
+    Integer insertTeacher(Teacher teacher, MultipartFile img);
 
     /**
      * 批量删除教练信息
@@ -45,5 +46,5 @@ public interface TeacherService {
      * @param teacher
      * @return
      */
-    Integer updateTeacher(Teacher teacher);
+    Integer updateTeacher(Teacher teacher,MultipartFile img);
 }

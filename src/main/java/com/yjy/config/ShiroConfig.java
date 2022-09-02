@@ -15,7 +15,7 @@ import java.util.Map;
 /**
  * @author 徐晓瑞
  * @date 2022/8/29 17:14
- * @describe: TODO-
+ * @describe:
  */
 @Configuration
 public class ShiroConfig {
@@ -27,9 +27,9 @@ public class ShiroConfig {
     @Bean
     @ConditionalOnMissingBean
     public DefaultAdvisorAutoProxyCreator defaultAdvisorAutoProxyCreator() {
-        DefaultAdvisorAutoProxyCreator defaultAAP = new DefaultAdvisorAutoProxyCreator();
-        defaultAAP.setProxyTargetClass(true);
-        return defaultAAP;
+        DefaultAdvisorAutoProxyCreator defaultAap = new DefaultAdvisorAutoProxyCreator();
+        defaultAap.setProxyTargetClass(true);
+        return defaultAap;
     }
 
     /**
@@ -62,7 +62,7 @@ public class ShiroConfig {
     public ShiroFilterFactoryBean shiroFilterFactoryBean(DefaultWebSecurityManager securityManager) {
         ShiroFilterFactoryBean shiroFilterFactoryBean = new ShiroFilterFactoryBean();
         shiroFilterFactoryBean.setSecurityManager(securityManager);
-        Map<String, String> filterChainDefinitionMap  = new HashMap<>();
+        Map<String, String> filterChainDefinitionMap  = new HashMap<>(16);
         //登出
         filterChainDefinitionMap .put("/logout", "logout");
         //对所有用户认证
@@ -73,7 +73,6 @@ public class ShiroConfig {
         filterChainDefinitionMap.put("/lib/**", "anon");
         filterChainDefinitionMap.put("/manager/login", "anon");
         filterChainDefinitionMap.put("/manager/login1", "anon");
-        //filterChainDefinitionMap.put("/manager/index", "anon");
         filterChainDefinitionMap.put("/**", "authc");
         //登录
         shiroFilterFactoryBean.setLoginUrl("/manager/login1");

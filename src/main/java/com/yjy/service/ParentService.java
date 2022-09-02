@@ -3,6 +3,8 @@ package com.yjy.service;
 import com.yjy.dto.LayUiDto;
 import com.yjy.model.Parent;
 import com.yjy.vo.JsonPageResult;
+import org.springframework.web.multipart.MultipartFile;
+
 /**
  * @Author:
  * @CreatTime:2022/8/29
@@ -19,10 +21,10 @@ public interface ParentService {
 
     /**
      * 添加家长信息
-     * @param parent
+     * @param parent,img
      * @return
      */
-    Integer insertParent(Parent parent);
+    Integer insertParent(Parent parent, MultipartFile img);
 
     /**
      * 批量删除家长信息
@@ -43,5 +45,5 @@ public interface ParentService {
      * @param parent
      * @return
      */
-    Integer updateParent(Parent parent);
+    Integer updateParent(Parent parent,MultipartFile img);
 }
