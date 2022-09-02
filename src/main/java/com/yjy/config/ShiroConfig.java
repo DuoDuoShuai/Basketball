@@ -61,7 +61,7 @@ public class ShiroConfig {
         filterChainDefinitionMap.put("/manager/login", "anon");
         filterChainDefinitionMap.put("/manager/login1", "anon");
 //        filterChainDefinitionMap.put("/manager/index", "anon");
-        filterChainDefinitionMap.put("/**", "authc");
+        //filterChainDefinitionMap.put("/**", "authc");
         //登录
         shiroFilterFactoryBean.setLoginUrl("/manager/login1");
         //首页

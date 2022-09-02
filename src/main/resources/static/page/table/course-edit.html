@@ -16,6 +16,7 @@
 </head>
 <body>
 <div class="layui-form layuimini-form">
+    <input type="hidden" name="courseId" id="courseId">
     <div class="layui-form-item">
         <label class="layui-form-label required">课程名</label>
         <div class="layui-input-block">
@@ -72,8 +73,8 @@
     <div class="layui-form-item">
         <label class="layui-form-label required">是否上架</label>
         <div class="layui-input-block">
-            <input type="radio" name="isShow" id="isShow_1" value="false" title="否" >
-            <input type="radio" name="isShow" id="isShow_2" value="true" title="是">
+            <input type="radio" name="pure" id="isShow_1" value="false" title="否" >
+            <input type="radio" name="pure" id="isShow_2" value="true" title="是">
         </div>
     </div>
     <!-- <div class="layui-form-item">
@@ -124,19 +125,24 @@
 
 <script src="../../lib/layui-v2.6.3/layui.js" charset="utf-8"></script>
 <script>
-    layui.use(['form'], function () {
+    layui.use(['form','laydate','upload','layer', 'element','rate'], function () {
         var form = layui.form,
             layer = layui.layer,
             $ = layui.$;
+        laydate=layui.laydate;
+        laydate.render({
+            elem : '#shelfTime',
+            type : 'datetime'
+        })
         $(function () {
             //从父层获取值，json是父层的全局js变量、eval是将带有json格式的字符串转为json对象
             var parent_json=eval('('+parent.json+')');
             var isShaky=parent_json.isShaky.toString();
             var courseState= parent_json.courseState.toString();
-            var show = parent_json.pure.toString();
+            var pure = parent_json.pure.toString();
             //将图片路径加入
             $("img").attr("src","/images/"+parent_json.photo+"");
-            $("#schoolName").text(parent_json.schoolId);
+            //$("#schoolName").text(parent_json.schoolId);
             //校区资源
             var html = "";
             $.ajax({
@@ -171,7 +177,7 @@
                 $("#courseState_3").attr("checked","checked");
                 form.render("radio");
             }
-            if( show == "false"){
+            if( pure == "false"){
                 $("#isShow_1").attr("checked", "checked");
                 form.render("radio");
             }else {
@@ -184,25 +190,42 @@
         //监听提交
         form.on('submit(saveBtn)', function (data) {
             // 得到中国标准时间
-            datasage = new Date($("#sage").val());
+            var datasage = new Date($("#startTime").val());
             // 获取时间戳
-            longsage=datasage.getTime();
-            var formData = new FormData();//form表单
-            formData.append("studentName",data.field.studentName);
-            formData.append("birthday",longsage);
-            formData.append("age",data.field.age);
-            formData.append("gender",$("input[name='gender']:checked").val());
-            formData.append("studentNumber",data.field.studentNumber);
-            formData.append("schoolId",data.field.schoolId);
+            var longsage=datasage.getTime();
+            // 得到中国标准时间
+            var datasage1 = new Date($("#endTime").val());
+            // 获取时间戳
+            var longsage1=datasage1.getTime();
+            // 得到中国标准时间
+            var datasage2 = new Date($("#shelfTime").val());
+            // 获取时间戳
+            var longsage2=datasage2.getTime();
+            var fromData=new FormData();/*自己创建表单*/
+            fromData.append("name",data.field.name);
+            fromData.append("courseHour",data.field.courseHour);
+            fromData.append("courseDescribe",data.field.courseDescribe);
+            fromData.append("isShaky",data.field.isShaky);
+            fromData.append("price",data.field.price);
+            fromData.append("startTime",longsage);
+            fromData.append("endTime",longsage1);
+            fromData.append("courseState",$("input[name='courseState']:checked").val());
+            fromData.append("pure",$("input[name='pure']:checked").val());
+            fromData.append("shelfTime",longsage2);
+            fromData.append("schoolId",data.field.schoolId);
+            //fromData.append("shopSate",data.field.shopSate);
             var fileobj = $("#photo")[0].files[0];
-            formData.append("img",fileobj);
+            fromData.append("img",fileobj);
             $.ajax({
                 type:'post',
-                url:'edit',
-                data:formData,
-                dataType:'JSON',
+                url:'/Course/updateCourse',
+                data:fromData,
+                //ajax2.0可以不用设置请求头，但是jq帮我们自动设置了，这样的话需要我们自己取消掉
+                contentType:false,
+                //不处理数据
+                processData:false,
                 success:function (da) {
-                    if(da.data==1){
+                    if (da.data == 1) {
                         var index = layer.alert("修改成功", {
                             title: '最终的提交信息'
                         }, function () {
@@ -211,6 +234,7 @@
                             var iframeIndex = parent.layer.getFrameIndex(window.name);
                             parent.layer.close(iframeIndex);
                         });
+
                     }
                 }
             });

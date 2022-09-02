@@ -72,8 +72,8 @@
     <div class="layui-form-item">
         <label class="layui-form-label required">是否上架</label>
         <div class="layui-input-block">
-            <input type="radio" name="isShow" value="true" title="否" >
-            <input type="radio" name="isShow" value="false" title="是">
+            <input type="radio" name="pure" value="true" title="否" >
+            <input type="radio" name="pure" value="false" title="是">
         </div>
     </div>
    <!-- <div class="layui-form-item">
@@ -97,7 +97,7 @@
     <div class="layui-inline">
         <label class="layui-form-label required">上架时间</label>
         <div class="layui-input-inline">
-            <input type="text" id="shelfTime" name="shelfTime" placeholder="上架时间" lay-verify="detetime" class="layui-input">
+            <input type="text" id="shelfTime" name="shelfTime" placeholder="选择开始时间" value="" autocomplete="off" lay-verify="required|time" class="layui-input">
         </div>
     </div>
 
@@ -133,6 +133,7 @@
         element.render();
             $ = layui.$;
            laydate=layui.laydate;
+
            //时间选择器初始化，开始时间
        var start=laydate.render({
            elem:'#startTime',
@@ -174,29 +175,10 @@
 
             }
         })
-        //时间选择器初始化，开始时间
-        var start1=laydate.render({
-            elem:'#shelfTime',
-            min:0,//最大值为当前日期
-            trigger:'click',
-            type:'datetime',//日期选择器
-            value:getRecentDay(-3),//默认值30天前
-            done:function(value,date) {
-                if(value && (value>$("#shelfLeftTime").val())){
-                    /*开始时间大于结束时间时，清空结束时间*/
-                    $("#shelfLeftTime").val("");
-                }
-                end.config.min={
-                    year :date.year,
-                    month : date.month-1,
-                    date:date.date,
-                    hours:date.hours,
-                    minutes:date.minutes,
-                    seconds :date.seconds
-                };
-
-            }
-        });
+        laydate.render({
+        elem : '#shelfTime',
+        type : 'datetime'
+        })
 
         //获取近N天
         function getRecentDay(day){
@@ -265,7 +247,7 @@
             fromData.append("startTime",longsage);
             fromData.append("endTime",longsage1);
             fromData.append("courseState",$("input[name='courseState']:checked").val());
-            fromData.append("isShow",$("input[name='isShow']:checked").val());
+            fromData.append("pure",$("input[name='pure']:checked").val());
             fromData.append("shelfTime",longsage2);
             fromData.append("schoolId",data.field.schoolId);
             //fromData.append("shopSate",data.field.shopSate);

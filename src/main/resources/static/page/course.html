@@ -220,7 +220,7 @@
                         /*product_name,city_name,send_time,product_price,product_desc*/
                         /*表单数据回显，把表格当前显示到子页面的表单内，find后括号内的是子页面表单的id*/
                         var body = layer.getChildFrame('body',index);
-                        body.find("#id").val(data.id);
+                        body.find("#courseId").val(data.courseId);
                         body.find("#name").val(data.name);
                         body.find("#courseHour").val(data.courseHour);
                         body.find("#courseDescribe").val(data.courseDescribe);
@@ -240,11 +240,11 @@
                         body.find("#startTime").val(sage);
                         body.find("#endTime").val(sage);
                         body.find("#courseState").val(data.courseState);
-                        //body.find("#isShow").val(data.isShow);
-                        if(data.isShow==0){
-                           body.find("#isShow").val('未上架');
+                        body.find("#pure").val(data.pure);
+                        if(data.pure==0){
+                           body.find("#pure").val("未上架");
                         }else {
-                            body.find('#isShow').val('已上架');
+                            body.find('#pure').val('已上架');
                         }
                         body.find("#shelfTime").val(sage);
                         body.find("#photo").val(data.photo)
