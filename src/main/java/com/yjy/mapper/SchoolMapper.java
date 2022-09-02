@@ -28,13 +28,6 @@ public interface SchoolMapper {
     Integer count(LayUiDto dto);
 
     /**
-     * 获取单个对象--根据id查
-     * @param schoolId
-     * @return
-     */
-    School load(String schoolId);
-
-    /**
      * 修改
      * @param school
      * @return
@@ -56,9 +49,15 @@ public interface SchoolMapper {
     Integer insert(School school);
 
     /**
-     * 查询全部的school信息
+     * 接口-查询全部校区
      * @return
      */
     List<School> listAll();
 
+    /**
+     * 接口-根据id查获取单个对象
+     * @param schoolName
+     * @return
+     */
+    School loadByName(String schoolName);
 }

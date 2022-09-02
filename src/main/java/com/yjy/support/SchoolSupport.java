@@ -17,10 +17,19 @@ public class SchoolSupport {
     @Autowired
     private SchoolMapper schoolMapper;
     /**
-     * 查询全部的school信息-给新增学员选择校区的信息
+     * 接口-查询全部的校区信息-给新增学员选择校区的信息
      * @return
      */
     public List<School> listAll(){
         return schoolMapper.listAll();
+    }
+
+    /**
+     * 接口-根据校区名称查校区
+     * @param schoolName
+     * @return
+     */
+    public School loadByName(String schoolName){
+        return schoolMapper.loadByName(schoolName);
     }
 }
