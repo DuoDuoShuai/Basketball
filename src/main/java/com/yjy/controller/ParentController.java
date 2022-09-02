@@ -3,6 +3,7 @@ package com.yjy.controller;
 import com.yjy.dto.LayUiDto;
 import com.yjy.model.Parent;
 import com.yjy.service.ParentService;
+import com.yjy.util.QiniuFile;
 import com.yjy.vo.JsonPageResult;
 import com.yjy.vo.JsonResult;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -46,20 +47,12 @@ public class ParentController {
      */
     @RequestMapping("insertParent")
     public JsonResult insertParent(Parent parent, MultipartFile img) throws IOException {
-        JsonResult success = null;
-        if (img != null) {
-            // 设置图片路径
-            String oldname = img.getOriginalFilename();
-            String filepath = "D:\\学习笔记\\9.16笔记\\basketball\\src\\main\\resources\\static\\images\\"+oldname;
-            // 转存图片
-            img.transferTo(new File(filepath));
-            parent.setParentPhoto(oldname);
-            parent.setParentId(UUID.randomUUID().toString());
-            Date currentTime=new Date(System.currentTimeMillis());
-            parent.setParentRegtime(currentTime.getTime());
-            Integer insert = parentService.insertParent(parent);
-            success = JsonResult.success(insert);
-        }
+        parent.setParentId(UUID.randomUUID().toString());
+        Date currentTime=new Date(System.currentTimeMillis());
+        parent.setParentRegtime(currentTime.getTime());
+        parent.setParentPhoto(QiniuFile.uploadFile(img.getBytes()));
+        Integer insert = parentService.insertParent(parent);
+        JsonResult success = JsonResult.success(insert);
         return success;
     }
 
@@ -92,19 +85,11 @@ public class ParentController {
      */
     @RequestMapping("updateParent")
     public JsonResult deleteParent(Parent parent,MultipartFile img) throws IOException {
-        JsonResult success = null;
-        if (img != null) {
-            // 设置图片路径
-            String oldname = img.getOriginalFilename();
-            String filepath = "D:\\学习笔记\\9.16笔记\\basketball\\src\\main\\resources\\static\\images\\"+oldname;
-            // 转存图片
-            img.transferTo(new File(filepath));
-            parent.setParentPhoto(oldname);
-            Date currentTime=new Date(System.currentTimeMillis());
-            parent.setUpdateTime(currentTime.getTime());
-            Integer update = parentService.updateParent(parent);
-            success = JsonResult.success(update);
-        }
+        Date currentTime=new Date(System.currentTimeMillis());
+        parent.setUpdateTime(currentTime.getTime());
+        parent.setParentPhoto(QiniuFile.uploadFile(img.getBytes()));
+        Integer update = parentService.updateParent(parent);
+        JsonResult success = JsonResult.success(update);
         return success;
     }
 }

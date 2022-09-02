@@ -69,9 +69,15 @@
                 {field: 'teacherId', width: 80, title: 'ID', sort: true},
                 {field: 'teacherName', width: 80, title: '教练姓名'},
                 {field: 'teacherPassword', width: 80, title: '密码', sort: true},
-                {field: 'teacherPhoto', width: 110, title: '头像', templet: '<div><img id="img" src="/images/{{d.teacherPhoto}}"></div>'},
+                {field: 'teacherPhoto', width: 110, title: '头像', templet: '<div><img id="img" src="http://rhh64czm7.hn-bkt.clouddn.com/{{d.teacherPhoto}}"></div>'},
                 {field: 'teacherPhone', title: '电话', width: 80},
-                {field: 'teacherSex', title: '性别', width: 80},
+                {field: 'teacherSex', title: '性别', width: 80, sort: true,templet: function (d) {
+                        if (d.teacherSex) {
+                            return "女";
+                        } else {
+                            return "男";
+                        }
+                    }},
                 {field: 'isDelete', width: 80, title: '是否删除', sort: true,templet: function (d) {
                         if (d.isDelete == "0") {
                             return "否";
