@@ -36,13 +36,6 @@
         </if>
     </select>
 
-    <!-- 详情 -->
-    <select id="load" resultType="com.yjy.model.School">
-        select
-        <include refid="start"></include>
-        from t_school_info
-        where school_id=#{0}
-    </select>
     <!-- 修改 -->
     <update id="update" parameterType="com.yjy.model.School">
         update t_school_info
@@ -77,9 +70,18 @@
             <if test="updateTime !=null">#{updateTime},</if>
         </trim>
     </insert>
+
+    <!-- 接口-根据id查单个校区详情 -->
+    <select id="loadByName" resultType="com.yjy.model.School">
+        select
+        <include refid="start"></include>
+        from t_school_info
+        where school_name=#{0}
+    </select>
+<!--    接口-查询全部校区-->
     <select id="listAll" resultType="com.yjy.model.School">
         select
-        school_id schoolId,school_name schoolName,school_describe schoolDescribe,phone
+            school_id schoolId,school_name schoolName,school_describe schoolDescribe,phone
         from t_school_info
         where is_delete=0;
     </select>

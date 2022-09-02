@@ -44,7 +44,11 @@ public class ShiroConfig {
         return securityManager;
     }
 
-    //Filter工厂，设置对应的过滤条件和跳转条件
+    /**
+     * Filter工厂，设置对应的过滤条件和跳转条件
+     * @param securityManager
+     * @return
+     */
     @Bean
     public ShiroFilterFactoryBean shiroFilterFactoryBean(DefaultWebSecurityManager securityManager) {
         ShiroFilterFactoryBean shiroFilterFactoryBean = new ShiroFilterFactoryBean();
@@ -61,7 +65,7 @@ public class ShiroConfig {
         filterChainDefinitionMap.put("/manager/login", "anon");
         filterChainDefinitionMap.put("/manager/login1", "anon");
 //        filterChainDefinitionMap.put("/manager/index", "anon");
-        filterChainDefinitionMap.put("/**", "authc");
+//        filterChainDefinitionMap.put("/**", "authc");
         //登录
         shiroFilterFactoryBean.setLoginUrl("/manager/login1");
         //首页
