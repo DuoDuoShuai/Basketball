@@ -17,10 +17,13 @@ import java.util.Map;
  * @date 2022/8/29 17:14
  * @describe: TODO-
  */
-
 @Configuration
 public class ShiroConfig {
 
+    /**
+     *
+     * @return
+     */
     @Bean
     @ConditionalOnMissingBean
     public DefaultAdvisorAutoProxyCreator defaultAdvisorAutoProxyCreator() {
@@ -29,14 +32,20 @@ public class ShiroConfig {
         return defaultAAP;
     }
 
-    //将自己的验证方式加入容器
+    /**
+     * 将自己的验证方式加入容器
+     * @return
+     */
     @Bean
     public MyShiroRealm myShiroRealm() {
         MyShiroRealm customRealm = new MyShiroRealm();
         return customRealm;
     }
 
-    //权限管理，配置主要是Realm的管理认证
+    /**
+     * 权限管理，配置主要是Realm的管理认证
+     * @return
+     */
     @Bean
     public DefaultWebSecurityManager securityManager() {
         DefaultWebSecurityManager securityManager = new DefaultWebSecurityManager();
@@ -44,7 +53,11 @@ public class ShiroConfig {
         return securityManager;
     }
 
-    //Filter工厂，设置对应的过滤条件和跳转条件
+    /**
+     * Filter工厂，设置对应的过滤条件和跳转条件
+     * @param securityManager
+     * @return
+     */
     @Bean
     public ShiroFilterFactoryBean shiroFilterFactoryBean(DefaultWebSecurityManager securityManager) {
         ShiroFilterFactoryBean shiroFilterFactoryBean = new ShiroFilterFactoryBean();
@@ -60,7 +73,7 @@ public class ShiroConfig {
         filterChainDefinitionMap.put("/lib/**", "anon");
         filterChainDefinitionMap.put("/manager/login", "anon");
         filterChainDefinitionMap.put("/manager/login1", "anon");
-//        filterChainDefinitionMap.put("/manager/index", "anon");
+        //filterChainDefinitionMap.put("/manager/index", "anon");
         filterChainDefinitionMap.put("/**", "authc");
         //登录
         shiroFilterFactoryBean.setLoginUrl("/manager/login1");
@@ -72,6 +85,11 @@ public class ShiroConfig {
         return shiroFilterFactoryBean;
     }
 
+    /**
+     *
+     * @param securityManager
+     * @return
+     */
     @Bean
     public AuthorizationAttributeSourceAdvisor authorizationAttributeSourceAdvisor(DefaultWebSecurityManager securityManager) {
         AuthorizationAttributeSourceAdvisor authorizationAttributeSourceAdvisor = new AuthorizationAttributeSourceAdvisor();

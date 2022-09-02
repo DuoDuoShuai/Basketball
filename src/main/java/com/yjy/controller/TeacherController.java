@@ -3,6 +3,7 @@ package com.yjy.controller;
 import com.yjy.dto.LayUiDto;
 import com.yjy.model.Teacher;
 import com.yjy.service.TeacherService;
+import com.yjy.util.QiniuFile;
 import com.yjy.vo.JsonPageResult;
 import com.yjy.vo.JsonResult;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -45,20 +46,12 @@ public class TeacherController {
      */
     @RequestMapping("insertTeacher")
     public JsonResult insertTeacher(Teacher teacher, MultipartFile img) throws IOException {
-        JsonResult success = null;
-        if (img != null) {
-            // 设置图片路径
-            String oldname = img.getOriginalFilename();
-            String filepath = "D:\\学习笔记\\9.16笔记\\basketball\\src\\main\\resources\\static\\images\\"+oldname;
-            // 转存图片
-            img.transferTo(new File(filepath));
-            teacher.setTeacherPhoto(oldname);
-            teacher.setTeacherId(UUID.randomUUID().toString());
-            Date currentTime=new Date(System.currentTimeMillis());
-            teacher.setTeacherRegtime(currentTime.getTime());
-            Integer insert = teacherService.insertTeacher(teacher);
-            success = JsonResult.success(insert);
-        }
+        teacher.setTeacherId(UUID.randomUUID().toString());
+        Date currentTime=new Date(System.currentTimeMillis());
+        teacher.setTeacherRegtime(currentTime.getTime());
+        teacher.setTeacherPhoto(QiniuFile.uploadFile(img.getBytes()));
+        Integer insert = teacherService.insertTeacher(teacher);
+        JsonResult success = JsonResult.success(insert);
         return success;
     }
 
@@ -91,19 +84,11 @@ public class TeacherController {
      */
     @RequestMapping("updateTeacher")
     public JsonResult deleteParent(Teacher teacher,MultipartFile img) throws IOException {
-        JsonResult success = null;
-        if (img != null) {
-            // 设置图片路径
-            String oldname = img.getOriginalFilename();
-            String filepath = "D:\\学习笔记\\9.16笔记\\basketball\\src\\main\\resources\\static\\images\\"+oldname;
-            // 转存图片
-            img.transferTo(new File(filepath));
-            teacher.setTeacherPhoto(oldname);
-            Date currentTime=new Date(System.currentTimeMillis());
-            teacher.setUpdateTime(currentTime.getTime());
-            Integer update = teacherService.updateTeacher(teacher);
-            success = JsonResult.success(update);
-        }
+        Date currentTime=new Date(System.currentTimeMillis());
+        teacher.setUpdateTime(currentTime.getTime());
+        teacher.setTeacherPhoto(QiniuFile.uploadFile(img.getBytes()));
+        Integer update = teacherService.updateTeacher(teacher);
+        JsonResult success = JsonResult.success(update);
         return success;
     }
 }

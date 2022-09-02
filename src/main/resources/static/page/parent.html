@@ -70,8 +70,14 @@
                 {field: 'parentId', width: 80, title: 'ID', sort: true},
                 {field: 'parentName', width: 80, title: '用户名'},
                 {field: 'parentPhone', width: 80, title: '手机号', sort: true},
-                {field: 'parentPhoto', width: 110, title: '头像', templet: '<div><img id="img" src="/images/{{d.parentPhoto}}"></div>'},
-                {field: 'parentSex', title: '性别', width: 80},
+                {field: 'parentPhoto', width: 110, title: '头像', templet: '<div><img id="img" src="http://rhh64czm7.hn-bkt.clouddn.com/{{d.parentPhoto}}"></div>'},
+                {field: 'parentSex', title: '性别', width: 80, sort: true,templet: function (d) {
+                        if (d.parentSex) {
+                            return "女";
+                        } else {
+                            return "男";
+                        }
+                    }},
                 {field: 'isDelete', width: 80, title: '是否删除', sort: true,templet: function (d) {
                         if (d.isDelete == "0") {
                             return "否";
