@@ -20,8 +20,9 @@ public interface ParentService {
     JsonPageResult list(LayUiDto dto);
 
     /**
-     * 添加家长信息
-     * @param parent,img
+     * 添加
+     * @param parent
+     * @param img
      * @return
      */
     Integer insertParent(Parent parent, MultipartFile img);
@@ -41,8 +42,9 @@ public interface ParentService {
     Integer deleteParent(String parentId);
 
     /**
-     * 修改家长信息
+     * 修改
      * @param parent
+     * @param img
      * @return
      */
     Integer updateParent(Parent parent,MultipartFile img);
