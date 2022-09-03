@@ -15,16 +15,48 @@ import java.util.List;
  */
 @Repository
 public interface CourseMapper {
-  /**
-   * 查询
-   */
+ /**
+  * 查询课程
+  * @param dto
+  * @return
+  */
    public List<Course> listCourse(LayUiDto dto);
-   /**
-    * 页面总数
-    */
+
+ /**
+  * 页面总数
+  * @param dto
+  * @return
+  */
     public Integer count(LayUiDto dto);
+
+ /**
+  * 添加课程
+  * @param course
+  * @return
+  */
+ public Integer insertCourse(Course course);
+
     /**
-     * 添加
+     * 修改课程
+     * @param course
+     * @return
      */
-    public Integer insertCourse(Course course);
+
+ public Integer updateCourse(Course course);
+
+    /**
+     * 删除课程
+     * @param courseId
+     * @return
+     */
+
+ public Integer deleteCourse(String courseId);
+
+    /**
+     * 删除时更新时间
+     * @param course
+     * @return
+     */
+
+    public Integer deleteTime(Course course);
 }

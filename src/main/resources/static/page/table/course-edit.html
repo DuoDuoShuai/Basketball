@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title> layui</title>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link rel="stylesheet" href="../../lib/layui-v2.6.3/css/layui.css" media="all">
+    <link rel="stylesheet" href="../../css/public.css" media="all">
+    <style>
+        body {
+            background-color: #ffffff;
+        }
+    </style>
+</head>
+<body>
+<div class="layui-form layuimini-form">
+    <input type="hidden" name="courseId" id="courseId">
+    <div class="layui-form-item">
+        <label class="layui-form-label required">课程名</label>
+        <div class="layui-input-block">
+            <input type="text" id="name" name="name" lay-verify="required" lay-reqtext="课程名不能为空" placeholder="请输入课程名" value="" class="layui-input">
+            <tip>填写课程名</tip>
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label required">课时</label>
+        <div class="layui-input-block">
+            <input type="text" id="courseHour" name="courseHour" lay-verify="required" lay-reqtext="课时不能为空" placeholder="请输入课时" value="" class="layui-input">
+            <tip>填写课时</tip>
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label required">课程描述</label>
+        <div class="layui-input-block">
+            <input type="text" id="courseDescribe" name="courseDescribe" lay-verify="课程描述" placeholder="请输入课程描述" value="" class="layui-input">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label required">&nbsp;&nbsp;是否热门课程</label>
+        <div class="layui-input-block" >
+            <input type="radio" name="isShaky" id="isShaky_1" value="1" title="热门课程" >
+            <input type="radio"  name="isShaky" id="isShaky_2" value="0" title="非热门课程" >
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label required">课程价格</label>
+        <div class="layui-input-block">
+            <input type="text" id="price" name="price" lay-verify="课程价格" placeholder="请输入课程价格"  class="layui-input">
+        </div>
+    </div>
+    <div class="layui-inline">
+        <label class="layui-form-label required">开课时间</label>
+        <div class="layui-input-inline">
+            <input type="text" class="layui-input"  id="startTime" name="startTime" placeholder="开始时间" lay-verify="detetime" class="layui-input">
+        </div>
+    </div>
+    <div class="layui-inline">
+        <label class="layui-form-label required">结束时间</label>
+        <div class="layui-input-inline">
+            <input type="text" id="endTime" name="endTime" placeholder="结束时间" lay-verify="detetime" class="layui-input">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label required">课程状态</label>
+        <div class="layui-input-block">
+            <input type="radio" id="courseState_1" name="courseState" value="0" title="未开课">
+            <input type="radio" id="courseState_2" name="courseState" value="1" title="开课中">
+            <input type="radio" id="courseState_3" name="courseState" value="2" title="已结束">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label required">是否上架</label>
+        <div class="layui-input-block">
+            <input type="radio" name="pure" id="isShow_1" value="false" title="否" >
+            <input type="radio" name="pure" id="isShow_2" value="true" title="是">
+        </div>
+    </div>
+    <!-- <div class="layui-form-item">
+         <label class="layui-form-label" style="width: 100px;text-align: center;margin-left: 15%;">课程图</label>
+         <div class="layui-input-block">
+             <img style="width:100px;height:100px;" src="/imgages/${course.photo}">
+             <button type="button" class="layui-btn" id="test1" >
+                 <i class="layui-icon">&#xe67c;</i>上传图片
+             </button>
+             <div class="layui-input-block" style="display:inline-block;margin-left:20px;" id="viewPic"></div>
+             <div id="newClerkImg"></div>
+         </div>
+     </div>-->
+
+    <div class="layui-form-item">
+        <label class="layui-form-label">课程图</label>
+        <div class="layui-input-block">
+            <input type="file" name="img" id="photo" placeholder="请输入头像" value="" class="layui-input">
+            <img src="" id="img" style="height: 47px">
+        </div>
+    </div>
+    <div class="layui-inline">
+        <label class="layui-form-label required">上架时间</label>
+        <div class="layui-input-inline">
+            <input type="text" id="shelfTime" name="shelfTime" placeholder="上架时间" lay-verify="detetime" class="layui-input">
+        </div>
+    </div>
+
+    <div class="layui-inline">
+        <label class="layui-form-label">选择校区</label>
+        <div class="layui-input-inline">
+            <select name="schoolName" id="schoolName" lay-verify="required" lay-search="">
+                <option value="直接选择或搜索选择" name="schoolName">直接选择或搜索选择</option>
+            </select>
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <div class="layui-input-block">
+            <button class="layui-btn layui-btn-normal" lay-submit lay-filter="saveBtn">确认保存</button>
+        </div>
+    </div>
+</div>
+</div>
+
+<script src="../../lib/layui-v2.6.3/layui.js" charset="utf-8"></script>
+<script>
+    layui.use(['form','laydate','upload','layer', 'element','rate'], function () {
+        var form = layui.form,
+            layer = layui.layer,
+            html="",
+            $ = layui.$;
+        laydate=layui.laydate;
+        laydate.render({
+            elem : '#shelfTime',
+            type : 'datetime'
+        })
+        $(function () {
+            //从父层获取值，json是父层的全局js变量、eval是将带有json格式的字符串转为json对象
+            var parent_json=eval('('+parent.json+')');
+            var isShaky=parent_json.isShaky.toString();
+            var courseState= parent_json.courseState.toString();
+            var pure = parent_json.pure.toString();
+            var schoolName = parent_json.schoolName;
+            //将图片路径加入
+            $("img").attr("src","http://rhh64czm7.hn-bkt.clouddn.com/"+parent_json.photo+"");
+            //$("#schoolName").text(parent_json.schoolId);
+            //校区资源
+            html += '<option value="' + schoolName + '">' + schoolName + '</option>'
+            $.ajax({
+                type:'post',
+                url: '/school/listAll',
+                dataType:'JSON',
+                success: function (data) {
+                    var school = data.data;
+                    //加载数据
+                    for (var i = 0; i < school.length; i++) {
+                        if(school[i].schoolName != schoolName){
+                            html += '<option value="' + school[i].schoolName + '">' + school[i].schoolName + '</option>'
+                        }
+                    }
+                    $("#schoolName").html(html);
+                    form.render('select');
+                }
+            });
+            if (isShaky == "0") {
+                $("#isShaky_2").attr("checked","checked");
+                form.render('radio');
+            }else{
+                $("#isShaky_1").attr("checked", "checked");
+                form.render('radio');
+            }
+            if(courseState=="0"){
+                $("#courseState_1").attr("checked","checked");
+                form.render('radio');
+            }else if(courseState == "1"){
+                $("#courseState_2").attr("checked","checked");
+                form.render("radio");
+            }else {
+                $("#courseState_3").attr("checked","checked");
+                form.render("radio");
+            }
+            if( pure == "false"){
+                $("#isShow_1").attr("checked", "checked");
+                form.render("radio");
+            }else {
+                $("#isShow_2").attr("checked", "checked");
+                form.render("radio");
+            }
+           
+
+        });
+        //监听提交
+        form.on('submit(saveBtn)', function (data) {
+            // 得到中国标准时间
+            var datasage = new Date($("#startTime").val());
+            // 获取时间戳
+            var longsage=datasage.getTime();
+            // 得到中国标准时间
+            var datasage1 = new Date($("#endTime").val());
+            // 获取时间戳
+            var longsage1=datasage1.getTime();
+            // 得到中国标准时间
+            var datasage2 = new Date($("#shelfTime").val());
+            // 获取时间戳
+            var longsage2=datasage2.getTime();
+            var fromData=new FormData();/*自己创建表单*/
+            fromData.append("courseId",data.field.courseId);
+            fromData.append("name",data.field.name);
+            fromData.append("courseHour",data.field.courseHour);
+            fromData.append("courseDescribe",data.field.courseDescribe);
+            fromData.append("isShaky",data.field.isShaky);
+            fromData.append("price",data.field.price);
+            fromData.append("startTime",longsage);
+            fromData.append("endTime",longsage1);
+            fromData.append("courseState",$("input[name='courseState']:checked").val());
+            fromData.append("pure",$("input[name='pure']:checked").val());
+            fromData.append("shelfTime",longsage2);
+            fromData.append("schoolName",data.field.schoolName);
+            //fromData.append("shopSate",data.field.shopSate);
+            var fileobj = $("#photo")[0].files[0];
+            fromData.append("img",fileobj);
+
+            $.ajax({
+                type:'post',
+                url:'/Course/updateCourse',
+                data:fromData,
+                //ajax2.0可以不用设置请求头，但是jq帮我们自动设置了，这样的话需要我们自己取消掉
+                contentType:false,
+                //不处理数据
+                processData:false,
+                success:function (da) {
+                        var index = layer.alert("修改成功", {
+                            title: '最终的提交信息'
+                        }, function () {
+                            // 关闭弹出层
+                            layer.close(index);
+                            var iframeIndex = parent.layer.getFrameIndex(window.name);
+                            parent.layer.close(iframeIndex);
+                            parent.layui.table.reload("currentTableId");
+                        });
+
+
+                }
+            });
+            return false;
+        });
+    });
+</script>
+</body>
+</html>

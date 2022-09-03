@@ -1,12 +1,15 @@
 package com.yjy.vo;
 
+import com.yjy.model.Course;
+import com.yjy.model.School;
+
 import java.util.Collections;
 import java.util.List;
 
 /**
  * @Author:黄文倩
  * @CreatTime:2022/8/29
- * @Description: TODO
+ * @Description:
  */
 public class JsonPageResult {
     private static final long serialVersionUID = -5098903228017788445L;
@@ -42,6 +45,7 @@ public class JsonPageResult {
         map.setData(list);
         return map;
     }
+
 
     public Integer getCode() {
         return code;

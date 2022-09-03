@@ -6,17 +6,22 @@ import com.yjy.model.Admin;
 import com.yjy.model.Parent;
 import com.yjy.model.Teacher;
 import com.yjy.service.TeacherService;
+import com.yjy.util.QiniuFile;
 import com.yjy.vo.JsonPageResult;
+import com.yjy.vo.JsonResult;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.util.Date;
 import java.util.List;
+import java.util.UUID;
 
 /**
  * @author 徐晓瑞
  * @date 2022/8/29 23:27
- * @describe: TODO-
+ * @describe:
  */
 
 @Service
@@ -47,7 +52,15 @@ public class TeacherServiceImpl implements TeacherService {
      * @return
      */
     @Override
-    public Integer insertTeacher(Teacher teacher) {
+    public Integer insertTeacher(Teacher teacher, MultipartFile img) {
+        try {
+            teacher.setTeacherId(UUID.randomUUID().toString());
+            Date currentTime=new Date(System.currentTimeMillis());
+            teacher.setTeacherRegtime(currentTime.getTime());
+            teacher.setTeacherPhoto(QiniuFile.uploadFile(img.getBytes()));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         return teacherMapper.insertTeacher(teacher);
     }
 
@@ -92,7 +105,14 @@ public class TeacherServiceImpl implements TeacherService {
      * @return
      */
     @Override
-    public Integer updateTeacher(Teacher teacher) {
+    public Integer updateTeacher(Teacher teacher,MultipartFile img) {
+        try {
+            Date currentTime=new Date(System.currentTimeMillis());
+            teacher.setUpdateTime(currentTime.getTime());
+            teacher.setTeacherPhoto(QiniuFile.uploadFile(img.getBytes()));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         return teacherMapper.updateTeacher(teacher);
     }
 }

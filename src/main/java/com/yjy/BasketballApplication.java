@@ -11,12 +11,21 @@ import org.springframework.core.env.Environment;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
 
+/**
+ * @author 徐晓瑞
+ * @date 2022/8/29 17:14
+ * @describe:
+ */
 @SpringBootApplication
 @MapperScan("com.yjy.mapper")
 public class BasketballApplication {
 
     private final static Logger logger = LoggerFactory.getLogger(BasketballApplication.class);
 
+    /**
+     * springboot启动
+     * @param args
+     */
     public static void main(String[] args) {
         System.setProperty("druid.mysql.usePingMethod", "false");
         ConfigurableApplicationContext run = SpringApplication.run(BasketballApplication.class, args);

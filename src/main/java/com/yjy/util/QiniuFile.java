@@ -20,7 +20,6 @@ import java.io.UnsupportedEncodingException;
  * @date 2022/9/2 11:08
  * @describe:
  */
-
 public class QiniuFile {
 
     /**
@@ -31,7 +30,7 @@ public class QiniuFile {
     public static String uploadFile(byte[] b){
         //构造一个带指定 Region 对象的配置类
         Configuration cfg = new Configuration(Region.huanan());
-        cfg.resumableUploadAPIVersion = Configuration.ResumableUploadAPIVersion.V2;// 指定分片上传版本
+        cfg.resumableUploadAPIVersion = Configuration.ResumableUploadAPIVersion.V2;
         //...其他参数参考类注释
         UploadManager uploadManager = new UploadManager(cfg);
         //...生成上传凭证，然后准备上传

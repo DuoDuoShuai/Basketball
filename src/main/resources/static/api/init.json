@@ -87,7 +87,7 @@
         },
         {
           "title": "销课管理",
-          "href": "/page/welcome-2.html",
+          "href": "/page/hour.html",
           "icon": "fa fa-flag-o",
           "target": "_self"
         },

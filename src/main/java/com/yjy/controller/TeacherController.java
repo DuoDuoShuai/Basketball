@@ -19,7 +19,7 @@ import java.util.UUID;
 /**
  * @author 徐晓瑞
  * @date 2022/8/29 23:29
- * @describe: TODO-
+ * @describe:
  */
 
 @RestController
@@ -46,13 +46,8 @@ public class TeacherController {
      */
     @RequestMapping("insertTeacher")
     public JsonResult insertTeacher(Teacher teacher, MultipartFile img) throws IOException {
-        teacher.setTeacherId(UUID.randomUUID().toString());
-        Date currentTime=new Date(System.currentTimeMillis());
-        teacher.setTeacherRegtime(currentTime.getTime());
-        teacher.setTeacherPhoto(QiniuFile.uploadFile(img.getBytes()));
-        Integer insert = teacherService.insertTeacher(teacher);
-        JsonResult success = JsonResult.success(insert);
-        return success;
+        Integer integer = teacherService.insertTeacher(teacher, img);
+        return JsonResult.success(integer);
     }
 
     /**
@@ -84,11 +79,7 @@ public class TeacherController {
      */
     @RequestMapping("updateTeacher")
     public JsonResult deleteParent(Teacher teacher,MultipartFile img) throws IOException {
-        Date currentTime=new Date(System.currentTimeMillis());
-        teacher.setUpdateTime(currentTime.getTime());
-        teacher.setTeacherPhoto(QiniuFile.uploadFile(img.getBytes()));
-        Integer update = teacherService.updateTeacher(teacher);
-        JsonResult success = JsonResult.success(update);
-        return success;
+        Integer integer = teacherService.updateTeacher(teacher, img);
+        return JsonResult.success(integer);
     }
 }

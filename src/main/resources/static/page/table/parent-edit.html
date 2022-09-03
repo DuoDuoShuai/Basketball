@@ -42,6 +42,7 @@
         <label class="layui-form-label required">家长头像</label>
         <div class="layui-input-block">
             <input type="file" name="parentPhoto" id="parentPhoto" value="" class="layui-input">
+            <img src="">
         </div>
     </div>
 
@@ -69,7 +70,7 @@
             //从父层获取值，json是父层的全局js变量、eval是将带有json格式的字符串转为json对象
             var parent_json=eval('('+parent.json+')');
             //将图片路径加入
-            $("img").attr("src","/images/"+parent_json.photo+"");
+            $("img").attr("src","http://rhh64czm7.hn-bkt.clouddn.com/"+parent_json.parentPhoto+"");
             var gender=parent_json.parentSex.toString();
 
             if(gender == "false"){

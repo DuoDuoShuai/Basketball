@@ -50,6 +50,7 @@
 </div>
 <script src="../lib/layui-v2.6.3/layui.js" charset="utf-8"></script>
 <script>
+    var json;
     layui.use(['form', 'table'], function () {
         var $ = layui.jquery,
             form = layui.form,
@@ -73,9 +74,9 @@
                 {field: 'teacherPhone', title: '电话', width: 80},
                 {field: 'teacherSex', title: '性别', width: 80, sort: true,templet: function (d) {
                         if (d.teacherSex) {
-                            return "女";
-                        } else {
                             return "男";
+                        } else {
+                            return "女";
                         }
                     }},
                 {field: 'isDelete', width: 80, title: '是否删除', sort: true,templet: function (d) {
@@ -168,6 +169,7 @@
 
         table.on('tool(currentTableFilter)', function (obj) {
             var data = obj.data;
+            json=JSON.stringify(data);
             if (obj.event === 'edit') {
 
                 var index = layer.open({
@@ -185,7 +187,11 @@
                         body.find('#teacherPassword').val(data.teacherPassword);
                         body.find('#teacherPhone').val(data.teacherPhone);
                         body.find('#teacherPhoto').val(data.teacherPhoto);
-                        body.find('#teacherSex').val(data.teacherSex);
+                        if(data.teacherSex==0){
+                            body.find('#teacherSex').val('女');
+                        }else {
+                            body.find('#teacherSex').val('男');
+                        }
                     }
                 });
                 $(window).on("resize", function () {
