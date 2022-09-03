@@ -7,10 +7,13 @@ import com.yjy.model.Course;
 import com.yjy.model.School;
 import com.yjy.model.Student;
 import com.yjy.service.CourseService;
+import com.yjy.util.QiniuFile;
 import com.yjy.vo.JsonPageResult;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.util.Date;
 import java.util.List;
 import java.util.UUID;
@@ -25,8 +28,6 @@ import java.util.UUID;
 public class CourseServiceImpl implements CourseService {
     @Autowired
     private CourseMapper courseMapper;
-    @Autowired
-    private SchoolMapper schoolMapper;
 
     /**
      * 查询课程
@@ -51,23 +52,34 @@ public class CourseServiceImpl implements CourseService {
      * @return
      */
     @Override
-    public Integer insertCourse(Course course) {
-        course.setCourseId(UUID.randomUUID().toString());
-        Date currentTime=new Date(System.currentTimeMillis());
-        course.setUpdateTime(currentTime.getTime());
-        course.setStartTime(currentTime.getTime());
+    public Integer insertCourse(Course course,MultipartFile img)  {
+        try {
+            course.setCourseId(UUID.randomUUID().toString());
+            Date currentTime=new Date(System.currentTimeMillis());
+            course.setUpdateTime(currentTime.getTime());
+            course.setStartTime(currentTime.getTime());
+            course.setPhoto(QiniuFile.uploadFile(img.getBytes()));
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         return courseMapper.insertCourse(course);
     }
 
     /**
      * 修改课程
-     * @param course
+     * @param course,img
      * @return
      */
     @Override
-    public Integer updateCourse(Course course) {
-        Date currentTime=new Date(System.currentTimeMillis());
-        course.setUpdateTime(currentTime.getTime());
+    public Integer updateCourse(Course course,MultipartFile img) {
+        try {
+            Date currentTime=new Date(System.currentTimeMillis());
+            course.setUpdateTime(currentTime.getTime());
+            course.setPhoto(QiniuFile.uploadFile(img.getBytes()));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         return courseMapper.updateCourse(course);
     }
     /**

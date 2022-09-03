@@ -9,18 +9,25 @@
               student_name studentName,
               course_name courseName,
               teacher_name teacherName,
-              course_hour  courseHour,
+              course_hour courseHour,
               remain_hour remainHour,
-              reason     reason,
-             school_name schoolName;
-             record  record,
-             is_show pure,
-            create_time  createTime,
-            update_time   updateTime
+              reason,
+              school_name schoolName,
+              record,
+              is_show pure,
+              is_delete isDelete,
+              create_time createTime,
+              update_time updateTime
         from t_hour_info
-     where
-       <if test="studentName !=null and studentName !=''">
+    where is_delete=0
+       <if test="studentName !=null and studentName !='' ">
            and student_name like concat('%',#{studentName},'%')
+       </if>
+        <if test="teacherName !=null and teacherName !='' ">
+            and teacher_name like concat('%',#{teacherName},'%')
+        </if>
+       <if test="schoolName !=null and schoolName !='' ">
+            and school_name like concat('%',#{schoolName},'%')
        </if>
         limit #{dataNum},#{limit};
     </select>
@@ -28,10 +35,16 @@
     <!--总页数-->
     <select id="count" resultType="java.lang.Integer" parameterType="com.yjy.dto.LayUiDto">
         select count(1) from t_hour_info
-         where
+         where is_delete=0
             <if test="studentName !=null and studentName !=''">
-                and student_name like concat('%',#{studentName},'%')
+               and  student_name like concat('%',#{studentName},'%')
             </if>
+        <if test="teacherName !=null and teacherName !=''">
+            and  teacher_name like concat('%',#{teacherName},'%')
+        </if>
+        <if test="schoolName !=null and schoolName !=''">
+            and school_name like concat('%',#{schoolName},'%')
+        </if>
     </select>
 
 </mapper>

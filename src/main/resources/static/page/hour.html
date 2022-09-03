@@ -39,27 +39,21 @@
                 <form class="layui-form layui-form-pane" action="">
                     <div class="layui-form-item">
                         <div class="layui-inline">
-                            <label class="layui-form-label">课程名字</label>
+                            <label class="layui-form-label">学生名字</label>
                             <div class="layui-input-inline">
-                                <input type="text" name="name" autocomplete="off" class="layui-input">
+                                <input type="text" name="studentName" autocomplete="off" class="layui-input">
                             </div>
                         </div>
                         <div class="layui-inline">
-                            <label class="layui-form-label">用户性别</label>
+                            <label class="layui-form-label">教练姓名</label>
                             <div class="layui-input-inline">
-                                <input type="text" name="sex" autocomplete="off" class="layui-input">
+                                <input type="text" name="teacherName" autocomplete="off" class="layui-input">
                             </div>
                         </div>
                         <div class="layui-inline">
-                            <label class="layui-form-label">用户城市</label>
+                            <label class="layui-form-label">校区</label>
                             <div class="layui-input-inline">
-                                <input type="text" name="city" autocomplete="off" class="layui-input">
-                            </div>
-                        </div>
-                        <div class="layui-inline">
-                            <label class="layui-form-label">用户职业</label>
-                            <div class="layui-input-inline">
-                                <input type="text" name="classify" autocomplete="off" class="layui-input">
+                                <input type="text" name="schoolName" autocomplete="off" class="layui-input">
                             </div>
                         </div>
                         <div class="layui-inline">
@@ -110,11 +104,11 @@
                 {type: "checkbox", width: 50},
                 {field: 'hourId', width:50, title: 'ID',templet:'#zizeng'},
                 {field: 'studentName', width: 80, title: '学员姓名'},
-                {field: 'courseName', width: 50, title: '课程名称'},
-                {field: 'teacherName', width: 50,title: '教练姓名'},
-                {field: 'courseHour', width: 50, title: '课程总课时', sort: true},
-                {field: 'remainHour', width: 135, title: '剩余课时', sort: true},
-                {field: 'reason', width: 50, title: '销课原因'},
+                {field: 'courseName', width: 150, title: '课程名称'},
+                {field: 'teacherName', width: 80,title: '教练姓名'},
+                {field: 'courseHour', width: 80, title: '课程总课时', sort: true},
+                {field: 'remainHour', width: 80, title: '剩余课时', sort: true},
+                {field: 'reason', width: 150, title: '销课原因'},
                 {field: 'schoolName', width: 120, title: '校区'},
                 {field: 'record', width: 150, title: '销课内容',sort: true},
                 {field: 'pure', width: 150, title: '是否展示',sort: true},
@@ -136,7 +130,9 @@
                     curr: 1
                 }
                 , where: {
-                    name:data.field.name,
+                    studentName:data.field.studentName,
+                    teacherName:data.field.teacherName,
+                    schoolName:data.field.teacherName,
                 }
             }, 'data');
 

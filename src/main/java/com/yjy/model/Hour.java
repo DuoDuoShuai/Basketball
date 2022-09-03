@@ -64,4 +64,9 @@ public class Hour {
      * 更新时间
      */
     private long updateTime;
+    /**
+     * 是否删除
+     */
+
+    private Boolean isDelete;
 }

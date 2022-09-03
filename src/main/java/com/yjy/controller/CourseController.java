@@ -52,18 +52,8 @@ public class CourseController {
     @RequestMapping("insertCourse")
     @ResponseBody
     public JsonResult insertCourse(Course course, MultipartFile img) throws IOException {
-        JsonResult success=null;
-        if(img !=null){
-            //设置图片路劲
-            String originalFilename = img.getOriginalFilename();
-            String filepath="E:\\IDEA\\basketball\\src\\main\\resources\\static\\images\\"+originalFilename;
-            //转存
-            img.transferTo(new File(filepath));
-            course.setPhoto(originalFilename);
-            Integer integer = courseService.insertCourse(course);
-            success = JsonResult.success(integer);
-        }
-        return success;
+            Integer integer = courseService.insertCourse(course,img);
+        return JsonResult.success(integer);
     }
 
     /**
@@ -76,18 +66,8 @@ public class CourseController {
   @RequestMapping("updateCourse")
   @ResponseBody
     public JsonResult updateCourse(Course course,MultipartFile img) throws IOException {
-      JsonResult success=null;
-      if(img !=null){
-          //设置图片路劲
-          String originalFilename = img.getOriginalFilename();
-          String filepath="E:\\IDEA\\basketball\\src\\main\\resources\\static\\images\\"+originalFilename;
-          //转存
-          img.transferTo(new File(filepath));
-          course.setPhoto(originalFilename);
-          Integer integer = courseService.updateCourse(course);
-          success = JsonResult.success(integer);
-      }
-      return success;
+          Integer integer = courseService.updateCourse(course,img);
+          return JsonResult.success(integer);
   }
 
     /**
@@ -104,6 +84,11 @@ public class CourseController {
       return success;
   }
 
+    /**
+     * 批量删除
+     * @param courseIds
+     * @return
+     */
   @RequestMapping("deleteMore")
   @ResponseBody
     public JsonResult deleteMore(@RequestParam(value = "courseIds[]",required = false)String[] courseIds){

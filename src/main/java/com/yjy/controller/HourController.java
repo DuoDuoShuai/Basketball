@@ -24,7 +24,7 @@ public class HourController {
     @RequestMapping("listHour")
     @ResponseBody
     public JsonPageResult listHour(LayUiDto dto){
-        JsonPageResult jsonPageResult = hourService.listHour(dto);
-        return jsonPageResult;
+        JsonPageResult map= hourService.listHour(dto);
+        return map;
     }
 }

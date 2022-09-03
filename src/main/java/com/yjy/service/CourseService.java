@@ -4,6 +4,7 @@ import com.yjy.dto.LayUiDto;
 import com.yjy.model.Course;
 import com.yjy.model.School;
 import com.yjy.vo.JsonPageResult;
+import org.springframework.web.multipart.MultipartFile;
 
 /**
  * @author 哆哆
@@ -21,17 +22,17 @@ public interface CourseService {
 
     /**
      * 添加课程
-     * @param course
+     * @param course,img
      * @return
      */
-    public Integer insertCourse(Course course);
+    public Integer insertCourse(Course course, MultipartFile img);
 
     /**
      * 修改课程
-     * @param course
+     * @param course,img
      * @return
      */
-    public Integer updateCourse(Course course);
+    public Integer updateCourse(Course course,MultipartFile img);
 
     /**
      * 删除课程
