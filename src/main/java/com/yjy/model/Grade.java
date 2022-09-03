@@ -38,13 +38,13 @@ public class Grade {
      */
     private String gradeDescribe;
     /**
-     * 班级状态（0-未开班，1-已开班，2-已结束）
+     * 班级状态（1-已开班，2-已结束,3-未开班）
      */
     private Integer gradeState;
     /**
-     * 校区id
+     * 校区名称
      */
-    private String schoolId;
+    private String schoolName;
     /**
      * 是否删除（0-否，1-是）
      */

@@ -18,51 +18,51 @@
 <div class="layui-form layuimini-form">
     <div class="layui-form-item">
         <div class="layui-input-block">
-            <input type="hidden" name="studentId" id="studentId" lay-verify="required" class="layui-input">
+            <input type="hidden" name="gradeId" id="gradeId" lay-verify="required" class="layui-input">
         </div>
     </div>
     <div class="layui-form-item">
-        <label class="layui-form-label required">姓名</label>
+        <label class="layui-form-label required">班级名称</label>
         <div class="layui-input-block">
-            <input type="text" name="studentName" id="studentName" lay-verify="required" lay-reqtext="姓名不能为空" placeholder="请输入姓名"class="layui-input">
+            <input type="text" name="gradeName" id="gradeName" lay-verify="required" lay-reqtext="姓名不能为空" placeholder="请输入姓名" value="" class="layui-input">
         </div>
     </div>
     <div class="layui-form-item">
-        <label class="layui-form-label required">生日</label>
+        <label class="layui-form-label required">教练名称</label>
+        <div class="layui-input-inline" style="width: 200px;">
+            <input type="text" name="teacherName" id="teacherName" placeholder="请输入教练名称" value="" class="layui-input">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label required">上课时间</label>
         <div class="layui-input-block">
-            <input type="date" name="sage" id="birthday" placeholder="请输入生日" class="layui-input">
+            <input type="text" name="gradeTime" id="gradeTime" placeholder="请输入年龄" value="" class="layui-input">
         </div>
     </div>
     <div class="layui-form-item">
-        <label class="layui-form-label required">年龄</label>
+        <label class="layui-form-label required">班级头像</label>
         <div class="layui-input-block">
-            <input type="text" name="age" id="age" placeholder="请输入年龄" value="" class="layui-input">
+            <input type="file" name="img" id="photo" placeholder="请选择班级头像" value="" class="province-selector" style="width: 200px;">
+            <img src="">
         </div>
     </div>
     <div class="layui-form-item">
-        <label class="layui-form-label required">性别</label>
-        <div class="layui-input-block" id="sex">
-            <input type="radio" name="gender" value="true" title="男" id="men">
-            <input type="radio" name="gender" value="false" title="女" id="women">
-        </div>
-    </div>
-    <div class="layui-form-item">
-        <label class="layui-form-label">学号</label>
+        <label class="layui-form-label">班级描述</label>
         <div class="layui-input-block">
-            <input type="text" name="studentNumber" id="studentNumber" placeholder="请输入学号" value="" class="layui-input">
+            <input type="text" name="gradeDescribe" id="gradeDescribe" placeholder="请输入学号" value="" class="layui-input">
         </div>
     </div>
     <div class="layui-form-item">
-        <label class="layui-form-label">学员头像</label>
-        <div class="layui-input-block">
-            <input type="file" name="img" id="photo" placeholder="请选择学员头像" value="" class="province-selector" style="width: 200px;">
-            <img src="" id="img" style="height: 47px">
-        </div>
+        <label class="layui-form-label">班级状态</label>
+        <input type="radio" name="gradeState" id="zero" value="0" title="未开班" >
+        <input type="radio" name="gradeState" id="one" value="1" title="开班">
+        <input type="radio" name="gradeState" id="two" value="2" title="已结束">
     </div>
     <div class="layui-form-item">
         <label class="layui-form-label">所属校区</label>
         <div class="layui-input-inline" style="width: 200px;">
-            <select name="schoolNames" id="schoolNames" class="province-selector" >
+            <select name="schoolName" id="schoolName" class="province-selector" >
+                <option value="">请选择校区</option>
             </select>
         </div>
     </div>
@@ -79,16 +79,14 @@
         var form = layui.form,
             layer = layui.layer,
             $ = layui.$,
-            html="",
-            datasage,
-            longsage;
+            html="";
         $(function () {
             //从父层获取值，json是父层的全局js变量、eval是将带有json格式的字符串转为json对象
             var parent_json=eval('('+parent.json+')');
             //将图片路径加入
             $("img").attr("src","/images/"+parent_json.photo+"");
             var schoolName=parent_json.schoolName;
-            var gender=parent_json.gender.toString();
+            var gradeState=parent_json.gradeState;
             //校区资源
             html += '<option value="' + schoolName + '">' + schoolName + '</option>'
             $.ajax({
@@ -103,38 +101,38 @@
                             html += '<option value="' + school[i].schoolName + '">' + school[i].schoolName + '</option>'
                         }
                     }
-                    $("#schoolNames").html(html);
+                    $("#schoolName").html(html);
                     form.render('select');
                 }
             });
-            //性别
-            if(gender == "false"){
-                $("#women").attr("checked","checked");
+            //班级状态
+            if(gradeState == 0){
+                $("#zero").attr("checked","checked");
+                form.render('radio');
+            }else if (gradeState == 1){
+                $("#one").attr("checked","checked");
                 form.render('radio');
             }else {
-                $("#men").attr("checked","checked");
+                $("#two").attr("checked","checked");
                 form.render('radio');
             }
         });
         //监听提交
         form.on('submit(saveBtn)', function (data) {
-            // 得到中国标准时间
-            datasage = new Date($("#birthday").val());
-            // 获取时间戳
-            longsage=datasage.getTime();
             var formData = new FormData();//form表单
-            formData.append("studentId",data.field.studentId);
-            formData.append("studentName",data.field.studentName);
-            formData.append("birthday",longsage);
-            formData.append("age",data.field.age);
-            formData.append("gender",$("input[name='gender']:checked").val());
-            formData.append("studentNumber",data.field.studentNumber);
-            formData.append("schoolName",data.field.schoolNames);
+            formData.append("gradeId",data.field.gradeId);
+            formData.append("gradeName",data.field.gradeName);
+            formData.append("teacherName",data.field.teacherName);
+            formData.append("gradeTime",data.field.gradeTime);
+            // var stringState=;
+            formData.append("gradeState",$("input[name='gradeState']:checked").val());
+            formData.append("gradeDescribe",data.field.gradeDescribe);
+            formData.append("schoolName",data.field.schoolName);
             var fileobj = $("#photo")[0].files[0];
             formData.append("img",fileobj);
             $.ajax({
                 type:'post',
-                url:'/student/edit',
+                url:'/grade/edit',
                 data:formData,
                 //ajax2.0可以不用设置请求头，但是jq帮我们自动设置了，这样的话需要我们自己取消掉
                 contentType:false,

@@ -19,38 +19,15 @@
                 <form class="layui-form layui-form-pane" action="">
                     <div class="layui-form-item">
                         <div class="layui-inline">
-                            <label class="layui-form-label">班级编号</label>
+                            <label class="layui-form-label">校区编号</label>
                             <div class="layui-input-inline">
-                                <input type="text" name="gradeId" placeholder="班级ID" autocomplete="off" class="layui-input">
+                                <input type="text" name="schoolId" placeholder="校区编号" autocomplete="off" class="layui-input">
                             </div>
                         </div>
                         <div class="layui-inline">
-                            <label class="layui-form-label">班级名称</label>
+                            <label class="layui-form-label">校区名称</label>
                             <div class="layui-input-inline">
-                                <input type="text" name="gradeName" placeholder="班级名称" autocomplete="off" class="layui-input">
-                            </div>
-                        </div>
-                        <div class="layui-inline">
-                            <label class="layui-form-label">教练名称</label>
-                            <div class="layui-input-inline">
-                                <input type="text" name="teacherName" placeholder="教练名称" autocomplete="off" class="layui-input">
-                            </div>
-                        </div>
-                        <div class="layui-inline">
-                            <label class="layui-form-label">上课时间</label>
-                            <div class="layui-input-inline">
-                                <input type="text" name="gradeTime" placeholder="上课时间" autocomplete="off" class="layui-input">
-                            </div>
-                        </div>
-                        <div class="layui-inline">
-                            <label class="layui-form-label">班级状态</label>
-                            <div class="layui-input-inline">
-                                <select name="gradeState" id="gradeState">
-                                    <option value="">请选择</option>
-                                    <option value="3">未开班</option>
-                                    <option value="1">已开班</option>
-                                    <option value="2">已结束</option>
-                                </select>
+                                <input type="text" name="schoolName" placeholder="请输入校区名称" autocomplete="off" class="layui-input">
                             </div>
                         </div>
                         <div class="layui-inline">
@@ -88,7 +65,7 @@
 
         table.render({
             elem: '#currentTableId',
-            url: '/grade/list',
+            url: '/school/list',
             method: 'post',
             toolbar: '#toolbarDemo',
             defaultToolbar: ['filter', 'exports', 'print', {
@@ -98,24 +75,11 @@
             }],
             cols: [ [
                 {type: "checkbox", width: 50},
-                {field: 'gradeId', width: 80, title: '编号', sort: true},
-                {field: 'gradeName', width: 80, title: '名称'},
-                {field: 'teacherName', width: 80, title: '教练名称'},
-                {field: 'gradeTime', width: 80, title: '上课时间'},
-                {field: 'photo', width: 120, title: '班级头像', sort: true},
-                {field: 'gradeDescribe', width: 120, title: '班级介绍', sort: true},
-                {
-                    field: 'gradeState', width: 80, title: '班级状态', sort: true,templet: function (d) {
-                        if (d.gradeState == 3) {
-                            return "未开班";
-                        }else if (d.gradeState == 1){
-                            return "已开班"
-                        }else {
-                            return "已结束";
-                        }
-                    }
-                },
-                {field: 'schoolName', width: 150, title: '所属校区', sort: true},
+                {field: 'schoolId', width: 80, title: '校区编号', sort: true},
+                {field: 'schoolName', width: 80, title: '校区名称'},
+                {field: 'schoolDescribe', width: 80, title: '校区描述'},
+                {field: 'phone', width: 120, title: '电话', sort: true},
+                {field: 'address', width: 150, title: '地址', sort: true},
                 {field: 'createTime', width: 120, title: '创建时间', sort: true,templet: "<div>{{layui.util.toDateString(d.createTime, 'yyyy-MM-dd HH:mm:ss')}}</div>"},
                 {field: 'updateTime', width: 120, title: '更新时间', sort: true,templet: "<div>{{layui.util.toDateString(d.updateTime, 'yyyy-MM-dd HH:mm:ss')}}</div>"},
                 {title: '操作', minWidth: 150, toolbar: '#currentTableBar', align: "center"}
@@ -134,11 +98,8 @@
                     curr: 1
                 }
                 , where: {
-                    id: data.field.gradeId,
-                    name:data.field.gradeName,
-                    teacherName:data.field.teacherName,
-                    state:data.field.gradeState,
-                    gradeTime:data.field.gradeTime,
+                    id: data.field.schoolId,
+                    name:data.field.schoolName,
                 }
             }, 'data');
 
@@ -157,24 +118,24 @@
                     maxmin:true,
                     shadeClose: true,
                     area: ['100%', '100%'],
-                    content: '../page/table/grade-add.html',
+                    content: '../page/table/school-add.html',
                 });
                 $(window).on("resize", function () {
                     layer.full(index);
                 });
                 return false;
             } else if (obj.event === 'delete') {  // 监听删除操作
-                var checkStatus = table.checkStatus('currentTableId'),
-                    data = checkStatus.data,
+                var checkStatus = table.checkStatus('currentTableId')
+                    , data = checkStatus.data;
                     delList=[];
                 for(var i=0;i<data.length;i++){
-                    delList.push(data[i].gradeId);
+                    delList.push(data[i].schoolId);
                 }
                 $.ajax({
                     type:'post',
-                    url:'/grade/deleteMore',
+                    url:'/school/deleteMore',
                     data:{
-                        gradeIds:delList
+                        schoolIds:delList
                     },
                     dataType:'JSON',
                     success:function (da) {
@@ -203,14 +164,14 @@
                     maxmin:true,
                     shadeClose: true,
                     area: ['100%', '100%'],
-                    content: '../page/table/grade-edit.html',
-                    success:function (){
+                    content: '../page/table/school-edit.html',
+                    success:function () {
                         var body = layer.getChildFrame('body',index);
-                        body.find('#gradeId').val(data.gradeId);
-                        body.find('#gradeName').val(data.gradeName);
-                        body.find('#teacherName').val(data.teacherName);
-                        body.find('#gradeTime').val(data.gradeTime);
-                        body.find('#gradeDescribe').val(data.gradeDescribe);
+                        body.find('#schoolId').val(data.schoolId);
+                        body.find('#schoolName').val(data.schoolName);
+                        body.find('#schoolDescribe').val(data.schoolDescribe);
+                        body.find('#phone').val(data.phone);
+                        body.find('#address').val(data.address);
                     }
                 });
                 $(window).on("resize", function () {
@@ -220,8 +181,8 @@
             } else if (obj.event === 'delete') {
                 $.ajax({
                     type:'post',
-                    url:'/grade/delete',
-                    data:{gradeId:data.gradeId},
+                    url:'/school/delete',
+                    data:{schoolId:data.schoolId},
                     dataType:'JSON',
                     success:function (da) {
                         if(da){

@@ -13,9 +13,9 @@ import java.math.BigInteger;
  * @date 2022-08-29 13:34:46
  * 课程
  */
-@Data //自动生成get和set方法
-@AllArgsConstructor//有参构造
-@NoArgsConstructor//无参构造
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class Course {
     /**
     *课程id
@@ -68,7 +68,7 @@ public class Course {
     /**
      *校区id
      */
-    private String schoolId;
+    private String schoolName;
     /**
      * 上架时间
      */
@@ -80,7 +80,7 @@ public class Course {
     /**
      * 是否上架(0-否，1-是)
      */
-    private  boolean isShow;
+    private  boolean pure;
     /**
      * 是否删除
      */
