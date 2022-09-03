@@ -3,7 +3,7 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.yjy.mapper.GradeMapper">
     <sql id="start">
-        grade_id gradeId,grade_name gradeName,grade_time gradeTime,photo,grade_describe gradeDescribe,grade_state gradeState,school_id schoolId,
+        grade_id gradeId,grade_name gradeName,teacher_name teacherName,grade_time gradeTime,photo,grade_describe gradeDescribe,grade_state gradeState,school_name schoolName,
         create_time createTime,
         update_time updateTime
     </sql>
@@ -19,8 +19,14 @@
         <if test="name !=null and name !=''">
             and grade_name like concat('%',#{name},'%')
         </if>
+        <if test="teacherName !=null and teacherName !=''">
+            and teacher_name like concat('%',#{teacherName},'%')
+        </if>
+        <if test="gradeTime !=null and gradeTime !=''">
+            and grade_time like concat('%',#{gradeTime},'%')
+        </if>
         <if test="state !=null and state !=''">
-            and grade_state like concat('%',#{state},'%')
+            and grade_state like #{state}
         </if>
         order by grade_id asc
         limit #{dataNum},#{limit}
@@ -37,63 +43,77 @@
         <if test="name !=null and name !=''">
             and grade_name like concat('%',#{name},'%')
         </if>
-        <if test="state !=null and state !=''">
-            and grade_state like concat('%',#{state},'%')
+        <if test="teacherName !=null and teacherName !=''">
+            and teacher_name like concat('%',#{teacherName},'%')
+        </if>
+        <if test="gradeTime !=null and gradeTime !=''">
+            and grade_time like concat('%',#{gradeTime},'%')
+        </if>
+        <if test="state !=null and state !=''" >
+            and grade_state like #{state}
         </if>
     </select>
 
     <!-- 详情 -->
-    <select id="load" resultType="com.yjy.model.Student">
+    <select id="load" resultType="com.yjy.model.Grade">
         select
         <include refid="start"></include>
-        from t_student_info
-        where student_id=#{0}
+        from t_grade_info
+        where grade_id=#{gradeId}
     </select>
+
     <!-- 修改 -->
-    <update id="update" parameterType="com.yjy.model.Student">
-        update t_student_info
+    <update id="update" parameterType="com.yjy.model.Grade">
+        update t_grade_info
         <trim prefix="set " suffixOverrides=",">
-            <if test="name !=null">student_name=#{name},</if>
-            <if test="birthday !=null">birthday=#{birthday},</if>
-            <if test="gender !=null">gender=#{gender},</if>
-            <if test="number !=null">student_number=#{number},</if>
+            <if test="gradeName !=null">grade_name=#{gradeName},</if>
+            <if test="teacherName !=null">teacher_name=#{teacherName},</if>
+            <if test="gradeTime !=null">grade_time=#{gradeTime},</if>
             <if test="photo !=null">photo=#{photo},</if>
-            <if test="schoolId !=null">school_id=#{schoolId},</if>
+            <if test="gradeDescribe !=null">grade_describe=#{gradeDescribe},</if>
+            <if test="gradeState !=null">grade_state=#{gradeState},</if>
+            <if test="schoolName !=null">school_name=#{schoolName},</if>
             <if test="updateTime !=null">update_time=#{updateTime},</if>
         </trim>
-        where student_id=#{id}
+        where grade_id=#{gradeId}
     </update>
     <!-- 删除 -->
-    <update id="remove">
-        update t_student_info set is_delete=1
-        where student_id=#{arg0}
+    <update id="delete">
+        update t_grade_info set is_delete=1
+        where grade_id=#{arg0}
     </update>
     <!-- 增加 -->
-    <insert id="insert" parameterType="com.yjy.model.Student">
-        insert into t_student_info
+    <insert id="insert" parameterType="com.yjy.model.Grade">
+        insert into t_grade_info
         <trim prefix="(" suffix=")" suffixOverrides=",">
-            <if test="studentId !=null">student_id,</if>
-            <if test="studentName !=null">student_name,</if>
-            <if test="birthday !=null">birthday,</if>
-            <if test="age !=null">age,</if>
-            <if test="gender !=null">gender,</if>
-            <if test="studentNumber !=null">student_number,</if>
+            <if test="gradeId !=null">grade_id,</if>
+            <if test="gradeName !=null">grade_name,</if>
+            <if test="teacherName !=null">teacher_name,</if>
+            <if test="gradeTime !=null">grade_time,</if>
             <if test="photo !=null">photo,</if>
-            <if test="schoolId !=null">school_id,</if>
+            <if test="gradeDescribe !=null">grade_describe,</if>
+            <if test="gradeState !=null">grade_state,</if>
+            <if test="schoolName !=null">school_name,</if>
             <if test="createTime !=null">create_time,</if>
             <if test="updateTime !=null">update_time,</if>
         </trim>
         <trim prefix="values (" suffix=")" suffixOverrides=",">
-            <if test="studentId !=null">#{studentId},</if>
-            <if test="studentName !=null">#{studentName},</if>
-            <if test="birthday !=null">#{birthday},</if>
-            <if test="age !=null">#{age},</if>
-            <if test="gender !=null">#{gender},</if>
-            <if test="studentNumber !=null">#{studentNumber},</if>
+            <if test="gradeId !=null">#{gradeId},</if>
+            <if test="gradeName !=null">#{gradeName},</if>
+            <if test="teacherName !=null">#{teacherName},</if>
+            <if test="gradeTime !=null">#{gradeTime},</if>
             <if test="photo !=null">#{photo},</if>
-            <if test="schoolId !=null">#{schoolId},</if>
-            <if test="createTime !=null">#{createTime},</if>
+            <if test="gradeDescribe !=null">#{gradeDescribe},</if>
+            <if test="gradeState !=null">#{gradeState},</if>
+            <if test="schoolName !=null">#{schoolName},</if>
+            <if test="createTime !=null">create_time,</if>
             <if test="updateTime !=null">#{updateTime},</if>
         </trim>
     </insert>
+    <!-- 删除时更新时间 -->
+    <update id="updateTime" parameterType="com.yjy.model.Grade">
+        update t_grade_info
+        set update_time=#{updateTime}
+        where grade_id=#{gradeId}
+    </update>
 </mapper>

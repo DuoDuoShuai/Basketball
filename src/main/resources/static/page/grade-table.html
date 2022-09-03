@@ -19,7 +19,7 @@
                 <form class="layui-form layui-form-pane" action="">
                     <div class="layui-form-item">
                         <div class="layui-inline">
-                            <label class="layui-form-label">班级ID</label>
+                            <label class="layui-form-label">班级编号</label>
                             <div class="layui-input-inline">
                                 <input type="text" name="gradeId" placeholder="班级ID" autocomplete="off" class="layui-input">
                             </div>
@@ -31,9 +31,26 @@
                             </div>
                         </div>
                         <div class="layui-inline">
+                            <label class="layui-form-label">教练名称</label>
+                            <div class="layui-input-inline">
+                                <input type="text" name="teacherName" placeholder="教练名称" autocomplete="off" class="layui-input">
+                            </div>
+                        </div>
+                        <div class="layui-inline">
+                            <label class="layui-form-label">上课时间</label>
+                            <div class="layui-input-inline">
+                                <input type="text" name="gradeTime" placeholder="上课时间" autocomplete="off" class="layui-input">
+                            </div>
+                        </div>
+                        <div class="layui-inline">
                             <label class="layui-form-label">班级状态</label>
                             <div class="layui-input-inline">
-                                <input type="text" name="gradeState" placeholder="请输入学生学号" autocomplete="off" class="layui-input">
+                                <select name="gradeState" id="gradeState">
+                                    <option value="">请选择</option>
+                                    <option value="3">未开班</option>
+                                    <option value="1">已开班</option>
+                                    <option value="2">已结束</option>
+                                </select>
                             </div>
                         </div>
                         <div class="layui-inline">
@@ -63,6 +80,7 @@
 
 <script src="../lib/layui-v2.6.3/layui.js" charset="utf-8"></script>
 <script>
+    var json;
     layui.use(['form', 'table'], function () {
         var $ = layui.jquery,
             form = layui.form,
@@ -84,12 +102,11 @@
                 {field: 'gradeName', width: 80, title: '名称'},
                 {field: 'teacherName', width: 80, title: '教练名称'},
                 {field: 'gradeTime', width: 80, title: '上课时间'},
-                {field: 'age', width: 80, title: '年龄'},
                 {field: 'photo', width: 120, title: '班级头像', sort: true},
                 {field: 'gradeDescribe', width: 120, title: '班级介绍', sort: true},
                 {
                     field: 'gradeState', width: 80, title: '班级状态', sort: true,templet: function (d) {
-                        if (d.gradeState == 0) {
+                        if (d.gradeState == 3) {
                             return "未开班";
                         }else if (d.gradeState == 1){
                             return "已开班"
@@ -98,7 +115,7 @@
                         }
                     }
                 },
-                {field: 'schoolId', width: 150, title: '所属校区id', sort: true},
+                {field: 'schoolName', width: 150, title: '所属校区', sort: true},
                 {field: 'createTime', width: 120, title: '创建时间', sort: true,templet: "<div>{{layui.util.toDateString(d.createTime, 'yyyy-MM-dd HH:mm:ss')}}</div>"},
                 {field: 'updateTime', width: 120, title: '更新时间', sort: true,templet: "<div>{{layui.util.toDateString(d.updateTime, 'yyyy-MM-dd HH:mm:ss')}}</div>"},
                 {title: '操作', minWidth: 150, toolbar: '#currentTableBar', align: "center"}
@@ -119,7 +136,9 @@
                 , where: {
                     id: data.field.gradeId,
                     name:data.field.gradeName,
-
+                    teacherName:data.field.teacherName,
+                    state:data.field.gradeState,
+                    gradeTime:data.field.gradeTime,
                 }
             }, 'data');
 
@@ -138,24 +157,24 @@
                     maxmin:true,
                     shadeClose: true,
                     area: ['100%', '100%'],
-                    content: '../page/table/student-add.html',
+                    content: '../page/table/grade-add.html',
                 });
                 $(window).on("resize", function () {
                     layer.full(index);
                 });
                 return false;
             } else if (obj.event === 'delete') {  // 监听删除操作
-                var checkStatus = table.checkStatus('currentTableId')
-                    , data = checkStatus.data;
-                delList=[];
+                var checkStatus = table.checkStatus('currentTableId'),
+                    data = checkStatus.data,
+                    delList=[];
                 for(var i=0;i<data.length;i++){
-                    delList.push(data[i].studentId);
+                    delList.push(data[i].gradeId);
                 }
                 $.ajax({
                     type:'post',
-                    url:'/student/removemore',
+                    url:'/grade/deleteMore',
                     data:{
-                        studentIds:delList
+                        gradeIds:delList
                     },
                     dataType:'JSON',
                     success:function (da) {
@@ -175,13 +194,8 @@
 
         table.on('tool(currentTableFilter)', function (obj) {
             var data = obj.data;
-            var id=data.id;
+            json=JSON.stringify(data);
             if (obj.event === 'edit') {
-                $.ajax({
-                    type:'post',
-                    url:'/student/info',
-                    data:{id:id}
-                });
                 var index = layer.open({
                     title: '编辑用户',
                     type: 2,
@@ -189,7 +203,15 @@
                     maxmin:true,
                     shadeClose: true,
                     area: ['100%', '100%'],
-                    content: '../page/table/student-edit.html',
+                    content: '../page/table/grade-edit.html',
+                    success:function (){
+                        var body = layer.getChildFrame('body',index);
+                        body.find('#gradeId').val(data.gradeId);
+                        body.find('#gradeName').val(data.gradeName);
+                        body.find('#teacherName').val(data.teacherName);
+                        body.find('#gradeTime').val(data.gradeTime);
+                        body.find('#gradeDescribe').val(data.gradeDescribe);
+                    }
                 });
                 $(window).on("resize", function () {
                     layer.full(index);
@@ -198,8 +220,8 @@
             } else if (obj.event === 'delete') {
                 $.ajax({
                     type:'post',
-                    url:'/student/remove',
-                    data:{id:id},
+                    url:'/grade/delete',
+                    data:{gradeId:data.gradeId},
                     dataType:'JSON',
                     success:function (da) {
                         if(da){

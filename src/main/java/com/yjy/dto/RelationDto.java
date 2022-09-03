@@ -6,13 +6,13 @@ import lombok.NoArgsConstructor;
 
 /**
  * @Author:黄文倩
- * @CreatTime:2022/8/29
- * @Description: TODO
+ * @CreatTime:2022/9/3
+ * @Description:
  */
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class LayUiDto {
+public class RelationDto {
     private static final long serialVersionUID = 5172649115384573373L;
     /**
      * 0
@@ -37,52 +37,24 @@ public class LayUiDto {
     /**
      * 状态
      */
-    private Integer state;
+    private Boolean state;
     /**
      * id
      */
     private String id;
     /**
-     * 名称
+     * 主表id
      */
-    private String name;
+    private String mainId;
     /**
-     * 电话
+     * 其他表id
      */
-    private String phone;
-    /**
-     * 性别
-     */
-    private Boolean gender;
-    /**
-     * 年龄
-     */
-    private String age;
-    /**
-     * 校区名称
-     */
-    private String schoolName;
-    /**
-     * 编号
-     */
-    private String number;
-    /**
-     * 是否显示
-     */
-    private String isShow;
-    /**
-     * 教练名称
-     */
-    private String teacherName;
-    /**
-     * 上课时间
-     */
-    private String gradeTime;
+    private String otherId;
     /**
      * @param page 页码
      * @param limit 每页显示数
      */
-    public LayUiDto(Integer page, Integer limit) {
+    public RelationDto(Integer page, Integer limit) {
         if (page != null && page > ZERO) {
             this.page = page;
         }

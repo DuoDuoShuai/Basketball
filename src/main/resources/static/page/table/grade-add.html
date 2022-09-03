@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head >
+    <meta charset="utf-8">
+    <title> layui </title>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link rel="stylesheet" href="../../lib/layui-v2.6.3/css/layui.css" media="all">
+    <link rel="stylesheet"  href="../../css/public.css" media="all">
+    <style>
+        body {
+            background-color: #ffffff;
+        }
+    </style>
+</head>
+<body>
+<div class="layui-form layuimini-form">
+    <div class="layui-form-item">
+        <label class="layui-form-label required">班级名称</label>
+        <div class="layui-input-block">
+            <input type="text" name="gradeName" id="gradeName" lay-verify="required" lay-reqtext="班级名称不能为空" placeholder="请输入班级名称" value="" class="layui-input">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label required">教练名称</label>
+        <div class="layui-input-block">
+            <input type="text" name="teacherName" id="teacherName" placeholder="请输入教练名称" value="" class="layui-input">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label required">上课时间</label>
+        <div class="layui-input-block">
+            <input type="text" name="gradeTime" id="gradeTime" placeholder="请输入年龄" value="" class="layui-input">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label required">班级头像</label>
+        <div class="layui-input-block">
+            <input type="file" name="img" id="photo" placeholder="请选择班级头像" value="" class="province-selector" style="width: 200px;">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">班级描述</label>
+        <div class="layui-input-block">
+            <input type="text" name="gradeDescribe" id="gradeDescribe" placeholder="请输入班级描述" value="" class="layui-input">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">班级状态</label>
+        <input type="radio" name="gradeState" value="0" title="未开班" checked="">
+        <input type="radio" name="gradeState" value="1" title="已开班">
+        <input type="radio" name="gradeState" value="2" title="已结束">
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">所属校区</label>
+        <div class="layui-input-inline" style="width: 200px;">
+            <select name="schoolName" id="schoolName" class="province-selector" >
+                <option value="">请选择校区</option>
+            </select>
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <div class="layui-input-block">
+            <button class="layui-btn layui-btn-normal" lay-submit lay-filter="saveBtn">确认保存</button>
+        </div>
+    </div>
+</div>
+<script src="../../lib/layui-v2.6.3/layui.js" charset="utf-8"></script>
+<script >
+    layui.use(['form'], function () {
+        var form = layui.form,
+            layer = layui.layer,
+            $ = layui.$;
+        //点击时间-加载校区资源
+        $(function() {
+            var html = "";
+            $.ajax({
+                type:'post',
+                url: '/school/listAll',
+                dataType:'JSON',
+                success: function (data) {
+                    var school = data.data;
+                    //加载数据
+                    for (var i = 0; i < school.length; i++) {
+                        // $("#chosen-select").html('<option value="' + school[i].schoolId + '">' + school[i].schoolName + '</option>');
+                        html += '<option value="' + school[i].schoolName + '">' + school[i].schoolName + '</option>'
+                    }
+                    $("#schoolName").html(html);
+                    form.render('select');
+                }
+            });
+        });
+
+        //监听提交
+        form.on('submit(saveBtn)', function (data) {
+            var formData = new FormData();//form表单
+            formData.append("gradeName",data.field.gradeName);
+            formData.append("teacherName",data.field.teacherName);
+            formData.append("gradeTime",data.field.gradeTime);
+            formData.append("gradeState",$("input[name='gradeState']:checked").val());
+            formData.append("gradeDescribe",data.field.gradeDescribe);
+            formData.append("schoolName",data.field.schoolName);
+            var fileobj = $("#photo")[0].files[0];
+            formData.append("img",fileobj);
+            $.ajax({
+                type:'post',
+                url:'/grade/insert',
+                data:formData,
+                //ajax2.0可以不用设置请求头，但是jq帮我们自动设置了，这样的话需要我们自己取消掉
+                contentType:false,
+                //不处理数据
+                processData:false,
+                success:function (da) {
+                    if (da.data==1){
+                        var index = layer.alert("添加成功", {
+                            title: '最终的提交信息'
+                        }, function () {
+                            // 关闭弹出层
+                            layer.close(index);
+                            var iframeIndex = parent.layer.getFrameIndex(window.name);
+                            parent.layer.close(iframeIndex);
+                            parent.layui.table.reload("currentTableId");
+                        });
+                    }
+                }
+            });
+            return false;
+        });
+    });
+</script>
+</body>
+</html>

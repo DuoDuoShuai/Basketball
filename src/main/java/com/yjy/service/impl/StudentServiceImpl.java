@@ -4,6 +4,7 @@ import com.yjy.dto.LayUiDto;
 import com.yjy.mapper.StudentMapper;
 import com.yjy.model.Student;
 import com.yjy.service.StudentService;
+import com.yjy.util.QiniuFile;
 import com.yjy.vo.JsonPageResult;
 import com.yjy.vo.JsonResult;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,10 +26,12 @@ import java.util.UUID;
 public class StudentServiceImpl implements StudentService {
     @Autowired
     private StudentMapper studentMapper;
+
     /**
      * 获取当前时间
      */
     private Date currentTime=new Date(System.currentTimeMillis());
+
     /**
      * 列表
      * @param dto
@@ -64,19 +67,11 @@ public class StudentServiceImpl implements StudentService {
      */
     @Override
     public Integer update(Student student,MultipartFile img) {
-        Integer update=0;
+        Integer update = null;
         try {
-            if (img != null) {
-                //设置图片路径
-                String filename = img.getOriginalFilename();
-                String filepath = "E:\\upload\\" + filename;
-                //转存文件
-                img.transferTo(new File(filepath));
-                //把文件路径存入student数据表中
-                student.setPhoto(filename);
-                student.setUpdateTime(currentTime.getTime());
-                update= studentMapper.update(student);
-            }
+            student.setPhoto(QiniuFile.uploadFile(img.getBytes()));
+            student.setUpdateTime(currentTime.getTime());
+            update = studentMapper.update(student);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -125,21 +120,13 @@ public class StudentServiceImpl implements StudentService {
      */
     @Override
     public Integer insert(Student student, MultipartFile img) {
-        Integer insert=0;
+        Integer insert = null;
         try {
-            if (img != null) {
-                //设置图片路径
-                String filename = img.getOriginalFilename();
-                String filepath = "E:\\upload\\" + filename;
-                //转存文件
-                img.transferTo(new File(filepath));
-                //把文件路径存入student数据表中
-                student.setPhoto(filename);
-                student.setStudentId(String.valueOf(UUID.randomUUID()));
-                student.setCreateTime(currentTime.getTime());
-                student.setUpdateTime(currentTime.getTime());
-                insert= studentMapper.insert(student);
-            }
+            student.setPhoto(QiniuFile.uploadFile(img.getBytes()));
+            student.setStudentId(String.valueOf(UUID.randomUUID()));
+            student.setCreateTime(currentTime.getTime());
+            student.setUpdateTime(currentTime.getTime());
+            insert = studentMapper.insert(student);
         } catch (IOException e) {
             e.printStackTrace();
         }
