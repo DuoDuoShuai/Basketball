@@ -69,7 +69,7 @@ public class OpenRotationServiceImpl implements OpenRotationService {
             openRotation.setRotationId(UUID.randomUUID().toString());
             if(img!=null){
                 String oldname = img.getOriginalFilename();
-                String filepath="D:\\MavenProject\\basketball\\src\\main\\resources\\static\\images"+oldname;
+                String filepath="D:\\MavenProject\\basketball\\src\\main\\resources\\static\\images\\"+oldname;
                 img.transferTo(new File(filepath));
                 openRotation.setRotationName(oldname);
             }
