@@ -43,7 +43,7 @@
         },
         {
           "title": "校区管理",
-          "href": "/page/menu.html",
+          "href": "/page/school-table.html",
           "icon": "fa fa-window-maximize",
           "target": "_self"
         },
@@ -61,13 +61,13 @@
           "child": [
             {
               "title": "班级信息管理",
-              "href": "/page/welcome-1.html",
+              "href": "/page/grade-table.html",
               "icon": "fa fa-tachometer",
               "target": "_self"
             },
             {
               "title": "班级学员关系管理",
-              "href": "/page/welcome-2.html",
+              "href": "/page/gradeStudent-table.html",
               "icon": "fa fa-tachometer",
               "target": "_self"
             }
@@ -87,7 +87,7 @@
         },
         {
           "title": "销课管理",
-          "href": "/page/welcome-2.html",
+          "href": "/page/hour.html",
           "icon": "fa fa-flag-o",
           "target": "_self"
         },

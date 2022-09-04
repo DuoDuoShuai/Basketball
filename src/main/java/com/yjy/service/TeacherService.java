@@ -23,6 +23,7 @@ public interface TeacherService {
     /**
      * 添加教练信息
      * @param teacher
+     * @param img
      * @return
      */
     Integer insertTeacher(Teacher teacher, MultipartFile img);
@@ -44,6 +45,7 @@ public interface TeacherService {
     /**
      * 修改教练信息
      * @param teacher
+     * @param img
      * @return
      */
     Integer updateTeacher(Teacher teacher,MultipartFile img);

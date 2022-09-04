@@ -35,6 +35,13 @@ public interface SchoolMapper {
     Integer update(School school);
 
     /**
+     * 删除时修改时间
+     * @param school
+     * @return
+     */
+    Integer updateTime(School school);
+
+    /**
      * 删除
      * @param schoolId
      * @return

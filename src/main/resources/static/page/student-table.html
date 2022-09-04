@@ -111,7 +111,7 @@
                 },
                 {field: 'studentNumber', width: 135, title: '学员学号'},
                 {field: 'studentCode', width: 100, title: '学员二维码', sort: true},
-                {field: 'photo', width: 120, title: '学员头像', sort: true, templet: '<div><img style="height: 47px" id="img" src="/images/{{d.photo}}"></div>'},
+                {field: 'photo', width: 120, title: '学员头像', sort: true, templet: '<div><img style="height: 47px" id="img" src="http://rhh64czm7.hn-bkt.clouddn.com/{{d.photo}}"></div>'},
                 {field: 'schoolName', width: 150, title: '所属校区', sort: true},
                 {field: 'createTime', width: 120, title: '创建时间', sort: true,templet: "<div>{{layui.util.toDateString(d.createTime, 'yyyy-MM-dd HH:mm:ss')}}</div>"},
                 {field: 'updateTime', width: 120, title: '更新时间', sort: true,templet: "<div>{{layui.util.toDateString(d.updateTime, 'yyyy-MM-dd HH:mm:ss')}}</div>"},
@@ -215,7 +215,6 @@
                         }
                         body.find('#studentNumber').val(data.studentNumber);
                         body.find('#photo').val(data.photo);
-                        // body.find('#schoolName').val(data.schoolName);
                     }
                 });
                 $(window).on("resize", function () {

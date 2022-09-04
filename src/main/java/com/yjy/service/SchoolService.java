@@ -22,10 +22,10 @@ public interface SchoolService {
 
     /**
      * 详情
-     * @param schoolId
+     * @param schoolName
      * @return 一个学生对象
      */
-    School load(String schoolId);
+    School load(String schoolName);
 
     /**
      * 修改
