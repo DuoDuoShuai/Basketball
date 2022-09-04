@@ -50,33 +50,21 @@ public class OpenRotationCountroller {
      * @throws IOException
      */
     @RequestMapping("insert")
-    public JsonResult insertOpenRotation(OpenRotation openRotation, MultipartFile img) throws IOException {
-        JsonResult success = null;
-        if (img != null) {
-//            设置图片路径
-            String oldname = img.getOriginalFilename();
-            String filepath = "D:\\MavenProject\\basketball\\src\\main\\resources\\static\\images" + oldname;
-//            转存图片
-            img.transferTo(new File(filepath));
-            openRotation.setRotationName(oldname);
-            openRotation.setRotationId(UUID.randomUUID().toString());
-            Date currentTime = new Date(System.currentTimeMillis());
-            openRotation.setCreatTime(currentTime.getTime());
-            Integer insert = openRotationService.insertOpenRotation(openRotation);
-            success = JsonResult.success(insert);
-        }
+    public JsonResult insertOpenRotation(OpenRotation openRotation, MultipartFile img){
+        Integer i = openRotationService.insertOpenRotation(openRotation, img);
+        JsonResult success = JsonResult.success(i);
         return success;
     }
 
     /**
      * 批量删除轮播图数据
      *
-     * @param openRotationIds
+     * @param str
      * @return
      */
     @RequestMapping("deleteMore")
-    public JsonResult deleteOpenRotationMore(String openRotationIds) {
-        Integer integer = openRotationService.deleteMore(openRotationIds);
+    public JsonResult deleteOpenRotationMore(String str) {
+        Integer integer = openRotationService.deleteMore(str);
         return JsonResult.success(integer);
     }
 

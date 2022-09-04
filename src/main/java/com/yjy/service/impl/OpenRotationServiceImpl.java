@@ -8,7 +8,10 @@ import com.yjy.service.OpenRotationService;
 import com.yjy.vo.JsonPageResult;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.Date;
 import java.util.List;
 import java.util.UUID;
@@ -60,13 +63,24 @@ public class OpenRotationServiceImpl implements OpenRotationService {
      * @return 整数num=1
      */
     @Override
-    public Integer insertOpenRotation(OpenRotation openRotation) {
-        openRotation.setRotationId(String.valueOf(UUID.randomUUID()));
-        Date currentTime = new Date(System.currentTimeMillis());
-        openRotation.setCreatTime(currentTime.getTime());
-        openRotation.setUpdateTime(currentTime.getTime());
-        Integer insert = openRotationMapper.insertOpenRotation(openRotation);
-        return insert;
+    public Integer insertOpenRotation(OpenRotation openRotation, MultipartFile img){
+        Integer i = null;
+        try {
+            openRotation.setRotationId(UUID.randomUUID().toString());
+            if(img!=null){
+                String oldname = img.getOriginalFilename();
+                String filepath="D:\\MavenProject\\basketball\\src\\main\\resources\\static\\images"+oldname;
+                img.transferTo(new File(filepath));
+                openRotation.setRotationName(oldname);
+            }
+            Date currentTime=new Date(System.currentTimeMillis());
+            openRotation.setCreateTime(currentTime.getTime());
+            openRotation.setUpdateTime(currentTime.getTime());
+            i = openRotationMapper.insertOpenRotation(openRotation);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return i;
     }
 
     /**

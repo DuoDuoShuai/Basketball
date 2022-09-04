@@ -3,6 +3,7 @@ package com.yjy.service;
 import com.yjy.dto.LayUiDto;
 import com.yjy.model.OpenRotation;
 import com.yjy.vo.JsonPageResult;
+import org.springframework.web.multipart.MultipartFile;
 
 /**
  * @author 任凭
@@ -33,7 +34,7 @@ public interface OpenRotationService {
      * @param openRotation
      * @return 整数i=1
      */
-    Integer insertOpenRotation(OpenRotation openRotation);
+    Integer insertOpenRotation(OpenRotation openRotation, MultipartFile img);
 
     /**
      * 删除

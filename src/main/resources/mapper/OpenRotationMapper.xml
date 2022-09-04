@@ -6,13 +6,14 @@
 
     <!-- 需要查询字段 -->
     <sql id="start">
-        rotation_image_id rotationId,
+        rotation_image_id
+        rotationId,
         school_name schoolName,
         rotation_name rotationName,
         rotation_type rotationType,
         sort,
         cut_url cutUrl,
-        is_show isShow,
+        is_show pure,
         is_delete isDelete,
         create_time creatTime,
         update_time updateTime
@@ -52,22 +53,22 @@
 
     <!-- 添加用户信息 -->
     <insert id="insertOpenRotation" parameterType="com.yjy.model.OpenRotation">
-        insert into t_open_rotation(rotation_image_id,school_name,rotation_name,rotation_type,sort,is_show)
-        values (#{rotationId},#{schoolName},#{rotationName},#{rotationType},#{sort},#{isShow})
+        insert into t_open_rotation(rotation_image_id, school_name, rotation_name, rotation_type, sort, is_show,create_time,update_time)
+        values (#{rotationId}, #{schoolName}, #{rotationName}, #{rotationType}, #{sort}, #{pure},#{createTime},#{updateTime})
     </insert>
 
     <!-- 删除 -->
-    <update id="delete">
+    <update id="deleteOpenRotation">
         update t_open_rotation
         set is_delete=1
-        where rotation_image_id = #{arg0}
+        where rotation_image_id = #{rotationId}
     </update>
 
     <!-- 删除时改变修改时间 -->
     <update id="updateTime" parameterType="com.yjy.model.OpenRotation">
-        update t_user_parent
+        update t_open_rotation
         set update_time = #{updateTime}
-        where rotation_image_id = #{parentId}
+        where rotation_image_id = #{rotationId}
     </update>
 
     <!-- 修改 -->

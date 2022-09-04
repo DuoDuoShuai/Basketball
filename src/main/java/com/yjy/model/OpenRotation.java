@@ -41,7 +41,7 @@ public class OpenRotation {
     /**
      * 是否展示（0-否，1-是）
      */
-    private boolean isShow;
+    private boolean pure;
     /**
      * 是否删除（0-否，1-是）
      */
@@ -49,7 +49,7 @@ public class OpenRotation {
     /**
      * 创建时间
      */
-    private Long creatTime;
+    private Long createTime;
     /**
      * 修改时间
      */
