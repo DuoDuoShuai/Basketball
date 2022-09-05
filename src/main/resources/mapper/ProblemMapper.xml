@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yjy.mapper.ProblemMapper">
+    <select id="list" parameterType="com.yjy.dto.LayUiDto" resultType="com.yjy.model.Problem">
+        select open_problem_id as openProblemId,problem,problem_type as problemType,cut_type as cutType,cut_url as cutUrl,is_show as isShow,create_time as createTime,update_time as updateTime from t_open_problem where is_delete=0
+        <if test="name !=null and name !=''"> and problem like concat('%',#{name},'%') </if>
+        order by open_problem_id asc limit #{dataNum},#{limit}
+    </select>
+    <!--  总数  -->
+    <select id="count" parameterType="com.yjy.dto.LayUiDto" resultType="java.lang.Integer">
+        select count(1) from t_open_problem where is_delete=0
+        <if test="name !=null and name !=''"> and problem like concat('%',#{name},'%') </if>
+    </select>
+    <!-- 添加问题 -->
+    <insert id="insertProblem" parameterType="com.yjy.model.Problem">
+        insert into t_open_problem(open_problem_id,problem,problem_type,sort,cut_type,cut_url,create_time)
+        values (#{openProblemId},#{problem},#{problemType},#{sort},#{cutType},#{cutUrl},#{createTime})
+    </insert>
+    <!-- 删除问题 -->
+    <update id="deleteProblem" parameterType="com.yjy.model.Problem">
+        update t_open_problem set is_delete = 1,update_time = #{updateTime} where open_problem_id = #{openProblemId}
+    </update>
+    <!-- 修改用问题信息 -->
+    <update id="updateProblem" parameterType="com.yjy.model.Problem">
+        update t_open_problem set problem= #{problem},problem_type = #{problemType},sort = #{sort},cut_type = #{cutType},update_time = #{updateTime} where open_problem_id = #{openProblemId}
+    </update>
+    <!-- 删除时改变修改时间 -->
+    <update id="updateTime" parameterType="com.yjy.model.Problem">
+        update t_open_problem set update_time = #{updateTime} where open_problem_id = #{openProblemId}
+    </update>
+</mapper>

@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yjy.mapper.AnsewrMapper">
+    <select id="list" parameterType="com.yjy.dto.LayUiDto" resultType="com.yjy.model.Ansewr">
+        select open_ansewr_id as openAnsewrId,answer,ansewr_type as ansewrType,cut_url as cutUrl,is_show as isShow,create_time as createTime,update_time as updateTime from t_open_ansewr where is_delete=0
+        <if test="name !=null and name !=''"> and answer like concat('%',#{name},'%') </if>
+        order by open_ansewr_id asc limit #{dataNum},#{limit}
+    </select>
+    <!--  总数  -->
+    <select id="count" parameterType="com.yjy.dto.LayUiDto" resultType="java.lang.Integer">
+        select count(1) from t_open_ansewr where is_delete=0
+        <if test="name !=null and name !=''"> and answer like concat('%',#{name},'%') </if>
+    </select>
+    <!-- 添加问题 -->
+    <insert id="insertAnsewr" parameterType="com.yjy.model.Ansewr">
+        insert into t_open_ansewr(open_ansewr_id,answer,ansewr_type,sort,cut_url,create_time)
+        values (#{openAnsewrId},#{answer},#{ansewrType},#{sort},#{cutUrl},#{createTime})
+    </insert>
+    <!-- 删除问题 -->
+    <update id="deleteAnsewr" parameterType="com.yjy.model.Ansewr">
+        update t_open_ansewr set is_delete = 1,update_time = #{updateTime} where open_ansewr_id = #{openAnsewrId}
+    </update>
+    <!-- 修改用问题信息 -->
+    <update id="updateAnsewr" parameterType="com.yjy.model.Ansewr">
+        update t_open_ansewr set answer= #{answer},ansewr_type = #{ansewrType},sort = #{sort},cut_url = #{cutUrl},update_time = #{updateTime} where open_ansewr_id = #{openAnsewrId}
+    </update>
+    <!-- 删除时改变修改时间 -->
+    <update id="updateTime" parameterType="com.yjy.model.Ansewr">
+        update t_open_ansewr set update_time = #{updateTime} where open_ansewr_id = #{openAnsewrId}
+    </update>
+</mapper>
