@@ -12,7 +12,7 @@
         rotation_name photo,
         rotation_type rotationType,
         sort,
-        cut_url cut,
+        cut_url cutUrl,
         is_show pure,
         is_delete isDelete,
         create_time creatTime,
@@ -28,8 +28,8 @@
         <if test="schoolName !=null and schoolName !=''">
             and school_name like concat('%',#{schoolName},'%')
         </if>
-        <if test="pure !=null and pure !=''">
-            and pure like concat('%',#{pure},'%')
+        <if test="pure !=null">
+            and is_show = #{pure}
         </if>
         order by rotation_image_id asc
         limit #{dataNum},#{limit}
@@ -44,8 +44,8 @@
         <if test="name !=null and name !=''">
             and school_name like concat('%',#{name},'%')
         </if>
-        <if test="pure !=null and pure !=''">
-            and pure like concat('%',#{pure},'%')
+        <if test="pure !=null">
+            and is_show = #{pure}
         </if>
     </select>
 
@@ -61,7 +61,7 @@
     <insert id="insertOpenRotation" parameterType="com.yjy.model.OpenRotation">
         insert into t_open_rotation(rotation_image_id, school_name, rotation_name, rotation_type, sort, cut_url, is_show,
                                     create_time, update_time)
-        values (#{rotationId}, #{schoolName}, #{photo}, #{rotationType}, #{sort}, #{pure}, #{cut}, #{createTime},
+        values (#{rotationId}, #{schoolName}, #{photo}, #{rotationType}, #{sort}, #{cutUrl}, #{pure}, #{createTime},
                 #{updateTime})
     </insert>
 
@@ -86,7 +86,7 @@
             <if test="schoolName !=null">school_name=#{schoolName},</if>
             <if test="photo !=null">rotation_name=#{photo},</if>
             <if test="sort !=null">sort=#{sort},</if>
-            <if test="cut !=null">cut_url=#{cut},</if>
+            <if test="cutUrl !=null">cut_url=#{cutUrl},</if>
             <if test="pure !=null">is_show=#{pure},</if>
             <if test="updateTime !=null">update_time=#{updateTime},</if>
         </trim>

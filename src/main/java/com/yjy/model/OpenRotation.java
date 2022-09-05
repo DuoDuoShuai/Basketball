@@ -37,7 +37,7 @@ public class OpenRotation {
     /**
      * 切换路径
      */
-    private String cut;
+    private String cutUrl;
     /**
      * 是否展示（0-否，1-是）
      */

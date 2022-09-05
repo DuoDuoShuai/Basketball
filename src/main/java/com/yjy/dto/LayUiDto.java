@@ -69,7 +69,7 @@ public class LayUiDto {
     /**
      * 是否显示
      */
-    private String isShow;
+    private String pure;
     /**
      * 教练名称
      */

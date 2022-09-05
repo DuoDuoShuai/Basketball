@@ -25,6 +25,16 @@
                             </div>
                         </div>
                         <div class="layui-inline">
+                            <label class="layui-form-label">是否展示</label>
+                            <div class="layui-input-inline">
+                                <select name="pure" id="pure">
+                                    <option value="">请选择</option>
+                                    <option value="0">不展示</option>
+                                    <option value="1">展示</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="layui-inline">
                             <button type="submit" class="layui-btn layui-btn-primary" lay-submit
                                     lay-filter="data-search-btn"><i class="layui-icon"></i> 搜 索
                             </button>
@@ -87,7 +97,7 @@
                     }
                 },
                 {field: 'sort', width: 120, title: '排序优先级', sort: true},
-                {field: 'cut', width: 200, title: '跳转路径', sort: true},
+                {field: 'cutUrl', width: 200, title: '跳转路径', sort: true},
                 {
                     field: 'pure', width: 100, title: '是否展示', sort: true, templet: function (d) {
                         if (d.pure == "0") {
@@ -127,7 +137,8 @@
                     curr: 1
                 }
                 , where: {
-                    schoolName: data.field.schoolName
+                    schoolName: data.field.schoolName,
+                    pure: data.field.pure
                 }
             }, 'data');
 
@@ -188,7 +199,7 @@
 
         table.on('tool(currentTableFilter)', function (obj) {
             var data = obj.data;
-            json=JSON.stringify(data);
+            json = JSON.stringify(data);
             if (obj.event === 'edit') {
 
                 var index = layer.open({
@@ -209,7 +220,7 @@
                             body.find('#rotationType').val('排序');
                         }
                         body.find('#sort').val(data.sort);
-                        body.find('#cut').val(data.cut);
+                        body.find('#cutUrl').val(data.cutUrl);
                         if (data.pure == 0) {
                             body.find('#pure').val('不展示');
                         } else {
@@ -238,7 +249,7 @@
                                 layer.close(index);
                                 var iframeIndex = parent.layer.getFrameIndex(window.name);
                                 parent.layer.close(iframeIndex);
-                              table.reload("currentTableId");
+                                table.reload("currentTableId");
                             });
                         }
                     });

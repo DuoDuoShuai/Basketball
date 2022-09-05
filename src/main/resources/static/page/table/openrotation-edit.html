@@ -46,6 +46,12 @@
         </div>
     </div>
     <div class="layui-form-item">
+        <label class="layui-form-label">切换路径</label>
+        <div class="layui-input-block">
+            <input type="text" name="cutUrl" id="cutUrl" placeholder="请输入切换路径" value="" class="layui-input">
+        </div>
+    </div>
+    <div class="layui-form-item">
         <label class="layui-form-label required">是否展示</label>
         <div class="layui-input-block">
             <input type="radio" name="pure" id="yesshow" value="true" title="展示">
@@ -115,6 +121,7 @@
             formData.append("schoolName", data.field.schoolName);
             formData.append("rotationType", $("input[name='rotationType']:checked").val());
             formData.append("sort", data.field.sort);
+            formData.append("cutUrl", data.field.cutUrl);
             formData.append("pure", $("input[name='pure']:checked").val());
             var fileobj = $("#photo")[0].files[0];
             formData.append("img", fileobj);
