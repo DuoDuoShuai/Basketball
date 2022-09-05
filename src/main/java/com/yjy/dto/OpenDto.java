@@ -65,7 +65,7 @@ public class OpenDto {
     /**
      * 是否显示
      */
-    private String pure;
+    private Boolean pure;
     /**
      * 教练名称
      */

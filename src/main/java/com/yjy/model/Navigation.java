@@ -6,37 +6,25 @@ import lombok.NoArgsConstructor;
 
 /**
  * @Author:黄文倩
- * @CreatTime:2022/9/4
+ * @CreatTime:2022/9/5
  * @Description:
  */
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class OpenSchool {
+public class Navigation {
     /**
-     * 公共校区id
+     * 导航栏id
      */
-    private String openSchoolId;
+    private String openNavigationId;
     /**
-     *校区名称
+     * 导航栏名称
      */
-    private String schoolName;
+    private String navigationName;
     /**
-     * 描述
+     * 信息类型(0-跳转，1-排序)
      */
-    private String schoolDescribe;
-    /**
-     * 电话
-     */
-    private String phone;
-    /**
-     * 地址
-     */
-    private String address;
-    /**
-     * 信息类型(1-跳转，2-排序)
-     */
-    private Integer schoolType;
+    private Boolean navigationType;
     /**
      * 排序
      */
