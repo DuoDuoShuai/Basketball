@@ -23,10 +23,10 @@ public interface OpenRotationService {
     /**
      * 获取单个OpenRotation对象，根据Id查询
      *
-     * @param openRotationId
+     * @param rotationId
      * @return 一个轮播图对象
      */
-    OpenRotation loadOpenRotation(String openRotationId);
+    OpenRotation loadOpenRotation(String rotationId);
 
     /**
      * 增加
@@ -39,10 +39,10 @@ public interface OpenRotationService {
     /**
      * 删除
      *
-     * @param openRotationId
+     * @param rotationId
      * @return 整数i=1
      */
-    Integer deleteOpenRotation(String openRotationId);
+    Integer deleteOpenRotation(String rotationId);
 
     /**
      * 批量删除
@@ -58,5 +58,5 @@ public interface OpenRotationService {
      * @param openRotation
      * @return 整数i=1
      */
-    Integer updateOpenRotation(OpenRotation openRotation);
+    Integer updateOpenRotation(OpenRotation openRotation,MultipartFile img);
 }

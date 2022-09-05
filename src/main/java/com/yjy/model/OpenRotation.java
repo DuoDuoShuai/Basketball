@@ -25,7 +25,7 @@ public class OpenRotation {
     /**
      * 轮播图
      */
-    private String rotationName;
+    private String photo;
     /**
      * 信息类型(0-跳转，1-排序)
      */

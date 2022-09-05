@@ -3,8 +3,8 @@ package com.yjy.service.impl;
 import com.yjy.dto.LayUiDto;
 import com.yjy.mapper.OpenRotationMapper;
 import com.yjy.model.OpenRotation;
-import com.yjy.model.Parent;
 import com.yjy.service.OpenRotationService;
+import com.yjy.util.QiniuFile;
 import com.yjy.vo.JsonPageResult;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -47,12 +47,12 @@ public class OpenRotationServiceImpl implements OpenRotationService {
     /**
      * 详情
      *
-     * @param openRotationId
+     * @param rotationId
      * @return 返回一个OpenRotation对象
      */
     @Override
-    public OpenRotation loadOpenRotation(String openRotationId) {
-        OpenRotation openRotation = openRotationMapper.loadOpenRotation(openRotationId);
+    public OpenRotation loadOpenRotation(String rotationId) {
+        OpenRotation openRotation = openRotationMapper.loadOpenRotation(rotationId);
         return openRotation;
     }
 
@@ -71,28 +71,27 @@ public class OpenRotationServiceImpl implements OpenRotationService {
                 String oldname = img.getOriginalFilename();
                 String filepath="D:\\MavenProject\\basketball\\src\\main\\resources\\static\\images\\"+oldname;
                 img.transferTo(new File(filepath));
-                openRotation.setRotationName(oldname);
+                openRotation.setPhoto(oldname);
             }
             Date currentTime=new Date(System.currentTimeMillis());
             openRotation.setCreateTime(currentTime.getTime());
             openRotation.setUpdateTime(currentTime.getTime());
-            i = openRotationMapper.insertOpenRotation(openRotation);
         } catch (IOException e) {
             e.printStackTrace();
         }
-        return i;
+        return openRotationMapper.insertOpenRotation(openRotation);
     }
 
     /**
      * 删除
      *
-     * @param openRotationId
+     * @param rotationId
      * @return 整数delete=1
      */
     @Override
-    public Integer deleteOpenRotation(String openRotationId) {
+    public Integer deleteOpenRotation(String rotationId) {
         OpenRotation openRotation = new OpenRotation();
-        openRotation.setRotationId(openRotationId);
+        openRotation.setRotationId(rotationId);
         Date currentTime = new Date(System.currentTimeMillis());
         openRotation.setUpdateTime(currentTime.getTime());
         openRotationMapper.updateTime(openRotation);
@@ -127,10 +126,21 @@ public class OpenRotationServiceImpl implements OpenRotationService {
      * @return 整数update=1
      */
     @Override
-    public Integer updateOpenRotation(OpenRotation openRotation) {
-        Date currentTime = new Date(System.currentTimeMillis());
-        openRotation.setUpdateTime(currentTime.getTime());
-        Integer update = openRotationMapper.updateOpenRotation(openRotation);
-        return update;
+    public Integer updateOpenRotation(OpenRotation openRotation,MultipartFile img) {
+        Integer i = null;
+        try {
+            if(img!=null){
+                String oldname = img.getOriginalFilename();
+                String filepath="D:\\MavenProject\\basketball\\src\\main\\resources\\static\\images\\"+oldname;
+                img.transferTo(new File(filepath));
+                openRotation.setPhoto(oldname);
+            }
+            Date currentTime=new Date(System.currentTimeMillis());
+            openRotation.setUpdateTime(currentTime.getTime());
+            openRotation.setPhoto(QiniuFile.uploadFile(img.getBytes()));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return openRotationMapper.updateOpenRotation(openRotation);
     }
 }

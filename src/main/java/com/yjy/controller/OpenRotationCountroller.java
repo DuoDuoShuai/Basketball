@@ -51,9 +51,8 @@ public class OpenRotationCountroller {
      */
     @RequestMapping("insert")
     public JsonResult insertOpenRotation(OpenRotation openRotation, MultipartFile img){
-        Integer i = openRotationService.insertOpenRotation(openRotation, img);
-        JsonResult success = JsonResult.success(i);
-        return success;
+        Integer insert = openRotationService.insertOpenRotation(openRotation, img);
+        return JsonResult.success(insert);
     }
 
     /**
@@ -64,20 +63,20 @@ public class OpenRotationCountroller {
      */
     @RequestMapping("deleteMore")
     public JsonResult deleteOpenRotationMore(String str) {
-        Integer integer = openRotationService.deleteMore(str);
-        return JsonResult.success(integer);
+        Integer deleteMore = openRotationService.deleteMore(str);
+        return JsonResult.success(deleteMore);
     }
 
     /**
      * 删除单条轮播图数据
      *
-     * @param openRotationId
+     * @param rotationId
      * @return
      */
     @RequestMapping("delete")
-    public JsonResult deleteOpenRotation(String openRotationId) {
-        Integer integer = openRotationService.deleteOpenRotation(openRotationId);
-        return JsonResult.success(integer);
+    public JsonResult deleteOpenRotation(String rotationId) {
+        Integer delete = openRotationService.deleteOpenRotation(rotationId);
+        return JsonResult.success(delete);
     }
 
     /**
@@ -89,22 +88,9 @@ public class OpenRotationCountroller {
      * @throws IOException
      */
     @RequestMapping("update")
-    public JsonResult updateOpenRotation(OpenRotation openRotation, MultipartFile img) throws IOException {
-        JsonResult success = null;
-        if (img != null) {
-            // 设置图片路径
-            String oldname = img.getOriginalFilename();
-            String filepath = "D:\\MavenProject\\basketball\\src\\main\\resources\\static\\images" + oldname;
-            // 转存图片
-            img.transferTo(new File(filepath));
-            openRotation.setRotationName(oldname);
-            Date currentTime = new Date(System.currentTimeMillis());
-            openRotation.setUpdateTime(currentTime.getTime());
-            Integer update = openRotationService.updateOpenRotation(openRotation);
-            success = JsonResult.success(update);
-        }
-        return success;
+    public JsonResult updateOpenRotation(OpenRotation openRotation, MultipartFile img){
+        Integer update = openRotationService.updateOpenRotation(openRotation,img);
+        return JsonResult.success(update);
     }
-
 }
 

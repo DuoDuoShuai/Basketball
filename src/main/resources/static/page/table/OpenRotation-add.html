@@ -47,8 +47,8 @@
     <div class="layui-form-item">
         <label class="layui-form-label required">是否展示</label>
         <div class="layui-input-block">
-            <input type="radio" name="pure" value="true" title="是" >
-            <input type="radio" name="pure" value="false" title="否">
+            <input type="radio" name="pure" value="true" title="展示" >
+            <input type="radio" name="pure" value="false" title="不展示">
         </div>
     </div>
     <div class="layui-form-item">
@@ -63,6 +63,7 @@
         var form = layui.form,
             layer = layui.layer,
             $ = layui.$,
+
             datasage,
             longsage;
         //点击时间-加载校区资源

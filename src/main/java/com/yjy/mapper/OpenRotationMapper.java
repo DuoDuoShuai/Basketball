@@ -33,10 +33,10 @@ public interface OpenRotationMapper {
     /**
      * 获取单个OpenRotation对象，根据Id查询
      *
-     * @param openRotationId
+     * @param rotationId
      * @return
      */
-    OpenRotation loadOpenRotation(String openRotationId);
+    OpenRotation loadOpenRotation(String rotationId);
 
     /**
      * 增加

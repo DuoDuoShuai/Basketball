@@ -6,10 +6,9 @@
 
     <!-- 需要查询字段 -->
     <sql id="start">
-        rotation_image_id
-        rotationId,
+        rotation_image_id rotationId,
         school_name schoolName,
-        rotation_name rotationName,
+        rotation_name photo,
         rotation_type rotationType,
         sort,
         cut_url cutUrl,
@@ -25,8 +24,8 @@
         <include refid="start"></include>
         from t_open_rotation
         where is_delete=0
-        <if test="name !=null and name !=''">
-            and school_name like concat('%',#{name},'%')
+        <if test="schoolName !=null and schoolName !=''">
+            and school_name like concat('%',#{schoolName},'%')
         </if>
         order by rotation_image_id asc
         limit #{dataNum},#{limit}
@@ -53,8 +52,10 @@
 
     <!-- 添加用户信息 -->
     <insert id="insertOpenRotation" parameterType="com.yjy.model.OpenRotation">
-        insert into t_open_rotation(rotation_image_id, school_name, rotation_name, rotation_type, sort, is_show,create_time,update_time)
-        values (#{rotationId}, #{schoolName}, #{rotationName}, #{rotationType}, #{sort}, #{pure},#{createTime},#{updateTime})
+        insert into t_open_rotation(rotation_image_id, school_name, rotation_name, rotation_type, sort, is_show,
+                                    create_time, update_time)
+        values (#{rotationId}, #{schoolName}, #{photo}, #{rotationType}, #{sort}, #{pure}, #{createTime},
+                #{updateTime})
     </insert>
 
     <!-- 删除 -->
@@ -72,16 +73,16 @@
     </update>
 
     <!-- 修改 -->
-    <update id="update" parameterType="com.yjy.model.OpenRotation">
+    <update id="updateOpenRotation" parameterType="com.yjy.model.OpenRotation">
         update t_open_rotation
         <trim prefix="set " suffixOverrides=",">
             <if test="schoolName !=null">school_name=#{schoolName},</if>
-            <if test="rotationName !=null">rotation_name=#{rotationName},</if>
+            <if test="photo !=null">rotation_name=#{photo},</if>
             <if test="sort !=null">sort=#{sort},</if>
-            <if test="isShow !=null">is_show=#{isShow},</if>
+            <if test="pure !=null">is_show=#{pure},</if>
             <if test="updateTime !=null">update_time=#{updateTime},</if>
         </trim>
-        where rotation_image_id=#{id}
+        where rotation_image_id = #{rotationId}
     </update>
 
 </mapper>
