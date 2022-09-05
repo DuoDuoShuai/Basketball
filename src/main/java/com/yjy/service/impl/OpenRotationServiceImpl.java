@@ -63,19 +63,13 @@ public class OpenRotationServiceImpl implements OpenRotationService {
      * @return 整数num=1
      */
     @Override
-    public Integer insertOpenRotation(OpenRotation openRotation, MultipartFile img){
-        Integer i = null;
+    public Integer insertOpenRotation(OpenRotation openRotation, MultipartFile img) {
         try {
             openRotation.setRotationId(UUID.randomUUID().toString());
-            if(img!=null){
-                String oldname = img.getOriginalFilename();
-                String filepath="D:\\MavenProject\\basketball\\src\\main\\resources\\static\\images\\"+oldname;
-                img.transferTo(new File(filepath));
-                openRotation.setPhoto(oldname);
-            }
-            Date currentTime=new Date(System.currentTimeMillis());
+            Date currentTime = new Date(System.currentTimeMillis());
             openRotation.setCreateTime(currentTime.getTime());
             openRotation.setUpdateTime(currentTime.getTime());
+            openRotation.setPhoto(QiniuFile.uploadFile(img.getBytes()));
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -126,16 +120,9 @@ public class OpenRotationServiceImpl implements OpenRotationService {
      * @return 整数update=1
      */
     @Override
-    public Integer updateOpenRotation(OpenRotation openRotation,MultipartFile img) {
-        Integer i = null;
+    public Integer updateOpenRotation(OpenRotation openRotation, MultipartFile img) {
         try {
-            if(img!=null){
-                String oldname = img.getOriginalFilename();
-                String filepath="D:\\MavenProject\\basketball\\src\\main\\resources\\static\\images\\"+oldname;
-                img.transferTo(new File(filepath));
-                openRotation.setPhoto(oldname);
-            }
-            Date currentTime=new Date(System.currentTimeMillis());
+            Date currentTime = new Date(System.currentTimeMillis());
             openRotation.setUpdateTime(currentTime.getTime());
             openRotation.setPhoto(QiniuFile.uploadFile(img.getBytes()));
         } catch (IOException e) {

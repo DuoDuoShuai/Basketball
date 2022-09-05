@@ -90,7 +90,7 @@
             //从父层获取值，json是父层的全局js变量、eval是将带有json格式的字符串转为json对象
             var openrotation_json = eval('(' + parent.json + ')');
             //将图片路径加入
-            $("img").attr("src","/images/"+openrotation_json.photo+"");
+            $("img").attr("src","http://rhh64czm7.hn-bkt.clouddn.com/"+openrotation_json.photo+"");
             var gender = openrotation_json.rotationType.toString();
             var gender2 = openrotation_json.pure.toString();
             if (gender == "false") {
