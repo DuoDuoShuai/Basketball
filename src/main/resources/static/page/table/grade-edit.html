@@ -54,7 +54,7 @@
     </div>
     <div class="layui-form-item">
         <label class="layui-form-label">班级状态</label>
-        <input type="radio" name="gradeState" id="zero" value="0" title="未开班" >
+        <input type="radio" name="gradeState" id="three" value="3" title="未开班" >
         <input type="radio" name="gradeState" id="one" value="1" title="开班">
         <input type="radio" name="gradeState" id="two" value="2" title="已结束">
     </div>
@@ -87,6 +87,7 @@
             $("img").attr("src","/images/"+parent_json.photo+"");
             var schoolName=parent_json.schoolName;
             var gradeState=parent_json.gradeState;
+            console.log(gradeState)
             //校区资源
             html += '<option value="' + schoolName + '">' + schoolName + '</option>'
             $.ajax({
@@ -106,8 +107,8 @@
                 }
             });
             //班级状态
-            if(gradeState == 0){
-                $("#zero").attr("checked","checked");
+            if(gradeState == 3){
+                $("#three").attr("checked","checked");
                 form.render('radio');
             }else if (gradeState == 1){
                 $("#one").attr("checked","checked");
