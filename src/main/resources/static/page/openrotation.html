@@ -87,6 +87,7 @@
                     }
                 },
                 {field: 'sort', width: 120, title: '排序优先级', sort: true},
+                {field: 'cut', width: 200, title: '跳转路径', sort: true},
                 {
                     field: 'pure', width: 100, title: '是否展示', sort: true, templet: function (d) {
                         if (d.pure == "0") {
@@ -145,7 +146,7 @@
                     maxmin: true,
                     shadeClose: true,
                     area: ['100%', '100%'],
-                    content: '/page/table/OpenRotation-add.html',
+                    content: '/page/table/openrotation-add.html',
                 });
                 $(window).on("resize", function () {
                     layer.full(index);
@@ -197,7 +198,7 @@
                     maxmin: true,
                     shadeClose: true,
                     area: ['100%', '100%'],
-                    content: '/page/table/OpenRotation-edit.html',
+                    content: '/page/table/openrotation-edit.html',
                     success: function () {
                         var body = layer.getChildFrame('body', index);
                         body.find('#rotationId').val(data.rotationId);
@@ -208,6 +209,7 @@
                             body.find('#rotationType').val('排序');
                         }
                         body.find('#sort').val(data.sort);
+                        body.find('#cut').val(data.cut);
                         if (data.pure == 0) {
                             body.find('#pure').val('不展示');
                         } else {

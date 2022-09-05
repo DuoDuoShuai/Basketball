@@ -111,7 +111,7 @@
             },
             {
               "title": "轮播图管理",
-              "href": "page/OpenRotation.html",
+              "href": "/page/openrotation.html",
               "icon": "fa fa-file-text",
               "target": "_self"
             },
