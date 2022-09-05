@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head >
+    <meta charset="utf-8">
+    <title> layui </title>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link rel="stylesheet" href="/lib/layui-v2.6.3/css/layui.css" media="all">
+    <link rel="stylesheet"  href="/css/public.css" media="all">
+    <style>
+        body {
+            background-color: #ffffff;
+        }
+    </style>
+</head>
+<body>
+<div class="layui-form layuimini-form">
+    <div class="layui-form-item">
+        <label class="layui-form-label">轮播图上传</label>
+        <div class="layui-input-block">
+            <input type="file" name="img" id="photo" placeholder="请选择学员头像" value="" class="province-selector" style="width: 200px;">
+            <img src="" id="img">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">所属校区</label>
+        <div class="layui-input-inline" style="width: 200px;">
+            <select name="schoolName" id="schoolName" class="province-selector" >
+                <option value="">请选择校区</option>
+            </select>
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label required">信息类型</label>
+        <div class="layui-input-block">
+            <input type="radio" name="rotationType" value="true" title="排序" >
+            <input type="radio" name="rotationType" value="false" title="跳转">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">排序优先级</label>
+        <div class="layui-input-block">
+            <input type="text" name="sort" id="sort" placeholder="请输入排序优先级" value="" class="layui-input">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label required">是否展示</label>
+        <div class="layui-input-block">
+            <input type="radio" name="pure" value="true" title="展示" >
+            <input type="radio" name="pure" value="false" title="不展示">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <div class="layui-input-block">
+            <button class="layui-btn layui-btn-normal" lay-submit lay-filter="saveBtn">确认添加</button>
+        </div>
+    </div>
+</div>
+<script src="/lib/layui-v2.6.3/layui.js" charset="utf-8"></script>
+<script >
+    layui.use(['form'], function () {
+        var form = layui.form,
+            layer = layui.layer,
+            $ = layui.$,
+
+            datasage,
+            longsage;
+        //点击时间-加载校区资源
+        $(function() {
+            var html = "";
+            $.ajax({
+                type:'post',
+                url: '/school/listAll',
+                dataType:'JSON',
+                success: function (data) {
+                    var school = data.data;
+                    //加载数据
+                    for (var i = 0; i < school.length; i++) {
+                        // $("#chosen-select").html('<option value="' + school[i].schoolId + '">' + school[i].schoolName + '</option>');
+                        html += '<option value="' + school[i].schoolName + '">' + school[i].schoolName + '</option>'
+                    }
+                    $("#schoolName").html(html);
+                    form.render('select');
+                }
+            });
+        });
+
+        //监听提交
+        form.on('submit(saveBtn)', function (data) {
+            // 得到中国标准时间
+            datasage = new Date($("#sage").val());
+            // 获取时间戳
+            longsage=datasage.getTime();
+            var formData = new FormData();//form表单
+            formData.append("schoolName",data.field.schoolName);
+            formData.append("rotationType",$("input[name='rotationType']:checked").val());
+            formData.append("sort",data.field.sort);
+            formData.append("pure",$("input[name='pure']:checked").val());
+            var fileobj = $("#photo")[0].files[0];
+            formData.append("img",fileobj);
+            $.ajax({
+                type:'post',
+                url:'/OpenRotation/insert',
+                data:formData,
+                //ajax2.0可以不用设置请求头，但是jq帮我们自动设置了，这样的话需要我们自己取消掉
+                contentType:false,
+                //不处理数据
+                processData:false,
+                success:function (da) {
+                    if (da.data==1){
+                        var index = layer.alert("添加成功", {
+                            title: '最终的提交信息'
+                        }, function () {
+                            // 关闭弹出层
+                            layer.close(index);
+                            var iframeIndex = parent.layer.getFrameIndex(window.name);
+                            parent.layer.close(iframeIndex);
+                            parent.layui.table.reload("currentTableId");
+                        });
+                    }
+                }
+            });
+            return false;
+        });
+    });
+</script>
+</body>
+</html>

@@ -24,7 +24,7 @@ spring:
     druid:
       url: jdbc:mysql://127.0.0.1:3306/basketball?serverTimezone=UTC
       username: root
-      password: zxc123...
+      password: 110120
       # 初始连接数
       initialSize: 5
       # 最小连接池数量
@@ -70,10 +70,11 @@ mybatis:
   configuration:
     default-statement-timeout: 30
     map-underscore-to-camel-case: true
+    aggressiveLazyLoading: false
   mapper-locations: classpath:/mapper/**/*.xml
-  
-  
+
+
 #lOG
 logging:
   level:
-    com.jckj: DEBUG
+    com.yjy: debug

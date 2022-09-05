@@ -52,7 +52,7 @@
     <div class="layui-inline">
         <label class="layui-form-label required">开课时间</label>
         <div class="layui-input-inline">
-            <input type="text" id="startTime" name="startTime" placeholder="开始时间" lay-verify="detetime" class="layui-input">
+            <input type="text" id="startTime" name="startTime" placeholder="开始时间" lay-verify="detetime"  class="layui-input">
         </div>
     </div>
     <div class="layui-inline">
@@ -136,7 +136,7 @@
            min:0,//最大值为当前日期
            trigger:'click',
            type:'datetime',//日期选择器
-           value:getRecentDay(-3),//默认值30天前
+           //value:getRecentDay(-3),//默认值30天前
            done:function(value,date) {
                if(value && (value>$("#endTime").val())){
                    /*开始时间大于结束时间时，清空结束时间*/
@@ -157,8 +157,8 @@
         var end=laydate.render({
             elem:'#endTime',
             type: 'datetime',//日期时间选择器
-            min:0,//最大值为当前日期
-            value: getRecentDay(0),//默认值昨天
+            //min:0,//最大值为当前日期
+            //value: getRecentDay(0),//默认值昨天
             done:function(value,date) {
                 start.config.min={
                     year :date.year,
@@ -189,7 +189,7 @@
             var tseconds = todate.getSeconds();
             tmonth=doHandleMonth(tmonth+1);
              tdate= doHandleMonth(tdate);
-             return fullYear+"-"+tmonth+"-"+tdate+"-"+thours+"-"+tminutes+"-"+tseconds;
+             return fullYear+"-"+tmonth+"-"+tdate+"-"+thours+":"+tminutes+":"+tseconds;
 
         }
         //获取近N月

@@ -21,15 +21,17 @@ public interface CourseService {
     public JsonPageResult listCourse(LayUiDto dto);
 
     /**
-     * 添加课程
-     * @param course,img
+     * 新增
+     * @param course
+     * @param img
      * @return
      */
     public Integer insertCourse(Course course, MultipartFile img);
 
     /**
      * 修改课程
-     * @param course,img
+     * @param course
+     * @param img
      * @return
      */
     public Integer updateCourse(Course course,MultipartFile img);

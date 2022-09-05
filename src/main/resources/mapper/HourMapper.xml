@@ -18,8 +18,8 @@
               is_delete isDelete,
               create_time createTime,
               update_time updateTime
-        from t_hour_info
-    where is_delete=0
+       from t_hour_info
+       where is_delete=0
        <if test="studentName !=null and studentName !='' ">
            and student_name like concat('%',#{studentName},'%')
        </if>
