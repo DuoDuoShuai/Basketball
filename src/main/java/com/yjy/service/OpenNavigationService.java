@@ -2,7 +2,6 @@ package com.yjy.service;
 
 import com.yjy.dto.OpenDto;
 import com.yjy.model.Navigation;
-import com.yjy.model.OpenSchool;
 import com.yjy.vo.JsonPageResult;
 
 /**
@@ -10,7 +9,7 @@ import com.yjy.vo.JsonPageResult;
  * @CreatTime:2022/9/5
  * @Description:
  */
-public interface NavigationService {
+public interface OpenNavigationService {
     /**
      * 列表
      * @param dto

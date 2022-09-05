@@ -1,12 +1,9 @@
 package com.yjy.service.impl;
 
 import com.yjy.dto.OpenDto;
-import com.yjy.mapper.NavigationMapper;
-import com.yjy.mapper.OpenSchoolMapper;
+import com.yjy.mapper.OpenNavigationMapper;
 import com.yjy.model.Navigation;
-import com.yjy.model.OpenSchool;
-import com.yjy.service.NavigationService;
-import com.yjy.service.OpenSchoolService;
+import com.yjy.service.OpenNavigationService;
 import com.yjy.vo.JsonPageResult;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -21,9 +18,9 @@ import java.util.UUID;
  * @Description:
  */
 @Service
-public class NavigationServiceImpl implements NavigationService {
+public class OpenNavigationServiceImpl implements OpenNavigationService {
     @Autowired
-    private NavigationMapper navigationMapper;
+    private OpenNavigationMapper navigationMapper;
 
     /**
      * 获取当前时间

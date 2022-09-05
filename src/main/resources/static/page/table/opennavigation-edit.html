@@ -80,7 +80,7 @@
                 form.render('radio');
             }
             //信息类型
-            if(navigationType == 1){
+            if(navigationType == "false"){
                 $("#one").attr("checked","checked");
                 form.render('radio');
             }else {
@@ -92,7 +92,7 @@
         form.on('submit(saveBtn)', function (data) {
             $.ajax({
                 type:'post',
-                url:'/openSchool/edit',
+                url:'/navigation/edit',
                 data:{
                     openNavigationId:data.field.openNavigationId,
                     navigationName:data.field.navigationName,
