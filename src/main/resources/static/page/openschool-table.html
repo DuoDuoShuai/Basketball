@@ -1,7 +1,4 @@
 <!DOCTYPE html>
-<!--suppress ALL-->
-<!--导入thymeleaf名称空间-->
-<!--lang="en" xmlns:th="http://www.thymeleaf.org"-->
 <html lang="en">
 <head>
     <meta charset="utf-8">
@@ -22,33 +19,41 @@
                 <form class="layui-form layui-form-pane" action="">
                     <div class="layui-form-item">
                         <div class="layui-inline">
-                            <label class="layui-form-label">学生编号</label>
+                            <label class="layui-form-label">校区编号</label>
                             <div class="layui-input-inline">
-                                <input type="text" name="studentId" placeholder="学生编号" autocomplete="off" class="layui-input">
+                                <input type="text" name="openSchoolId" placeholder="校区编号" autocomplete="off" class="layui-input">
                             </div>
                         </div>
                         <div class="layui-inline">
-                            <label class="layui-form-label">学员姓名</label>
+                            <label class="layui-form-label">校区名称</label>
                             <div class="layui-input-inline">
-                                <input type="text" name="studentName" placeholder="请输入学员姓名" autocomplete="off" class="layui-input">
+                                <input type="text" name="schoolName" placeholder="请输入校区名称" autocomplete="off" class="layui-input">
                             </div>
                         </div>
                         <div class="layui-inline">
-                            <label class="layui-form-label">学生学号</label>
+                            <label class="layui-form-label">信息类型</label>
                             <div class="layui-input-inline">
-                                <input type="text" name="studentNumber" placeholder="请输入学生学号" autocomplete="off" class="layui-input">
+                                <select name="schoolType" id="schoolType">
+                                    <option value="">请选择</option>
+                                    <option value="1">跳转</option>
+                                    <option value="2">排序</option>
+                                </select>
                             </div>
                         </div>
                         <div class="layui-inline">
-                            <label class="layui-form-label">年龄</label>
+                            <label class="layui-form-label">切换路径</label>
                             <div class="layui-input-inline">
-                                <input type="text" name="age" placeholder="请输入年龄" autocomplete="off" class="layui-input">
+                                <input type="text" name="cutUrl" placeholder="请输入切换路径" autocomplete="off" class="layui-input">
                             </div>
                         </div>
                         <div class="layui-inline">
-                            <label class="layui-form-label">所属校区</label>
+                            <label class="layui-form-label">是否显示</label>
                             <div class="layui-input-inline">
-                                <input type="text" name="schoolName" placeholder="请输入所属校区" autocomplete="off" class="layui-input">
+                                <select name="pure" id="pure">
+                                    <option value="">请选择</option>
+                                    <option value="0">否</option>
+                                    <option value="1">是</option>
+                                </select>
                             </div>
                         </div>
                         <div class="layui-inline">
@@ -86,7 +91,7 @@
 
         table.render({
             elem: '#currentTableId',
-            url: '/student/list',
+            url: '/openSchool/list',
             method: 'post',
             toolbar: '#toolbarDemo',
             defaultToolbar: ['filter', 'exports', 'print', {
@@ -96,23 +101,29 @@
             }],
             cols: [ [
                 {type: "checkbox", width: 50},
-                {field: 'studentId', width: 80, title: '编号', sort: true},
-                {field: 'studentName', width: 80, title: '姓名'},
-                {field: 'birthday', width: 100, title: '出生年月',templet: "<div>{{layui.util.toDateString(d.birthday, 'yyyy-MM-dd')}}</div>"},
-                {field: 'age', width: 80, title: '年龄'},
-                {
-                    field: 'gender', width: 80, title: '性别', sort: true,templet: function (d) {
-                        if (d.gender == 0) {
-                            return "女";
+                {field: 'openSchoolId', width: 80, title: '校区编号', sort: true},
+                {field: 'schoolName', width: 80, title: '校区名称'},
+                {field: 'schoolDescribe', width: 80, title: '校区描述'},
+                {field: 'phone', width: 120, title: '电话', sort: true},
+                {field: 'address', width: 150, title: '地址', sort: true},
+                {field: 'schoolType', width: 150, title: '信息类型', sort: true,templet: function (d) {
+                        if (d.schoolType == 1) {
+                            return "跳转";
                         } else {
-                            return "男";
+                            return "排序";
                         }
                     }
                 },
-                {field: 'studentNumber', width: 135, title: '学员学号'},
-                {field: 'studentCode', width: 100, title: '学员二维码', sort: true},
-                {field: 'photo', width: 120, title: '学员头像', sort: true, templet: '<div><img style="height: 47px" id="img" src="http://rhh64czm7.hn-bkt.clouddn.com/{{d.photo}}"></div>'},
-                {field: 'schoolName', width: 150, title: '所属校区', sort: true},
+                {field: 'sort', width: 150, title: '排序', sort: true},
+                {field: 'cutUrl', width: 150, title: '切换地址', sort: true},
+                {field: 'pure', width: 150, title: '是否显示', sort: true,templet: function (d) {
+                        if (d.pure == 0) {
+                            return "否";
+                        } else {
+                            return "是";
+                        }
+                    }
+                },
                 {field: 'createTime', width: 120, title: '创建时间', sort: true,templet: "<div>{{layui.util.toDateString(d.createTime, 'yyyy-MM-dd HH:mm:ss')}}</div>"},
                 {field: 'updateTime', width: 120, title: '更新时间', sort: true,templet: "<div>{{layui.util.toDateString(d.updateTime, 'yyyy-MM-dd HH:mm:ss')}}</div>"},
                 {title: '操作', minWidth: 150, toolbar: '#currentTableBar', align: "center"}
@@ -131,11 +142,12 @@
                     curr: 1
                 }
                 , where: {
-                    id: data.field.studentId,
-                    name:data.field.studentName,
-                    number:data.field.studentNumber,
-                    age:data.field.age,
-                    schoolName:data.field.schoolName
+                    id: data.field.openSchoolId,
+                    name:data.field.schoolName,
+                    type:data.field.schoolType,
+                    cutUrl:data.field.cutUrl,
+                    pure:data.field.pure,
+                    sort:data.field.sort
                 }
             }, 'data');
 
@@ -154,7 +166,7 @@
                     maxmin:true,
                     shadeClose: true,
                     area: ['100%', '100%'],
-                    content: '../page/table/student-add.html',
+                    content: '../page/table/openschool-add.html',
                 });
                 $(window).on("resize", function () {
                     layer.full(index);
@@ -165,13 +177,13 @@
                     , data = checkStatus.data;
                     delList=[];
                 for(var i=0;i<data.length;i++){
-                    delList.push(data[i].studentId);
+                    delList.push(data[i].openSchoolId);
                 }
                 $.ajax({
                     type:'post',
-                    url:'/student/deleteMore',
+                    url:'/openSchool/deleteMore',
                     data:{
-                        studentIds:delList
+                        openSchoolIds:delList
                     },
                     dataType:'JSON',
                     success:function (da) {
@@ -200,21 +212,16 @@
                     maxmin:true,
                     shadeClose: true,
                     area: ['100%', '100%'],
-                    content: '../page/table/student-edit.html',
+                    content: '../page/table/openschool-edit.html',
                     success:function () {
                         var body = layer.getChildFrame('body',index);
-                        body.find('#openStudentId').val(data.openStudentId);
-                        body.find('#studentName').val(data.studentName);
-                        var sage=layui.util.toDateString(data.birthday, 'yyyy-MM-dd')
-                        body.find('#birthday').val(sage);
-                        body.find('#age').val(data.age);
-                        if(data.gender==0){
-                            body.find('#gender').val('女');
-                        }else {
-                            body.find('#gender').val('男');
-                        }
-                        body.find('#studentNumber').val(data.studentNumber);
-                        body.find('#photo').val(data.photo);
+                        body.find('#openSchoolId').val(data.openSchoolId);
+                        body.find('#schoolName').val(data.schoolName);
+                        body.find('#schoolDescribe').val(data.schoolDescribe);
+                        body.find('#phone').val(data.phone);
+                        body.find('#address').val(data.address);
+                        body.find('#sort').val(data.sort);
+                        body.find('#cutUrl').val(data.cutUrl);
                     }
                 });
                 $(window).on("resize", function () {
@@ -224,8 +231,8 @@
             } else if (obj.event === 'delete') {
                 $.ajax({
                     type:'post',
-                    url:'/student/delete',
-                    data:{studentId:data.studentId},
+                    url:'/openSchool/delete',
+                    data:{openSchoolId:data.openSchoolId},
                     dataType:'JSON',
                     success:function (da) {
                         if(da){
