@@ -6,7 +6,8 @@
 
     <!-- 需要查询字段 -->
     <sql id="start">
-        rotation_image_id rotationId,
+        rotation_image_id
+        rotationId,
         school_name schoolName,
         rotation_name photo,
         rotation_type rotationType,

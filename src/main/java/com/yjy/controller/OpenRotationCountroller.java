@@ -50,7 +50,7 @@ public class OpenRotationCountroller {
      * @throws IOException
      */
     @RequestMapping("insert")
-    public JsonResult insertOpenRotation(OpenRotation openRotation, MultipartFile img){
+    public JsonResult insertOpenRotation(OpenRotation openRotation, MultipartFile img) {
         Integer insert = openRotationService.insertOpenRotation(openRotation, img);
         return JsonResult.success(insert);
     }
@@ -88,8 +88,8 @@ public class OpenRotationCountroller {
      * @throws IOException
      */
     @RequestMapping("update")
-    public JsonResult updateOpenRotation(OpenRotation openRotation, MultipartFile img){
-        Integer update = openRotationService.updateOpenRotation(openRotation,img);
+    public JsonResult updateOpenRotation(OpenRotation openRotation, MultipartFile img) {
+        Integer update = openRotationService.updateOpenRotation(openRotation, img);
         return JsonResult.success(update);
     }
 }

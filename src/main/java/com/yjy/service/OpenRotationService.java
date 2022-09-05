@@ -32,7 +32,8 @@ public interface OpenRotationService {
      * 增加
      *
      * @param openRotation
-     * @return 整数i=1
+     * @param img
+     * @return
      */
     Integer insertOpenRotation(OpenRotation openRotation, MultipartFile img);
 
@@ -56,7 +57,8 @@ public interface OpenRotationService {
      * 修改
      *
      * @param openRotation
-     * @return 整数i=1
+     * @param img
+     * @return
      */
-    Integer updateOpenRotation(OpenRotation openRotation,MultipartFile img);
+    Integer updateOpenRotation(OpenRotation openRotation, MultipartFile img);
 }

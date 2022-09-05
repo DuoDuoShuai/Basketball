@@ -17,6 +17,8 @@ import java.util.List;
 public interface OpenRotationMapper {
 
     /**
+     * 轮播图数据列表
+     *
      * @param dto
      * @return
      */
