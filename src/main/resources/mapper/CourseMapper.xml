@@ -29,6 +29,9 @@
        <if test="name !=null and name !=''">
            and course_name like concat('%',#{name},'%')
        </if>
+        <if test="schoolName !=null and schoolName !='' ">
+            and school_name like concat('%',#{schoolName},'%')
+        </if>
         limit #{dataNum},#{limit};
     </select>
 
@@ -39,6 +42,9 @@
             <if test="name !=null and name !=''">
                 and course_name like concat('%',#{name},'%')
             </if>
+        <if test="schoolName !=null and schoolName !='' ">
+            and school_name like concat('%',#{schoolName},'%')
+        </if>
     </select>
 
     <!--添加-->

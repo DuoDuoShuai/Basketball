@@ -131,6 +131,47 @@
             elem : '#shelfTime',
             type : 'datetime'
         })
+        //时间选择器初始化，开始时间
+        var start=laydate.render({
+            elem:'#startTime',
+            min:0,//最大值为当前日期
+            trigger:'click',
+            type:'datetime',//日期选择器
+            //value:getRecentDay(-3),//默认值30天前
+            done:function(value,date) {
+                if(value && (value>$("#endTime").val())){
+                    /*开始时间大于结束时间时，清空结束时间*/
+                    $("#endTime").val("");
+                }
+                end.config.min={
+                    year :date.year,
+                    month : date.month-1,
+                    date:date.date,
+                    hours:date.hours,
+                    minutes:date.minutes,
+                    seconds :date.seconds
+                };
+
+            }
+        });
+        //结束日期
+        var end=laydate.render({
+            elem:'#endTime',
+            type: 'datetime',//日期时间选择器
+            //min:0,//最大值为当前日期
+            //value: getRecentDay(0),//默认值昨天
+            done:function(value,date) {
+                start.config.min={
+                    year :date.year,
+                    month : date.month-1,
+                    date:date.date,
+                    hours:date.hours,
+                    minutes:date.minutes,
+                    seconds :date.seconds
+                }
+
+            }
+        })
         $(function () {
             //从父层获取值，json是父层的全局js变量、eval是将带有json格式的字符串转为json对象
             var parent_json=eval('('+parent.json+')');

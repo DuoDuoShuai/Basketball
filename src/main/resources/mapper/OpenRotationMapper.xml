@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yjy.mapper.OpenRotationMapper">
+
+    <!-- 需要查询字段 -->
+    <sql id="start">
+        rotation_image_id
+        rotationId,
+        school_name schoolName,
+        rotation_name photo,
+        rotation_type rotationType,
+        sort,
+        cut_url cutUrl,
+        is_show pure,
+        is_delete isDelete,
+        create_time creatTime,
+        update_time updateTime
+    </sql>
+
+    <!-- 列表+查询 -->
+    <select id="listOpenRotation" parameterType="com.yjy.dto.LayUiDto" resultType="com.yjy.model.OpenRotation">
+        select
+        <include refid="start"></include>
+        from t_open_rotation
+        where is_delete=0
+        <if test="schoolName !=null and schoolName !=''">
+            and school_name like concat('%',#{schoolName},'%')
+        </if>
+        order by rotation_image_id asc
+        limit #{dataNum},#{limit}
+    </select>
+
+    <!-- 总数 -->
+    <select id="count" parameterType="com.yjy.dto.LayUiDto" resultType="java.lang.Integer">
+        select
+        count(1)
+        from t_open_rotation
+        where is_delete=0
+        <if test="name !=null and name !=''">
+            and school_name like concat('%',#{name},'%')
+        </if>
+    </select>
+
+    <!-- 详情 -->
+    <select id="loadOpenRotation" resultType="com.yjy.model.OpenRotation">
+        select
+        <include refid="start"></include>
+        from t_open_rotation
+        where rotation_image_id=#{0}
+    </select>
+
+    <!-- 添加用户信息 -->
+    <insert id="insertOpenRotation" parameterType="com.yjy.model.OpenRotation">
+        insert into t_open_rotation(rotation_image_id, school_name, rotation_name, rotation_type, sort, is_show,
+                                    create_time, update_time)
+        values (#{rotationId}, #{schoolName}, #{photo}, #{rotationType}, #{sort}, #{pure}, #{createTime},
+                #{updateTime})
+    </insert>
+
+    <!-- 删除 -->
+    <update id="deleteOpenRotation">
+        update t_open_rotation
+        set is_delete=1
+        where rotation_image_id = #{rotationId}
+    </update>
+
+    <!-- 删除时改变修改时间 -->
+    <update id="updateTime" parameterType="com.yjy.model.OpenRotation">
+        update t_open_rotation
+        set update_time = #{updateTime}
+        where rotation_image_id = #{rotationId}
+    </update>
+
+    <!-- 修改 -->
+    <update id="updateOpenRotation" parameterType="com.yjy.model.OpenRotation">
+        update t_open_rotation
+        <trim prefix="set " suffixOverrides=",">
+            <if test="schoolName !=null">school_name=#{schoolName},</if>
+            <if test="photo !=null">rotation_name=#{photo},</if>
+            <if test="sort !=null">sort=#{sort},</if>
+            <if test="pure !=null">is_show=#{pure},</if>
+            <if test="updateTime !=null">update_time=#{updateTime},</if>
+        </trim>
+        where rotation_image_id = #{rotationId}
+    </update>
+
+</mapper>
