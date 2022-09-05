@@ -10,7 +10,7 @@ import java.util.List;
 /**
  * @Author:黄文倩
  * @CreatTime:2022/8/31
- * @Description: TODO
+ * @Description:
  */
 @Repository
 public interface SchoolMapper {
