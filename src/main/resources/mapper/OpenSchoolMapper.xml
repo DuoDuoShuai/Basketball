@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yjy.mapper.OpenSchoolMapper">
+    <sql id="start">
+        open_school_id openSchoolId,school_name schoolName,school_describe schoolDescribe,phone,address,
+        school_type schoolType,sort,cut_url cutUrl,is_show pure,
+        create_time createTime,
+        update_time updateTime
+    </sql>
+    <!-- 列表+查询 -->
+    <select id="list" parameterType="com.yjy.dto.OpenDto" resultType="com.yjy.model.OpenSchool">
+        select
+        <include refid="start"></include>
+        from t_open_school
+        where is_delete=0
+        <if test="id !=null and id !=''">
+            and open_school_id like concat('%',#{id},'%')
+        </if>
+        <if test="name !=null and name !=''">
+            and school_name like concat('%',#{name},'%')
+        </if>
+        <if test="type !=null and type !=''">
+            and school_type like concat('%',#{type},'%')
+        </if>
+        <if test="cutUrl !=null and cutUrl !=''">
+            and cut_url like concat('%',#{cutUrl},'%')
+        </if>
+        <if test="pure !=null and pure !=''">
+            and pure like concat('%',#{pure},'%')
+        </if>
+        order by open_school_id asc
+        limit #{dataNum},#{limit}
+    </select>
+    <!-- 总数 -->
+    <select id="count" parameterType="com.yjy.dto.OpenDto" resultType="java.lang.Integer">
+        select
+        count(1)
+        from t_open_school
+        where is_delete=0
+        <if test="id !=null and id !=''">
+            and open_school_id like concat('%',#{id},'%')
+        </if>
+        <if test="name !=null and name !=''">
+            and school_name like concat('%',#{name},'%')
+        </if>
+        <if test="type !=null and type !=''">
+            and school_type like concat('%',#{type},'%')
+        </if>
+        <if test="cutUrl !=null and cutUrl !=''">
+            and cut_url like concat('%',#{cutUrl},'%')
+        </if>
+        <if test="pure !=null and pure !=''">
+            and pure like concat('%',#{pure},'%')
+        </if>
+    </select>
+
+    <!-- 修改 -->
+    <update id="update" parameterType="com.yjy.model.OpenSchool">
+        update t_open_school
+        <trim prefix="set " suffixOverrides=",">
+            <if test="schoolName !=null">school_name=#{schoolName},</if>
+            <if test="schoolDescribe !=null">school_describe=#{schoolDescribe},</if>
+            <if test="phone !=null">phone=#{phone},</if>
+            <if test="address !=null">address=#{address},</if>
+            <if test="schoolType !=null">school_type=#{schoolType},</if>
+            <if test="sort !=null">sort=#{sort},</if>
+            <if test="cutUrl !=null">cut_url=#{cutUrl},</if>
+            <if test="pure !=null">is_show=#{pure},</if>
+            <if test="updateTime !=null">update_time=#{updateTime},</if>
+        </trim>
+        where open_school_id=#{openSchoolId}
+    </update>
+    <!-- 删除时修改时间 -->
+    <update id="updateTime" parameterType="com.yjy.model.OpenSchool">
+        update t_open_school
+        set update_time=#{updateTime}
+        where open_school_id=#{openSchoolId}
+    </update>
+    <!-- 删除 -->
+    <update id="delete">
+        update t_open_school set is_delete=1
+        where open_school_id=#{arg0}
+    </update>
+    <!-- 增加 -->
+    <insert id="insert" parameterType="com.yjy.model.OpenSchool">
+        insert into t_open_school
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="openSchoolId !=null">open_school_id,</if>
+            <if test="schoolName !=null">school_name,</if>
+            <if test="schoolDescribe !=null">school_describe,</if>
+            <if test="phone !=null">phone,</if>
+            <if test="address !=null">address,</if>
+            <if test="schoolType !=null">school_type,</if>
+            <if test="sort !=null">sort,</if>
+            <if test="cutUrl !=null">cut_url,</if>
+            <if test="pure !=null">is_show,</if>
+            <if test="createTime !=null">create_time,</if>
+            <if test="updateTime !=null">update_time,</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="openSchoolId !=null">#{openSchoolId},</if>
+            <if test="schoolDescribe !=null">#{schoolDescribe},</if>
+            <if test="phone !=null">#{phone},</if>
+            <if test="address !=null">#{address},</if>
+            <if test="schoolType !=null">#{schoolType},</if>
+            <if test="sort !=null">#{sort},</if>
+            <if test="cutUrl !=null">#{cutUrl},</if>
+            <if test="pure !=null">#{pure},</if>
+            <if test="createTime !=null">#{createTime},</if>
+            <if test="updateTime !=null">#{updateTime},</if>
+        </trim>
+    </insert>
+</mapper>
