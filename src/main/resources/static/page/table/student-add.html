@@ -50,8 +50,7 @@
     <div class="layui-form-item">
         <label class="layui-form-label">学员头像</label>
         <div class="layui-input-block">
-            <input type="file" name="img" id="photo" placeholder="请选择学员头像" value="" class="province-selector" style="width: 200px;">
-            <img src="" id="img">
+            <input type="file" name="img" id="photo" placeholder="请输入学号" value="" class="layui-input">
         </div>
     </div>
     <div class="layui-form-item">
@@ -69,7 +68,7 @@
     </div>
 </div>
 <script src="../../lib/layui-v2.6.3/layui.js" charset="utf-8"></script>
-<script >
+<script>
     layui.use(['form'], function () {
         var form = layui.form,
             layer = layui.layer,
