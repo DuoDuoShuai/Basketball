@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 命名空间，可以对sql进行分类的一个管理 -->
+<mapper namespace="com.yjy.mapper.OpenCourseMapper">
+    <!--查询-->
+    <select id="listOpenCourse" resultType="com.yjy.model.OpenCourse" parameterType="com.yjy.dto.LayUiDto">
+        select open_course_id openId,
+               course_name name,
+               photo openPhoto,
+               course_hour opencoursehour,
+               price openprice,
+               course_state opencoursestate,
+               course_describe opendescribe,
+               start_time openstartTime,
+               end_time openendTime,
+               pay_number openpayNumber,
+               school_name schoolName,
+               shelf_time openshelfTime,
+               shelf_left_time openShelfleftTime,
+               course_type opencourseType,
+               sort opensort,
+               cut_url opencuturl,
+               is_show pure,
+               is_delete openisDelete,
+               create_time createTime,
+               update_time updateTime
+        from t_open_course
+     where is_delete=0
+       <if test="name !=null and name !=''">
+           and course_name like concat('%',#{name},'%')
+       </if>
+        <if test="schoolName !=null and schoolName !='' ">
+            and school_name like concat('%',#{schoolName},'%')
+        </if>
+        limit #{dataNum},#{limit};
+    </select>
+
+    <!--总页数-->
+    <select id="count" resultType="java.lang.Integer" parameterType="com.yjy.dto.LayUiDto">
+        select count(1) from t_open_course
+         where is_delete=0
+        <if test="name !=null and name !=''">
+            and course_name like concat('%',#{name},'%')
+        </if>
+        <if test="schoolName !=null and schoolName !='' ">
+            and school_name like concat('%',#{schoolName},'%')
+        </if>
+    </select>
+
+    <!--添加-->
+    <insert id="insertOpenCourse" parameterType="com.yjy.model.OpenCourse">
+      insert into t_open_course(open_course_id,course_name,photo,course_hour,price,course_state,course_describe,start_time,end_time,school_name,shelf_time,course_type,sort,cut_url,is_show,is_delete,create_time,update_time)
+                        values (#{openId},#{name},#{openPhoto},#{opencoursehour},#{openprice},#{opencoursestate},#{opendescribe},#{openstartTime},#{openendTime},#{schoolName},#{openshelfTime},#{opencourseType},#{opensort},#{opencuturl},#{pure},#{openisDelete},#{createTime},#{updateTime})
+    </insert>
+
+   <!--修改-->
+    <update id="updateOpenCourse" parameterType="com.yjy.model.OpenCourse">
+        update t_open_course
+        <trim prefix="set" suffixOverrides=",">
+                <if test="name !=null">course_name=#{name},</if>
+                <if test="openPhoto !=null">photo=#{openPhoto},</if>
+                <if test="opencoursehour !=null">course_hour=#{opencoursehour},</if>
+                <if test="openprice !=null">price=#{openprice},</if>
+                <if test="opencoursestate !=null">course_state=#{opencoursestate},</if>
+                <if test="opendescribe !=null">course_describe=#{opendescribe},</if>
+                <if test="openstartTime !=null">start_time=#{openstartTime},</if>
+                <if test="openendTime !=null">end_time=#{openendTime},</if>
+                <if test="schoolName !=null">school_name=#{schoolName},</if>
+                <if test="openshelfTime !=null">shelf_time=#{openshelfTime},</if>
+                <if test="opencourseType !=null">course_type=#{opencourseType},</if>
+                <if test="opensort !=null">sort=#{opensort},</if>
+                <if test="opencuturl !=null">cut_url=#{opencuturl},</if>
+            <if test="pure !=null">is_show=#{pure},</if>
+            <if test="updateTime !=null">update_time=#{updateTime},</if>
+        </trim>
+        where open_course_id=#{openId}
+    </update>
+
+    <!--删除课程-->
+    <update id="deleteOpenCourse">
+        update t_open_course
+          set is_delete=1
+         where open_course_id=#{openId}
+    </update>
+
+    <!-- 删除时更新时间 -->
+    <update id="deleteTime" parameterType="com.yjy.model.Course">
+        update t_open_course
+        set update_time=#{updateTime}
+        where open_course_id=#{openId}
+    </update>
+</mapper>

@@ -22,14 +22,16 @@ public interface CourseService {
 
     /**
      * 添加课程
-     * @param course,img
+     * @param course
+     * @param img
      * @return
      */
     public Integer insertCourse(Course course, MultipartFile img);
 
     /**
      * 修改课程
-     * @param course,img
+     * @param course
+     * @param img
      * @return
      */
     public Integer updateCourse(Course course,MultipartFile img);

@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>首页三</title>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link rel="stylesheet" href="../lib/layui-v2.6.3/css/layui.css" media="all">
+    <link rel="stylesheet" href="../lib/font-awesome-4.7.0/css/font-awesome.min.css" media="all">
+    <link rel="stylesheet" href="../css/public.css" media="all">
+    <style>
+        .top-panel {
+            border: 1px solid #eceff9;
+            border-radius: 5px;
+            text-align: center;
+        }
+        .top-panel > .layui-card-body{
+            height: 60px;
+        }
+        .top-panel-number{
+            line-height:60px;
+            font-size: 30px;
+            border-right:1px solid #eceff9;
+        }
+        .top-panel-tips{
+            line-height:30px;
+            font-size: 12px
+        }
+    </style>
+</head>
+<body>
+<div class="layuimini-container">
+    <div class="layuimini-main">
+
+        <fieldset class="table-search-fieldset">
+            <legend>搜索信息</legend>
+            <div style="margin: 10px 10px 10px 10px">
+                <form class="layui-form layui-form-pane" action="">
+                    <div class="layui-form-item">
+                        <div class="layui-inline">
+                            <label class="layui-form-label">课程名字</label>
+                            <div class="layui-input-inline">
+                                <input type="text" name="name" autocomplete="off" class="layui-input">
+                            </div>
+                        </div>
+                        <div class="layui-inline">
+                            <label class="layui-form-label">校区</label>
+                            <div class="layui-input-inline">
+                                <input type="text" name="schoolName" autocomplete="off" class="layui-input">
+                            </div>
+                        </div>
+                        <div class="layui-inline">
+                            <button type="submit" class="layui-btn layui-btn-primary"  lay-submit lay-filter="data-search-btn"><i class="layui-icon"></i> 搜 索</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </fieldset>
+
+        <script type="text/html" id="toolbarDemo">
+            <div class="layui-btn-container">
+                <button class="layui-btn layui-btn-normal layui-btn-sm data-add-btn" lay-event="add"> 添加 </button>
+                <button class="layui-btn layui-btn-sm layui-btn-danger data-delete-btn" lay-event="delete">批量删除 </button>
+            </div>
+        </script>
+
+        <table class="layui-hide" id="currentTableId" lay-filter="currentTableFilter"></table>
+
+        <script type="text/html" id="currentTableBar">
+            <a class="layui-btn layui-btn-normal layui-btn-xs data-count-edit" lay-event="edit">编辑</a>
+            <a class="layui-btn layui-btn-xs layui-btn-danger data-count-delete" lay-event="delete">删除</a>
+        </script>
+
+    </div>
+</div>
+<script type="text/html" id="zizeng">
+    {{d.LAY_TABLE_INDEX+1}}
+</script>
+<script src="../lib/layui-v2.6.3/layui.js" charset="utf-8"></script>
+<script>
+    var json;
+    layui.use(['form', 'table'], function () {
+        var $ = layui.jquery,
+            form = layui.form,
+            table = layui.table;
+
+        table.render({
+            elem: '#currentTableId',
+            url: '/OpenCourse/listOpenCourse',
+            toolbar: '#toolbarDemo',
+            defaultToolbar: ['filter', 'exports', 'print', {
+                title: '提示',
+                layEvent: 'LAYTABLE_TIPS',
+                icon: 'layui-icon-tips'
+            }],
+            cols: [[
+                {type: "checkbox", width: 50},
+                {field: 'openId', width:50, title: 'ID',templet:'#zizeng'},
+                {field: 'name', width: 80, title: '课程名字'},
+                {field: 'openPhoto', width: 80, title: '课程图片', templet: '<div><img id="img" src="http://rhh64czm7.hn-bkt.clouddn.com/{{d.photo}}"></div>'},
+                {field: 'opencoursehour', width: 50, title: '课程课时'},
+                {field: 'openprice', width: 50, title: '价格', sort: true},
+                {field: 'opencoursestate', width: 50, title: '课程状态',templet: function (d) {
+                        if (d.opencoursestate == 0) {
+                            return "未开课";
+                        } else if(d.opencoursestate ==1) {
+                            return "已开课";
+                        }else {
+                            return "已结束";
+                        }
+                    } },
+                {field: 'opendescribe', width: 135, title: '课程描述', sort: true},
+                {field: 'openstartTime', width: 150, title: '开课时间',sort: true,templet: "<div>{{layui.util.toDateString(d.startTime, 'yyyy-MM-dd HH:mm:ss')}}</div>"},
+                {field: 'openendTime', width: 150, title: '结束时间',sort: true,templet: "<div>{{layui.util.toDateString(d.endTime, 'yyyy-MM-dd HH:mm:ss')}}</div>"},
+                {field: 'openpayNumber', width: 50, title: '购买人数'},
+                {field: 'schoolName', width: 120, title: '校区'},
+                {field: 'openshelfTime', width: 150, title: '上架时间',sort: true,templet: "<div>{{layui.util.toDateString(d.shelfTime, 'yyyy-MM-dd HH:mm:ss')}}</div>"},
+                {field: 'openShelfleftTime', width: 150, title: '下架时间',sort: true,templet: "<div>{{layui.util.toDateString(d.shelfLeftTime, 'yyyy-MM-dd HH:mm:ss')}}</div>"},
+                {field: 'pure', width: 50, title: '上架状态',
+                    templet: function (d) {
+                        if (d.pure ==0) {
+                            return "未上架";
+                        }else {
+                            return "已上架";
+                        }
+                    }
+                },
+                {field: 'opencourseType', width: 120, title: '信息类型',
+                templet: function(d) {
+                    if (d.opencourseType==0) {
+                        return '跳转'
+                    }else {
+                        return '排序'
+                    }
+                }},
+                {field: 'opensort', width: 120, title: '排序',
+                templet: function (d) {
+                    if(d.opensort==0){
+                        return 'asc'
+                    }else {
+                        return 'desc'
+                    }
+                }},
+                {field: 'opencuturl', width: 120, title: '切换路劲'},
+                {field: 'createTime', width: 150, title: '创建时间',sort: true,templet: "<div>{{layui.util.toDateString(d.createTime, 'yyyy-MM-dd HH:mm:ss')}}</div>"},
+                {field: 'updateTime', width: 150, title: '更新时间',sort: true,templet: "<div>{{layui.util.toDateString(d.updateTime, 'yyyy-MM-dd HH:mm:ss')}}</div>"},
+                {title: '操作', minWidth: 150, toolbar: '#currentTableBar', align: "center"}
+            ]],
+            limits: [10, 15, 20, 25, 50, 100],
+            limit: 15,
+            page: true,
+            skin: 'line'
+        });
+
+        // 监听搜索操作
+        form.on('submit(data-search-btn)', function (data) {
+            //执行搜索重载
+            table.reload('currentTableId', {
+                page: {
+                    curr: 1
+                }
+                , where: {
+                    name:data.field.name,
+                    schoolName:data.field.schoolName,
+                }
+            }, 'data');
+
+            return false;
+        });
+
+        /**
+         * toolbar监听事件
+         */
+        table.on('toolbar(currentTableFilter)', function (obj) {
+            if (obj.event === 'add') {  // 监听添加操作
+                var index = layer.open({
+                    title: '添加用户',
+                    type: 2,
+                    shade: 0.2,
+                    maxmin:true,
+                    shadeClose: true,
+                    area: ['100%', '100%'],
+                    content: '../page/table/course-add.html',
+                });
+                $(window).on("resize", function () {
+                    layer.full(index);
+                });
+            } else  if (obj.event === 'delete') {  // 监听删除操作
+                /*获取选中数据*/
+                var checkStatus = table.checkStatus('currentTableId'),
+                    checkData = checkStatus.data,
+                    delList=[];
+                for(var i=0;i<checkData.length;i++){
+                    delList.push(checkData[i].courseId);
+                }
+                layer.confirm('真的删除吗?',function (index) {
+                    $.ajax({
+                        type:'post',
+                        url:'/Course/deleteMore',
+                        data:{courseIds:delList},
+                        dataType: 'json',
+                        success:function (da) {
+                            if (da.data==0) {
+                                layer.msg('批量删除失败',{icon:5,offset:"auto",time:2000});
+                            }else {
+                                layer.msg('批量删除成功',{icon:6,offset:"auto",time:2000});
+                            }
+                            setTimeout(function () {
+                                table.reload("currentTableId");/*重新加载页面表格*/
+                            },2100) ;
+                        }
+                    })
+                })
+            }
+        });
+
+        //监听表格复选框选择
+        table.on('checkbox(currentTableFilter)', function (obj) {
+            console.log(obj)
+        });
+
+        table.on('tool(currentTableFilter)', function (obj) {
+            var data = obj.data;
+            json = JSON.stringify(data);
+            console.log(json);
+            if (obj.event === 'edit') {
+                var index = layer.open({
+                    title: '修改课程',
+                    type: 2,
+                    shade: 0.2,
+                    maxmin:true,
+                    shadeClose: true,
+                    area: ['100%', '100%'],
+                    content: '../page/table/course-edit.html',
+                    success:function () {
+                        /*product_name,city_name,send_time,product_price,product_desc*/
+                        /*表单数据回显，把表格当前显示到子页面的表单内，find后括号内的是子页面表单的id*/
+                        var body = layer.getChildFrame('body',index);
+                        body.find("#courseId").val(data.courseId);
+                        body.find("#name").val(data.name);
+                        body.find("#courseHour").val(data.courseHour);
+                        body.find("#courseDescribe").val(data.courseDescribe);
+                        body.find("#price").val(data.price);
+                        body.find("#isShaky").attr("checked","checked");
+                        //body.find("#schoolName").attr(data.schoolName);
+                         // body.find("input[name=isShaky][value='0,1']").attr("checked",data.isShaky=="0,1" ? true : false);
+                         // body.find("input[name=isShaky][value=0]").attr("checked",data.isShaky=="0" ? true : false);
+                        if(data.isShaky==0){
+                            $("#isShaky_1").prop("checked","checked")
+                            form.render('radio');
+                        }else {
+                            $("#isShaky_2").prop("checked", "checked");
+                            form.render('radio');
+                        }
+                        //console.log(body.find("input[name=isShaky][value=1]"))
+                        var sage=layui.util.toDateString(data.birthday, 'yyyy-MM-dd HH:mm:ss');
+                        body.find("#startTime").val(sage);
+                        body.find("#endTime").val(sage);
+                        body.find("#courseState").val(data.courseState);
+                        body.find("#pure").val(data.pure);
+                        if(data.pure==0){
+                           body.find("#pure").val("未上架");
+                        }else {
+                            body.find('#pure').val('已上架');
+                        }
+                        body.find("#shelfTime").val(sage);
+                        body.find("#photo").val(data.photo)
+
+                    }
+                });
+                $(window).on("resize", function () {
+                    layer.full(index);
+                });
+                return false;
+            } else if (obj.event === 'delete') {
+                layer.confirm('真的删除行么', function (index) {
+                    var tableData = obj.data;
+                    $.ajax({
+                        type:'get',
+                        url:'/Course/deleteById',
+                        data:{
+                            courseId:tableData.courseId
+                        },
+                        dataType: 'json',
+                        success:function (da) {
+                                var index = layer.alert("删除成功", {
+                                    title: '最终的提交信息'
+                                }, function () {
+                                    // 关闭弹出层
+                                    layer.close(index);
+                                    var iframeIndex = parent.layer.getFrameIndex(window.name);
+                                    parent.layer.close(iframeIndex);
+                                    table.reload("currentTableId");
+                                });
+                                return false;
+                            }
+
+                    })
+                    // 关闭弹出层
+                    layer.close(index);
+                });
+            }
+        });
+
+    });
+</script>
+
+</body>
+</html>
