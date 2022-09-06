@@ -18,33 +18,34 @@
 <div class="layui-form layuimini-form">
 
     <div class="layui-form-item">
-        <label class="layui-form-label required">家长姓名</label>
+        <label class="layui-form-label required">问题</label>
         <div class="layui-input-block">
-            <input type="text" name="parentName" id="parentName" lay-verify="required" lay-reqtext="用户名不能为空" placeholder="家长姓名" value="" class="layui-input">
+            <input type="text" name="problem" id="problem" lay-verify="required" lay-reqtext="用户名不能为空" placeholder="家长电话" value="" class="layui-input">
         </div>
     </div>
 
     <div class="layui-form-item">
-        <label class="layui-form-label required">家长电话</label>
+        <label class="layui-form-label required">问题类型</label>
         <div class="layui-input-block">
-            <input type="text" name="parentPhone" id="parentPhone" lay-verify="required" lay-reqtext="用户名不能为空" placeholder="家长电话" value="" class="layui-input">
+            <input type="text" name="problemType" id="problemType" lay-verify="required" lay-reqtext="用户名不能为空" placeholder="家长电话" value="" class="layui-input">
         </div>
     </div>
 
     <div class="layui-form-item">
-        <label class="layui-form-label required">家长头像</label>
+        <label class="layui-form-label required">切换类型</label>
         <div class="layui-input-block">
-            <input type="file" name="parentPhoto" id="parentPhoto" value="" class="layui-input">
+            <input type="radio" name="cutType" value="true" title="旋转" checked="">
+            <input type="radio" name="cutType" value="false" title="翻页">
         </div>
     </div>
 
     <div class="layui-form-item">
-        <label class="layui-form-label required">家长性别</label>
+        <label class="layui-form-label required">切换路径</label>
         <div class="layui-input-block">
-            <input type="radio" name="parentSex" value="true" title="男" checked="">
-            <input type="radio" name="parentSex" value="false" title="女">
+            <input type="text" name="cutUrl" id="cutUrl" lay-verify="required" lay-reqtext="用户名不能为空" placeholder="家长电话" value="" class="layui-input">
         </div>
     </div>
+
     <div class="layui-form-item">
         <div class="layui-input-block">
             <button class="layui-btn layui-btn-normal" lay-submit lay-filter="saveBtn">确认保存</button>
@@ -61,13 +62,12 @@
         //监听提交
         form.on('submit(saveBtn)', function (data) {
             var formData = new FormData();//form表单
-            formData.append("parentName",data.field.parentName);
-            formData.append("parentPhone",data.field.parentPhone);
-            formData.append("parentSex",$("input[name='parentSex']:checked").val());
-            var fileobj = $("#parentPhoto")[0].files[0];
-            formData.append("img",fileobj);
+            formData.append("problem",data.field.problem);
+            formData.append("problemType",data.field.problemType);
+            formData.append("cutType",$("input[name='cutType']:checked").val());
+            formData.append("cutUrl",data.field.cutUrl);
             $.ajax({
-                url:'/parent/insertParent',
+                url:'/problem/insertProblem',
                 type:'post',
                 data:formData,
                 processData:false,

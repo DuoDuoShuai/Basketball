@@ -16,33 +16,40 @@
 </head>
 <body>
 <div class="layui-form layuimini-form">
+
     <div class="layui-form-item">
+        <label class="layui-form-label required">回答id</label>
         <div class="layui-input-block">
-            <input type="hidden" name="schoolId" id="schoolId" lay-verify="required" class="layui-input">
+            <input type="text" name="openAnsewrId" id="openAnsewrId" lay-verify="required" lay-reqtext="用户名不能为空" placeholder="家长电话" value="" class="layui-input">
         </div>
     </div>
+
     <div class="layui-form-item">
-        <label class="layui-form-label required">校区名称</label>
+        <label class="layui-form-label required">回答</label>
         <div class="layui-input-block">
-            <input type="text" name="schoolName" id="schoolName" lay-verify="required" lay-reqtext="姓名不能为空" placeholder="请输入姓名" value="" class="layui-input">
+            <input type="text" name="answer" id="answer" lay-verify="required" lay-reqtext="用户名不能为空" placeholder="家长电话" value="" class="layui-input">
         </div>
     </div>
+
     <div class="layui-form-item">
-        <label class="layui-form-label required">校区描述</label>
+        <label class="layui-form-label required">切换类型</label>
         <div class="layui-input-block">
-            <input type="text" name="schoolDescribe" id="schoolDescribe" placeholder="请输入校区描述" value="" class="layui-input">
+            <input type="text" name="cutUrl" id="cutUrl" lay-verify="required" lay-reqtext="用户名不能为空" placeholder="家长电话" value="" class="layui-input">
         </div>
     </div>
+
     <div class="layui-form-item">
-        <label class="layui-form-label required">电话</label>
+        <label class="layui-form-label required">排序</label>
         <div class="layui-input-block">
-            <input type="text" name="phone" id="phone" placeholder="请输入电话" value="" class="layui-input">
+            <input type="text" name="sort" id="sort" lay-verify="required" lay-reqtext="用户名不能为空" placeholder="家长电话" value="" class="layui-input">
         </div>
     </div>
+
     <div class="layui-form-item">
-        <label class="layui-form-label">地址</label>
+        <label class="layui-form-label required">信息类型</label>
         <div class="layui-input-block">
-            <input type="text" name="address" id="address" placeholder="请输入地址" value="" class="layui-input">
+            <input type="radio" name="ansewrType" id="fanye" value="true" title="跳转" checked="">
+            <input type="radio" name="ansewrType" id="xuanzhuan" value="false" title="排序">
         </div>
     </div>
     <div class="layui-form-item">
@@ -58,31 +65,42 @@
         var form = layui.form,
             layer = layui.layer,
             $ = layui.$;
+        $(function () {
+            //从父层获取值，json是父层的全局js变量、eval是将带有json格式的字符串转为json对象
+            var parent_json=eval('('+parent.json+')');
+            var gender=parent_json.ansewrType.toString();
+
+            if(gender == "false"){
+                $("#fanye").attr("checked","checked");
+                form.render('radio');
+            }else {
+                $("#xuanzhuan").attr("checked","checked");
+                form.render('radio');
+            }
+        });
         //监听提交
         form.on('submit(saveBtn)', function (data) {
+            var formData = new FormData();//form表单
+            formData.append("openAnsewrId",data.field.openAnsewrId);
+            formData.append("answer",data.field.answer);
+            formData.append("cutUrl",data.field.cutUrl);
+            formData.append("sort",data.field.sort);
+            formData.append("ansewrType",$("input[name='ansewrType']:checked").val());
             $.ajax({
+                url:'/answer/updateAnswer',
                 type:'post',
-                url:'/school/edit',
-                data:{
-                    schoolId: data.field.schoolId,
-                    schoolName:data.field.schoolName,
-                    schoolDescribe:data.field.schoolDescribe,
-                    phone:data.field.phone,
-                    address:data.field.address
-                },
-                dataType:'JSON',
-                success:function (da) {
-                    if(da.data==1){
-                        var index = layer.alert("修改成功", {
-                            title: '最终的提交信息'
-                        }, function () {
-                            // 关闭弹出层
-                            layer.close(index);
-                            var iframeIndex = parent.layer.getFrameIndex(window.name);
-                            parent.layer.close(iframeIndex);
-                            parent.layui.table.reload("currentTableId");
-                        });
-                    }
+                data:formData,
+                processData:false,
+                contentType:false,
+                success:function (dataa) {
+                    var index = layer.alert("修改成功", {
+                        title: '修改成功'
+                    }, function () {
+                        // 关闭弹出层
+                        layer.close(index);
+                        var iframeIndex = parent.layer.getFrameIndex(window.name);
+                        parent.layer.close(iframeIndex);
+                    });
                 }
             });
             return false;
