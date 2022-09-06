@@ -59,7 +59,8 @@
 
     <!-- 添加用户信息 -->
     <insert id="insertOpenRotation" parameterType="com.yjy.model.OpenRotation">
-        insert into t_open_rotation(rotation_image_id, school_name, rotation_name, rotation_type, sort, cut_url, is_show,
+        insert into t_open_rotation(rotation_image_id, school_name, rotation_name, rotation_type, sort, cut_url,
+                                    is_show,
                                     create_time, update_time)
         values (#{rotationId}, #{schoolName}, #{photo}, #{rotationType}, #{sort}, #{cutUrl}, #{pure}, #{createTime},
                 #{updateTime})
@@ -85,6 +86,7 @@
         <trim prefix="set " suffixOverrides=",">
             <if test="schoolName !=null">school_name=#{schoolName},</if>
             <if test="photo !=null">rotation_name=#{photo},</if>
+            <if test="rotationType !=null">rotation_type=#{rotationType},</if>
             <if test="sort !=null">sort=#{sort},</if>
             <if test="cutUrl !=null">cut_url=#{cutUrl},</if>
             <if test="pure !=null">is_show=#{pure},</if>

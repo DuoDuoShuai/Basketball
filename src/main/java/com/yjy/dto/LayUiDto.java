@@ -79,6 +79,10 @@ public class LayUiDto {
      */
     private String gradeTime;
     /**
+     * 积分渠道
+     */
+    private String integralWay;
+    /**
      * 学生名称
      */
     private String studentName;
