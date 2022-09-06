@@ -2,7 +2,6 @@ package com.yjy.mapper;
 
 import com.yjy.dto.OpenDto;
 import com.yjy.model.Navigation;
-import com.yjy.model.OpenSchool;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -13,7 +12,7 @@ import java.util.List;
  * @Description:
  */
 @Repository
-public interface NavigationMapper {
+public interface OpenNavigationMapper {
     /**
      * 列表+查询
      * @param dto

@@ -2,9 +2,7 @@ package com.yjy.controller;
 
 import com.yjy.dto.OpenDto;
 import com.yjy.model.Navigation;
-import com.yjy.model.OpenSchool;
-import com.yjy.service.OpenSchoolService;
-import com.yjy.service.impl.NavigationServiceImpl;
+import com.yjy.service.impl.OpenNavigationServiceImpl;
 import com.yjy.vo.JsonPageResult;
 import com.yjy.vo.JsonResult;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,9 +18,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
  */
 @Controller
 @RequestMapping("navigation")
-public class NavigationController {
+public class OpenNavigationController {
     @Autowired
-    private NavigationServiceImpl navigationService;
+    private OpenNavigationServiceImpl navigationService;
 
     /**
      * 列表

@@ -67,7 +67,7 @@
             },
             {
               "title": "班级学员关系管理",
-              "href": "/page/gradeStudent-table.html",
+              "href": "/page/gradestudent-table.html",
               "icon": "fa fa-tachometer",
               "target": "_self"
             }
@@ -111,19 +111,19 @@
             },
             {
               "title": "轮播图管理",
-              "href": "page/OpenRotation.html",
+              "href": "/page/OpenRotation.html",
               "icon": "fa fa-file-text",
               "target": "_self"
             },
             {
               "title": "导航栏管理",
-              "href": "/page/button.html",
+              "href": "/page/opennavigation-table.html",
               "icon": "fa fa-file-text",
               "target": "_self"
             },
             {
               "title": "校区管理",
-              "href": "/page/layer.html",
+              "href": "/page/openschool-table.html",
               "icon": "fa fa-file-text",
               "target": "_self"
             },
