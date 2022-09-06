@@ -129,13 +129,13 @@
             },
             {
               "title": "问题管理",
-              "href": "/page/layer.html",
+              "href": "/page/problem.html",
               "icon": "fa fa-file-text",
               "target": "_self"
             },
             {
               "title": "回答管理",
-              "href": "/page/layer.html",
+              "href": "/page/answer.html",
               "icon": "fa fa-file-text",
               "target": "_self"
             },
