@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yjy.mapper.OpenStyleMapper">
+    <!-- 列表 -->
+    <select id="listOpenStyle" parameterType="com.yjy.dto.LayUiDto" resultType="com.yjy.model.OpenStyle">
+        select open_style_id styleId,
+               student_id studentId,
+               school_id schoolId,
+               picture,
+               video,
+               style_type styleType,
+               sort,
+               cut_url cutUrl,
+               is_show isShow,
+               is_delete isDelete,
+               DATE_FORMAT(from_unixtime(create_time / 1000), '%Y-%m-%d %H:%i:%s') createTime,
+               DATE_FORMAT(from_unixtime(update_time / 1000), '%Y-%m-%d %H:%i:%s') updateTime,
+        from t_open_style
+        where is_delete = 0
+        order by open_style_id asc
+        #{dataNum},#{limit}
+    </select>
+    <!-- 总数 -->
+    <select id="count" resultType="java.lang.Integer">
+        select
+        count(1)
+        from t_demo
+        where is_delete=0
+    </select>
+</mapper>

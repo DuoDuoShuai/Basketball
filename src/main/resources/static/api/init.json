@@ -67,7 +67,7 @@
             },
             {
               "title": "班级学员关系管理",
-              "href": "/page/gradeStudent-table.html",
+              "href": "/page/gradestudent-table.html",
               "icon": "fa fa-tachometer",
               "target": "_self"
             }
@@ -94,25 +94,67 @@
         {
           "title": "风采管理",
           "href": "/page/welcome-2.html",
-          "icon": "fa fa-home",
+          "icon": "fa fa-snowflake-o",
           "target": "_self"
         },
         {
-          "title": "公共信息",
+          "title": "公共信息管理",
           "href": "",
-          "icon": "fa fa-snowflake-o",
+          "icon": "fa fa-home",
           "target": "",
           "child": [
             {
-              "title": "按钮示例",
-              "href": "/page/button.html",
-              "icon": "fa fa-snowflake-o",
+              "title": "风采管理",
+              "href": "/page/welcome-2.html",
+              "icon": "fa fa-file-text",
               "target": "_self"
             },
             {
-              "title": "弹出层",
+              "title": "轮播图管理",
+              "href": "/page/OpenRotation.html",
+              "icon": "fa fa-file-text",
+              "target": "_self"
+            },
+            {
+              "title": "导航栏管理",
+              "href": "/page/opennavigation-table.html",
+              "icon": "fa fa-file-text",
+              "target": "_self"
+            },
+            {
+              "title": "校区管理",
+              "href": "/page/openschool-table.html",
+              "icon": "fa fa-file-text",
+              "target": "_self"
+            },
+            {
+              "title": "问题管理",
+              "href": "/page/problem.html",
+              "icon": "fa fa-file-text",
+              "target": "_self"
+            },
+            {
+              "title": "回答管理",
+              "href": "/page/answer.html",
+              "icon": "fa fa-file-text",
+              "target": "_self"
+            },
+            {
+              "title": "课程管理",
               "href": "/page/layer.html",
-              "icon": "fa fa-shield",
+              "icon": "fa fa-file-text",
+              "target": "_self"
+            },
+            {
+              "title": "积分管理",
+              "href": "/page/layer.html",
+              "icon": "fa fa-file-text",
+              "target": "_self"
+            },
+            {
+              "title": "关于我们",
+              "href": "/page/layer.html",
+              "icon": "fa fa-file-text",
               "target": "_self"
             }
           ]

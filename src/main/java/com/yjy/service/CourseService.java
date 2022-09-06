@@ -21,7 +21,7 @@ public interface CourseService {
     public JsonPageResult listCourse(LayUiDto dto);
 
     /**
-     * 添加课程
+     * 新增
      * @param course
      * @param img
      * @return

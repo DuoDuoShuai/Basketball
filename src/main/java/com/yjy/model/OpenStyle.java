@@ -5,42 +5,42 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 /**
- * @Author:黄文倩
- * @CreatTime:2022/9/4
- * @Description:
+ * @author 任凭
+ * @create 2022/8/30 9:51
+ * @describe TODO
  */
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class OpenSchool {
+public class OpenStyle {
     /**
-     * 公共校区id
+     * 信息风采表id
      */
-    private String openSchoolId;
+    private String styleId;
     /**
-     *校区名称
+     * 学员id
      */
-    private String schoolName;
+    private String studentId;
     /**
-     * 描述
+     * 所属校区
      */
-    private String schoolDescribe;
+    private String schoolId;
     /**
-     * 电话
+     * 学员风采图片
      */
-    private String phone;
+    private String picture;
     /**
-     * 地址
+     * 学员风采图片
      */
-    private String address;
+    private String video;
     /**
-     * 信息类型(1-跳转，2-排序)
+     * 信息类型(0-跳转，1-排序)
      */
-    private Integer schoolType;
+    private boolean styleType;
     /**
-     * 排序
+     * 排序（0-asc，1-desc）
      */
-    private Integer sort;
+    private boolean sort;
     /**
      * 切换路径
      */
@@ -48,11 +48,11 @@ public class OpenSchool {
     /**
      * 是否展示（0-否，1-是）
      */
-    private Boolean pure;
+    private boolean isShow;
     /**
      * 是否删除（0-否，1-是）
      */
-    private Boolean isDelete;
+    private boolean isDelete;
     /**
      * 创建时间
      */

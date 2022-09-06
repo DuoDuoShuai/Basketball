@@ -88,7 +88,7 @@ public class OpenSchoolServiceImpl implements OpenSchoolService {
             if(delete==1){
                 OpenSchool openSchool = new OpenSchool();
                 openSchool.setUpdateTime(currentTime.getTime());
-                return openSchoolMapper.updateTime(openSchool);
+                openSchoolMapper.updateTime(openSchool);
             }
         }
         return delete;

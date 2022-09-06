@@ -5,42 +5,35 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 /**
- * @Author:黄文倩
- * @CreatTime:2022/9/4
- * @Description:
+ * @author 徐晓瑞
+ * @date 2022/9/5 15:13
+ * @describe:
  */
+
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class OpenSchool {
+public class Problem {
     /**
-     * 公共校区id
+     * 问题id
      */
-    private String openSchoolId;
+    private String openProblemId;
     /**
-     *校区名称
+     * 问题
      */
-    private String schoolName;
+    private String problem;
     /**
-     * 描述
+     * 信息类型(0-跳转，1-排序)
      */
-    private String schoolDescribe;
+    private Boolean problemType;
     /**
-     * 电话
+     * 排序（1...)
      */
-    private String phone;
+    private int sort;
     /**
-     * 地址
+     * 切换类型（0-翻页，1-旋转）
      */
-    private String address;
-    /**
-     * 信息类型(1-跳转，2-排序)
-     */
-    private Integer schoolType;
-    /**
-     * 排序
-     */
-    private Integer sort;
+    private Boolean cutType;
     /**
      * 切换路径
      */
@@ -48,7 +41,7 @@ public class OpenSchool {
     /**
      * 是否展示（0-否，1-是）
      */
-    private Boolean pure;
+    private Boolean isShow;
     /**
      * 是否删除（0-否，1-是）
      */
