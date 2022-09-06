@@ -19,9 +19,9 @@
                 <form class="layui-form layui-form-pane" action="">
                     <div class="layui-form-item">
                         <div class="layui-inline">
-                            <label class="layui-form-label">用户姓名</label>
+                            <label class="layui-form-label">回答信息</label>
                             <div class="layui-input-inline">
-                                <input type="text" name="parentName" autocomplete="off" class="layui-input">
+                                <input type="text" name="answer" autocomplete="off" class="layui-input">
                             </div>
                         </div>
                         <div class="layui-inline">
@@ -58,7 +58,7 @@
 
         table.render({
             elem: '#currentTableId',
-            url: '/parent/list',
+            url: '/answer/list',
             toolbar: '#toolbarDemo',
             defaultToolbar: ['filter', 'exports', 'print', {
                 title: '提示',
@@ -67,25 +67,24 @@
             }],
             cols: [[
                 {type: "checkbox", width: 50},
-                {field: 'parentId', width: 80, title: 'ID', sort: true},
-                {field: 'parentName', width: 80, title: '用户名'},
-                {field: 'parentPhone', width: 80, title: '手机号', sort: true},
-                {field: 'parentPhoto', width: 110, title: '头像', templet: '<div><img id="img" src="http://rhh64czm7.hn-bkt.clouddn.com/{{d.parentPhoto}}"></div>'},
-                {field: 'parentSex', title: '性别', width: 80, sort: true,templet: function (d) {
-                        if (d.parentSex) {
-                            return "男";
+                {field: 'openAnsewrId', width: 80, title: 'ID', sort: true},
+                {field: 'answer', width: 80, title: '回答'},
+                {field: 'ansewrType', width: 80, title: '手机号', sort: true,templet: function (d) {
+                        if (d.ansewrType) {
+                            return "跳转";
                         } else {
-                            return "女";
+                            return "排序";
                         }
                     }},
-                {field: 'isDelete', width: 80, title: '是否删除', sort: true,templet: function (d) {
-                        if (d.isDelete == "0") {
-                            return "否";
-                        } else {
+                {field: 'cutUrl', width: 110, title: '切换路径'},
+                {field: 'isShow', title: '是否展示', width: 80, sort: true,templet: function (d) {
+                        if (d.isShow) {
                             return "是";
+                        } else {
+                            return "否";
                         }
                     }},
-                {field: 'parentRegtime', width: 170, title: '创建时间', sort: true,templet: "<div>{{layui.util.toDateString(d.parentRegtime, 'yyyy-MM-dd HH:mm:ss')}}</div>"},
+                {field: 'createTime', width: 170, title: '创建时间', sort: true,templet: "<div>{{layui.util.toDateString(d.parentRegtime, 'yyyy-MM-dd HH:mm:ss')}}</div>"},
                 {field: 'updateTime', width: 170, title: '修改时间', sort: true,templet: "<div>{{layui.util.toDateString(d.updateTime, 'yyyy-MM-dd HH:mm:ss')}}</div>"},
                 {title: '操作', minWidth: 150, toolbar: '#currentTableBar', align: "center"}
             ]],
@@ -108,7 +107,7 @@
                     curr: 1
                 }
                 , where: {
-                    name:data.field.parentName
+                    name:data.field.answer
                 }
             }, 'data');
 
@@ -127,7 +126,7 @@
                     maxmin:true,
                     shadeClose: true,
                     area: ['100%', '100%'],
-                    content: '../page/table/parent-add.html',
+                    content: '../page/table/answer-add.html',
                 });
                 $(window).on("resize", function () {
                     layer.full(index);
@@ -139,10 +138,10 @@
                 var str = "";
                 for (var i = 0; i < data.length; i++) {
                     flag++;
-                    str += data[i].parentId+",";
+                    str += data[i].openAnsewrId+",";
                 }
                 $.ajax({
-                    url:'/parent/deleteParentMore',
+                    url:'/answer/deleteAnswerMore',
                     type:'post',
                     data:{
                         str:str
@@ -155,7 +154,6 @@
                             layer.close(index);
                             var iframeIndex = parent.layer.getFrameIndex(window.name);
                             parent.layer.close(iframeIndex);
-                            parent.layui.table.reload("currentTableId");
                         });
                     }
                 });
@@ -179,17 +177,17 @@
                     maxmin:true,
                     shadeClose: true,
                     area: ['100%', '100%'],
-                    content: '../page/table/parent-edit.html',
+                    content: '../page/table/answer-edit.html',
                     success:function () {
                         var body = layer.getChildFrame('body',index);
-                        body.find('#parentId').val(data.parentId);
-                        body.find('#parentName').val(data.parentName);
-                        body.find('#parentPhone').val(data.parentPhone);
-                        body.find('#parentPhoto').val(data.parentPhoto);
-                        if(data.parentSex==0){
-                            body.find('#parentSex').val('女');
+                        body.find('#openAnsewrId').val(data.openAnsewrId);
+                        body.find('#answer').val(data.answer);
+                        body.find('#sort').val(data.sort);
+                        body.find('#cutUrl').val(data.cutUrl);
+                        if(data.ansewrType==0){
+                            body.find('#ansewrType').val('女');
                         }else {
-                            body.find('#parentSex').val('男');
+                            body.find('#ansewrType').val('男');
                         }
                     }
                 });
@@ -200,10 +198,10 @@
             } else if (obj.event === 'delete') {
                 layer.confirm('真的删除行么', function (index) {
                     $.ajax({
-                        url:'/parent/deleteParent',
+                        url:'/answer/deleteAnswer',
                         type:'post',
                         data:{
-                            parentId:data.parentId
+                            answerId:data.openAnsewrId
                         },
                         success:function (dataa) {
                             var index = layer.alert("删除成功", {

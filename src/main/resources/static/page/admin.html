@@ -56,8 +56,13 @@
                 {type: "checkbox", width: 50},
                 {field: 'adminId', width: 80, title: 'ID', sort: true},
                 {field: 'adminName', width: 80, title: '用户名'},
-                {field: 'adminPassword', width: 80, title: '密码', sort: true},
-                {field: 'adminGender', width: 80, title: '性别'},
+                {field: 'adminGender', width: 80,sort: true, title: '性别',templet: function (d) {
+                        if (d.parentSex) {
+                            return "男";
+                        } else {
+                            return "女";
+                        }
+                    }},
                 {field: 'adminPhone', title: '电话', width: 80},
                 {field: 'creatTime', width: 900, title: '创建时间', sort: true,templet: "<div>{{layui.util.toDateString(d.sage, 'yyyy-MM-dd HH:mm:ss')}}</div>"},
             ]],
