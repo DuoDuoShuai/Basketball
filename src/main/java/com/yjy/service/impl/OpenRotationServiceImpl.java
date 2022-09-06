@@ -123,7 +123,9 @@ public class OpenRotationServiceImpl implements OpenRotationService {
         try {
             Date currentTime = new Date(System.currentTimeMillis());
             openRotation.setUpdateTime(currentTime.getTime());
+            if (img!=null) {
             openRotation.setPhoto(QiniuFile.uploadFile(img.getBytes()));
+        }
         } catch (IOException e) {
             e.printStackTrace();
         }
