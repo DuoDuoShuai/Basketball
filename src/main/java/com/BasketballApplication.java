@@ -1,4 +1,4 @@
-package com.yjy;
+package com;
 
 import org.mybatis.spring.annotation.MapperScan;
 import org.slf4j.Logger;
@@ -17,7 +17,7 @@ import java.net.UnknownHostException;
  * @describe:
  */
 @SpringBootApplication
-@MapperScan("com.yjy.mapper")
+@MapperScan("com.*.mapper")
 public class BasketballApplication {
 
     private final static Logger logger = LoggerFactory.getLogger(BasketballApplication.class);

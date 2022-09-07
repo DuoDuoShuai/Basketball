@@ -1,10 +1,9 @@
 package com.app.realm;
 
 
-import com.app.mapper.AppTeacherMapper;
-import com.app.model.AppTeacher;
-import com.yjy.mapper.AdminMapper;
-import com.yjy.model.Admin;
+import com.app.mapper.WxTeacherMapper;
+import com.yjy.model.Teacher;
+import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.*;
 import org.apache.shiro.authz.AuthorizationInfo;
 import org.apache.shiro.realm.AuthorizingRealm;
@@ -20,7 +19,7 @@ import javax.annotation.Resource;
 public class TeacherShiroRealm extends AuthorizingRealm {
 
     @Resource
-    private AppTeacherMapper appTeacherMapper;
+    private WxTeacherMapper appTeacherMapper;
 
     /**
      * 授权
@@ -41,8 +40,8 @@ public class TeacherShiroRealm extends AuthorizingRealm {
     @Override
     protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken authenticationToken) throws AuthenticationException {
         String username = authenticationToken.getPrincipal().toString();
-        AppTeacher teacher = appTeacherMapper.loadByTeacherName(username);
-        System.out.println(username);
+        Teacher teacher = appTeacherMapper.loadByTeacherName(username);
+        System.out.println(teacher);
         if (teacher == null){
             throw new UnknownAccountException("账号不存在");
         }
@@ -50,6 +49,18 @@ public class TeacherShiroRealm extends AuthorizingRealm {
         System.out.println(password);
         SimpleAuthenticationInfo simpleAuthenticationInfo = new SimpleAuthenticationInfo(username,password,getName());
         return simpleAuthenticationInfo;
+    }
+    /**
+     * RealmSecurityManager rsm = (RealmSecurityManager)SecurityUtils.getSecurityManager();
+     AuthRealm authRealm = (AuthRealm)rsm.getRealms().iterator().next();
+     authRealm.clearAuthz();
+     */
+    public void clearAuthor(){
+        this.clearCachedAuthorizationInfo(SecurityUtils.getSubject().getPrincipals());
+    }
+
+    public void clearAuthen(){
+        this.clearCachedAuthenticationInfo(SecurityUtils.getSubject().getPrincipals());
     }
 }
 
