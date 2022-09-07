@@ -55,6 +55,10 @@ public class LayUiDto {
      */
     private Boolean gender;
     /**
+     * 班级名称
+     */
+    private Boolean gradeName;
+    /**
      * 年龄
      */
     private String age;
@@ -69,7 +73,7 @@ public class LayUiDto {
     /**
      * 是否显示
      */
-    private String isShow;
+    private String pure;
     /**
      * 教练名称
      */
@@ -78,6 +82,10 @@ public class LayUiDto {
      * 上课时间
      */
     private String gradeTime;
+    /**
+     * 积分渠道
+     */
+    private String integralWay;
     /**
      * 学生名称
      */

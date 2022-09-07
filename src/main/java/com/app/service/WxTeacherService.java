@@ -5,5 +5,5 @@ package com.app.service;
  * @create 2022/9/7 10:03
  * @describe
  */
-public interface AppTeacherService {
+public interface WxTeacherService {
 }

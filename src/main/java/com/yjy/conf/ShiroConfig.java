@@ -1,6 +1,11 @@
-package com.yjy.config;
+package com.yjy.conf;
 
+import com.app.realm.TeacherShiroRealm;
 import com.yjy.realm.MyShiroRealm;
+import org.apache.shiro.authc.Authenticator;
+import org.apache.shiro.authc.pam.AtLeastOneSuccessfulStrategy;
+import org.apache.shiro.authc.pam.ModularRealmAuthenticator;
+import org.apache.shiro.realm.Realm;
 import org.apache.shiro.spring.security.interceptor.AuthorizationAttributeSourceAdvisor;
 import org.apache.shiro.spring.web.ShiroFilterFactoryBean;
 import org.apache.shiro.web.mgt.DefaultWebSecurityManager;
@@ -9,7 +14,9 @@ import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -43,13 +50,38 @@ public class ShiroConfig {
     }
 
     /**
+     * 将自己的验证方式加入容器
+     * @return
+     */
+    @Bean
+    public TeacherShiroRealm teacherShiroRealm() {
+        TeacherShiroRealm teacherShiroRealm = new TeacherShiroRealm();
+        return teacherShiroRealm;
+    }
+
+    /**
+     * 系统自带的Realm管理，主要针对多realm 认证
+     */
+    @Bean
+    public UserModularRealmAuthenticator modularRealmAuthenticator() {
+        //自己重写的ModularRealmAuthenticator
+        UserModularRealmAuthenticator modularRealmAuthenticator = new UserModularRealmAuthenticator();
+        modularRealmAuthenticator.setAuthenticationStrategy(new AtLeastOneSuccessfulStrategy());
+        return modularRealmAuthenticator;
+    }
+
+    /**
      * 权限管理，配置主要是Realm的管理认证
      * @return
      */
     @Bean
     public DefaultWebSecurityManager securityManager() {
         DefaultWebSecurityManager securityManager = new DefaultWebSecurityManager();
-        securityManager.setRealm(myShiroRealm());
+        List<Realm> realms = new ArrayList<>();
+        realms.add(myShiroRealm());
+        realms.add(teacherShiroRealm());
+//        securityManager.setAuthenticator((Authenticator) modularRealmAuthenticator()); // 需要再realm定义之前
+        securityManager.setRealms(realms);
         return securityManager;
     }
 
