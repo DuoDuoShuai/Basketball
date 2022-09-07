@@ -5,10 +5,8 @@ import com.yjy.mapper.AdminMapper;
 import com.yjy.model.Admin;
 import org.apache.shiro.authc.*;
 import org.apache.shiro.authz.AuthorizationInfo;
-import org.apache.shiro.authz.SimpleAuthorizationInfo;
 import org.apache.shiro.realm.AuthorizingRealm;
 import org.apache.shiro.subject.PrincipalCollection;
-import org.apache.shiro.util.ByteSource;
 
 import javax.annotation.Resource;
 
@@ -50,7 +48,6 @@ public class MyShiroRealm extends AuthorizingRealm {
         System.out.println(password);
         SimpleAuthenticationInfo simpleAuthenticationInfo = new SimpleAuthenticationInfo(username,password,getName());
         return simpleAuthenticationInfo;
-
     }
 }
 
