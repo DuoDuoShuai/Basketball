@@ -49,8 +49,7 @@ public interface StudentService {
     /**
      * 增加
      * @param student
-     * @param img
      * @return 整数i=1
      */
-    Integer insert(Student student, MultipartFile img);
+    Integer insert(Student student,MultipartFile img);
 }

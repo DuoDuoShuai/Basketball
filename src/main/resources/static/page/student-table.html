@@ -203,7 +203,7 @@
                     content: '../page/table/student-edit.html',
                     success:function () {
                         var body = layer.getChildFrame('body',index);
-                        body.find('#openStudentId').val(data.openStudentId);
+                        body.find('#studentId').val(data.studentId);
                         body.find('#studentName').val(data.studentName);
                         var sage=layui.util.toDateString(data.birthday, 'yyyy-MM-dd')
                         body.find('#birthday').val(sage);
