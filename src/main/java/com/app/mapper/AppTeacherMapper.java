@@ -1,6 +1,7 @@
 package com.app.mapper;
 
-import com.app.model.AppTeacher;
+
+import com.yjy.model.Teacher;
 
 /**
  * @author 徐晓瑞
@@ -14,5 +15,5 @@ public interface AppTeacherMapper {
      * @param name
      * @return
      */
-    AppTeacher loadByTeacherName(String name);
+    Teacher loadByTeacherName(String name);
 }

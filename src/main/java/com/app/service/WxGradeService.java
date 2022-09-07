@@ -1,7 +1,7 @@
 package com.app.service;
 
-import com.app.dto.CountDto;
-import com.app.model.AppGrade;
+import com.app.dto.WxAllDto;
+import com.yjy.model.Grade;
 
 import java.util.List;
 
@@ -10,19 +10,19 @@ import java.util.List;
  * @CreatTime:2022/9/6
  * @Description:
  */
-public interface AppGradeService {
+public interface WxGradeService {
     /**
      * 根据校区名称查询该校区下所有的班级
      * @param dto
      * @return
      */
-    List<AppGrade> listAll(CountDto dto);
-
+    List<Grade> listAll(WxAllDto dto);
 
     /**
-     * 根据校区名称添加新班级+计算班级总人数
+     * 固定校区名称添加新班级
      * @param grade
      * @return
      */
-    Integer insertGrade(AppGrade grade);
+    Integer insertGrade(Grade grade);
+
 }

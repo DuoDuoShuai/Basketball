@@ -8,6 +8,7 @@ import com.yjy.vo.JsonPageResult;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 
@@ -20,6 +21,11 @@ import java.util.UUID;
 public class GradeStudentServiceImpl implements GradeStudentService {
     @Autowired
     private GradeStudentMapper gradeStudentMapper;
+    /**
+     * 获取当前时间
+     */
+    private Date currentTime=new Date(System.currentTimeMillis());
+
     /**
      * 列表+检索
      * @param dto
@@ -46,7 +52,7 @@ public class GradeStudentServiceImpl implements GradeStudentService {
     }
 
     /**
-     *
+     * 修改
      * @param gradeStudent
      * @return
      */
@@ -56,13 +62,14 @@ public class GradeStudentServiceImpl implements GradeStudentService {
     }
 
     /**
-     *
+     * 新增
      * @param gradeStudent
      * @return
      */
     @Override
     public Integer insert(GradeStudent gradeStudent) {
         gradeStudent.setId(UUID.randomUUID().toString());
+        gradeStudent.setJoinTime(currentTime.getTime());
         return gradeStudentMapper.insert(gradeStudent);
     }
 }

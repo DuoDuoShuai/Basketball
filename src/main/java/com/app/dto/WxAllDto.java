@@ -12,7 +12,7 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class CountDto {
+public class WxAllDto {
     private static final long serialVersionUID = 5172649115384573373L;
     /**
      * 0
