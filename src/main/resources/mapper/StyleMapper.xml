@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yjy.mapper.StyleMapper">
+
+    <!-- 需要查询字段 -->
+    <sql id="start">
+        style_id
+        styleId,
+        student_id studentId,
+        student_name studentName,
+        grade_name gradeName,
+        school_name school_name,
+        picture,
+        video,
+        is_show pure,
+        is_delete isDelete,
+        create_time creatTime,
+        update_time updateTime
+    </sql>
+
+    <!-- 列表+查询 -->
+    <select id="listStyle" parameterType="com.yjy.dto.LayUiDto" resultType="com.yjy.model.Style">
+        select
+        <include refid="start"></include>
+        from t_style_info
+        where is_delete=0
+        <if test="studentName !=null and studentName !=''">
+            and student_name like concat('%',#{studentName},'%')
+        </if>
+        <if test="gradeName !=null and gradeName !=''">
+            and grade_name like concat('%',#{gradeName},'%')
+        </if>
+        <if test="schoolName !=null and schoolName !=''">
+            and school_name like concat('%',#{schoolName},'%')
+        </if>
+        <if test="pure !=null">
+            and is_show = #{pure}
+        </if>
+        order by style_id asc
+        limit #{dataNum},#{limit}
+    </select>
+
+    <!-- 总数 -->
+    <select id="count" parameterType="com.yjy.dto.LayUiDto" resultType="java.lang.Integer">
+        select
+        count(1)
+        from t_style_info
+        where is_delete=0
+        <if test="studentName !=null and studentName !=''">
+            and student_name like concat('%',#{studentName},'%')
+        </if>
+        <if test="gradeName !=null and gradeName !=''">
+            and grade_name like concat('%',#{gradeName},'%')
+        </if>
+        <if test="name !=null and name !=''">
+            and school_name like concat('%',#{name},'%')
+        </if>
+        <if test="pure !=null">
+            and is_show = #{pure}
+        </if>
+    </select>
+
+    <!-- 添加 -->
+    <insert id="insertStyle" parameterType="com.yjy.model.Style">
+        insert into t_style_info(style_id, student_id, student_name, grade_name, school_name, picture, video,
+                                 is_show,
+                                 create_time, update_time)
+        values (#{styleId}, #{studentId}, #{studentName}, #{gradeName}, #{school_name}, #{picture}, #{video}, #{pure},
+                #{createTime},
+                #{updateTime})
+    </insert>
+
+    <!-- 详情 -->
+    <select id="loadStyle" resultType="com.yjy.model.Style">
+        select
+        <include refid="start"></include>
+        from t_style_info
+        where style_id=#{0}
+    </select>
+
+    <!-- 删除 -->
+    <update id="deleteStyle">
+        update t_style_info
+        set is_delete=1
+        where style_id = #{styleId}
+    </update>
+
+    <!-- 删除时改变修改时间 -->
+    <update id="updateTime" parameterType="com.yjy.model.Style">
+        update t_style_info
+        set update_time = #{updateTime}
+        where style_id = #{styleId}
+    </update>
+
+</mapper>

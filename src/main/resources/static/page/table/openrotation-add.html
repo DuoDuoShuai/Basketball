@@ -19,7 +19,7 @@
     <div class="layui-form-item">
         <label class="layui-form-label">轮播图上传</label>
         <div class="layui-input-block">
-            <input type="file" name="img" id="photo" placeholder="请选择学员头像" value="" class="province-selector" style="width: 200px;">
+            <input type="file" name="img" id="photo" placeholder="请选择轮播图" value="" class="province-selector" style="width: 200px;">
             <img src="" id="img">
         </div>
     </div>
@@ -42,6 +42,12 @@
         <label class="layui-form-label">排序优先级</label>
         <div class="layui-input-block">
             <input type="text" name="sort" id="sort" placeholder="请输入排序优先级" value="" class="layui-input">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">切换路径</label>
+        <div class="layui-input-block">
+            <input type="text" name="cutUrl" id="cutUrl" placeholder="请输入切换路径" value="" class="layui-input">
         </div>
     </div>
     <div class="layui-form-item">
@@ -96,6 +102,7 @@
             formData.append("schoolName",data.field.schoolName);
             formData.append("rotationType",$("input[name='rotationType']:checked").val());
             formData.append("sort",data.field.sort);
+            formData.append("cutUrl",data.field.cutUrl);
             formData.append("pure",$("input[name='pure']:checked").val());
             var fileobj = $("#photo")[0].files[0];
             formData.append("img",fileobj);
