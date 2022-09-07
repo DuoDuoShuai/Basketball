@@ -57,7 +57,7 @@ public class CourseController {
     }
 
     /**
-     * 删除课程
+     * 修改课程
      * @param course
      * @param img
      * @return

@@ -87,7 +87,7 @@
 
         table.render({
             elem: '#currentTableId',
-            url: '/Course/listCourse',
+            url: '/OpenCourse/listOpenCourse',
             toolbar: '#toolbarDemo',
             defaultToolbar: ['filter', 'exports', 'print', {
                 title: '提示',
@@ -96,34 +96,27 @@
             }],
             cols: [[
                 {type: "checkbox", width: 50},
-                {field: 'courseId', width:50, title: 'ID',templet:'#zizeng'},
+                {field: 'openId', width:50, title: 'ID',templet:'#zizeng'},
                 {field: 'name', width: 80, title: '课程名字'},
                 {field: 'photo', width: 80, title: '课程图片', templet: '<div><img id="img" src="http://rhh64czm7.hn-bkt.clouddn.com/{{d.photo}}"></div>'},
-                {field: 'courseHour', width: 50, title: '课程课时'},
-                {field: 'isShaky', width: 50,title: '活动课程状态',templet: function (d) {
-            if (d.isShaky == 0) {
-                return "非活动课程";
-            } else  {
-                return "活动课程";
-            }
-        } },
-                {field: 'price', width: 50, title: '价格', sort: true},
-                {field: 'courseState', width: 50, title: '课程状态',templet: function (d) {
-                        if (d.courseState == 0) {
+                {field: 'opencoursehour', width: 50, title: '课程课时'},
+                {field: 'openprice', width: 50, title: '价格', sort: true},
+                {field: 'opencoursestate', width: 50, title: '课程状态',templet: function (d) {
+                        if (d.opencoursestate == 0) {
                             return "未开课";
-                        } else if(d.courseState ==1) {
+                        } else if(d.opencoursestate ==1) {
                             return "已开课";
                         }else {
                             return "已结束";
                         }
                     } },
-                {field: 'courseDescribe', width: 135, title: '课程描述', sort: true},
-                {field: 'startTime', width: 150, title: '开课时间',sort: true,templet: "<div>{{layui.util.toDateString(d.startTime, 'yyyy-MM-dd HH:mm:ss')}}</div>"},
-                {field: 'endTime', width: 150, title: '结束时间',sort: true,templet: "<div>{{layui.util.toDateString(d.endTime, 'yyyy-MM-dd HH:mm:ss')}}</div>"},
-                {field: 'payNumber', width: 50, title: '购买人数'},
+                {field: 'opendescribe', width: 135, title: '课程描述', sort: true},
+                {field: 'openstartTime', width: 150, title: '开课时间',sort: true,templet: "<div>{{layui.util.toDateString(d.openstartTime, 'yyyy-MM-dd HH:mm:ss')}}</div>"},
+                {field: 'openendTime', width: 150, title: '结束时间',sort: true,templet: "<div>{{layui.util.toDateString(d.openendTime, 'yyyy-MM-dd HH:mm:ss')}}</div>"},
+                {field: 'openpayNumber', width: 50, title: '购买人数'},
                 {field: 'schoolName', width: 120, title: '校区'},
-                {field: 'shelfTime', width: 150, title: '上架时间',sort: true,templet: "<div>{{layui.util.toDateString(d.shelfTime, 'yyyy-MM-dd HH:mm:ss')}}</div>"},
-                {field: 'shelfLeftTime', width: 150, title: '下架时间',sort: true,templet: "<div>{{layui.util.toDateString(d.shelfLeftTime, 'yyyy-MM-dd HH:mm:ss')}}</div>"},
+                {field: 'openshelfTime', width: 150, title: '上架时间',sort: true,templet: "<div>{{layui.util.toDateString(d.openshelfTime, 'yyyy-MM-dd HH:mm:ss')}}</div>"},
+                {field: 'openShelfleftTime', width: 150, title: '下架时间',sort: true,templet: "<div>{{layui.util.toDateString(d.openShelfleftTime, 'yyyy-MM-dd HH:mm:ss')}}</div>"},
                 {field: 'pure', width: 50, title: '上架状态',
                     templet: function (d) {
                         if (d.pure ==0) {
@@ -133,14 +126,31 @@
                         }
                     }
                 },
+                {field: 'type', width: 120, title: '信息类型',
+                templet: function(d) {
+                    if (d.type==0) {
+                        return '跳转'
+                    }else {
+                        return '排序'
+                    }
+                }},
+                {field: 'sort', width: 120, title: '排序',
+                templet: function (d) {
+                    if(d.sort==0){
+                        return 'asc'
+                    }else {
+                        return 'desc'
+                    }
+                }},
+                {field: 'opencuturl', width: 120, title: '切换路劲'},
                 {field: 'createTime', width: 150, title: '创建时间',sort: true,templet: "<div>{{layui.util.toDateString(d.createTime, 'yyyy-MM-dd HH:mm:ss')}}</div>"},
                 {field: 'updateTime', width: 150, title: '更新时间',sort: true,templet: "<div>{{layui.util.toDateString(d.updateTime, 'yyyy-MM-dd HH:mm:ss')}}</div>"},
                 {title: '操作', minWidth: 150, toolbar: '#currentTableBar', align: "center"}
             ]],
-            limits: [5, 10, 15],
+            limits: [10, 15, 20, 25, 50, 100],
             limit: 15,
             page: true,
-            skin: 'line',
+            skin: 'line'
         });
 
         // 监听搜索操作
@@ -171,7 +181,7 @@
                     maxmin:true,
                     shadeClose: true,
                     area: ['100%', '100%'],
-                    content: '../page/table/course-add.html',
+                    content: '../page/table/opencourse-add.html',
                 });
                 $(window).on("resize", function () {
                     layer.full(index);
@@ -182,13 +192,13 @@
                     checkData = checkStatus.data,
                     delList=[];
                 for(var i=0;i<checkData.length;i++){
-                    delList.push(checkData[i].courseId);
+                    delList.push(checkData[i].openId);
                 }
                 layer.confirm('真的删除吗?',function (index) {
                     $.ajax({
                         type:'post',
-                        url:'/Course/deleteMore',
-                        data:{courseIds:delList},
+                        url:'/OpenCourse/deleteOpen',
+                        data:{openIds:delList},
                         dataType: 'json',
                         success:function (da) {
                             if (da.data==0) {
@@ -213,7 +223,6 @@
         table.on('tool(currentTableFilter)', function (obj) {
             var data = obj.data;
             json = JSON.stringify(data);
-            console.log(json);
             if (obj.event === 'edit') {
                 var index = layer.open({
                     title: '修改课程',
@@ -222,41 +231,28 @@
                     maxmin:true,
                     shadeClose: true,
                     area: ['100%', '100%'],
-                    content: '../page/table/course-edit.html',
+                    content: '../page/table/opencourse-edit.html',
                     success:function () {
                         /*product_name,city_name,send_time,product_price,product_desc*/
                         /*表单数据回显，把表格当前显示到子页面的表单内，find后括号内的是子页面表单的id*/
                         var body = layer.getChildFrame('body',index);
-                        body.find("#courseId").val(data.courseId);
+                        body.find("#openId").val(data.openId);
                         body.find("#name").val(data.name);
-                        body.find("#courseHour").val(data.courseHour);
-                        body.find("#courseDescribe").val(data.courseDescribe);
-                        body.find("#price").val(data.price);
-                        body.find("#isShaky").attr("checked","checked");
-                        //body.find("#schoolName").attr(data.schoolName);
-                         // body.find("input[name=isShaky][value='0,1']").attr("checked",data.isShaky=="0,1" ? true : false);
-                         // body.find("input[name=isShaky][value=0]").attr("checked",data.isShaky=="0" ? true : false);
-                        if(data.isShaky==0){
-                            $("#isShaky_1").prop("checked","checked")
-                            form.render('radio');
-                        }else {
-                            $("#isShaky_2").prop("checked", "checked");
-                            form.render('radio');
-                        }
+                        body.find("#opencoursehour").val(data.opencoursehour);
+                        body.find("#opendescribe").val(data.opendescribe);
+                        body.find("#openprice").val(data.openprice);
                         //console.log(body.find("input[name=isShaky][value=1]"))
                         var sage=layui.util.toDateString(data.birthday, 'yyyy-MM-dd HH:mm:ss');
                         body.find("#startTime").val(sage);
                         body.find("#endTime").val(sage);
-                        body.find("#courseState").val(data.courseState);
-                        body.find("#pure").val(data.pure);
-                        if(data.pure==0){
-                           body.find("#pure").val("未上架");
-                        }else {
-                            body.find('#pure').val('已上架');
-                        }
                         body.find("#shelfTime").val(sage);
-                        body.find("#photo").val(data.photo)
-
+                        body.find("#opencuturl").val(data.opencuturl);
+                        body.find("#schoolName").val(data.schoolName);
+                        body.find("#photo").val(data.photo);
+                        body.find("#opencoursestate").val(data.opencoursestate);
+                        body.find("#pure").val(data.pure);
+                        body.find("#type").val(data.type);
+                        body.find("#sort").val(data.sort);
                     }
                 });
                 $(window).on("resize", function () {
@@ -268,9 +264,9 @@
                     var tableData = obj.data;
                     $.ajax({
                         type:'get',
-                        url:'/Course/deleteById',
+                        url:'/OpenCourse/deleteOpenCourse',
                         data:{
-                            courseId:tableData.courseId
+                            openId:tableData.openId
                         },
                         dataType: 'json',
                         success:function (da) {
