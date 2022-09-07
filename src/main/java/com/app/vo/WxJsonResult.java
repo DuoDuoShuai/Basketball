@@ -8,7 +8,7 @@ import java.io.Serializable;
  * @date 2022/8/29 17:14
  * @describe:
  */
-public class JsonResult implements Serializable {
+public class WxJsonResult implements Serializable {
 	private static final long serialVersionUID = -5766977494287555486L;
 	/** 状态码 */
 	private int state = 200;
@@ -21,7 +21,7 @@ public class JsonResult implements Serializable {
 	 *
 	 * @param message
 	 */
-	public JsonResult(String message) {
+	public WxJsonResult(String message) {
 		this.message = message;
 	}
 
@@ -29,7 +29,7 @@ public class JsonResult implements Serializable {
 	 *
 	 * @param data
 	 */
-	public JsonResult(Object data) {
+	public WxJsonResult(Object data) {
 		this.data = data;
 	}
 
@@ -38,7 +38,7 @@ public class JsonResult implements Serializable {
 	 * @param state
 	 * @param message
 	 */
-	public JsonResult(int state, String message){
+	public WxJsonResult(int state, String message){
 		this.state=state;
 		this.message=message;
 	}
@@ -47,7 +47,7 @@ public class JsonResult implements Serializable {
 	 *
 	 * @param e
 	 */
-	public JsonResult(Throwable e) {
+	public WxJsonResult(Throwable e) {
 		this.state = 500;
 		this.message = e.getMessage();
 	}
@@ -56,46 +56,46 @@ public class JsonResult implements Serializable {
 	 * @param
 	 * @return
 	 */
-	public static JsonResult success() {
-		return new JsonResult();
+	public static WxJsonResult success() {
+		return new WxJsonResult();
 	}
 	/**
 	 * 返回成功
 	 * @param data
 	 * @return
 	 */
-	public static JsonResult success(Object data) {
-		return new JsonResult(data);
+	public static WxJsonResult success(Object data) {
+		return new WxJsonResult(data);
 	}
 	/**
 	 * 返回失败
 	 * @param msg
 	 * @return
 	 */
-	public static JsonResult error(String msg) {
-		return new JsonResult(msg);
+	public static WxJsonResult error(String msg) {
+		return new WxJsonResult(msg);
 	}
 	/**
 	 * 返回失败
 	 * @param msg
 	 * @return
 	 */
-	public static JsonResult error(Integer code, String msg) {
-		return new JsonResult(code,msg);
+	public static WxJsonResult error(Integer code, String msg) {
+		return new WxJsonResult(code,msg);
 	}
 	/**
 	 * 返回失败
 	 * @param
 	 * @return
 	 */
-	public static JsonResult error(Throwable e) {
-		return new JsonResult(500,e.getLocalizedMessage());
+	public static WxJsonResult error(Throwable e) {
+		return new WxJsonResult(500,e.getLocalizedMessage());
 	}
 
 	/**
 	 *
 	 */
-	public JsonResult() {
+	public WxJsonResult() {
 		super();
 	}
 

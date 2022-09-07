@@ -42,6 +42,10 @@ public class Grade {
      */
     private Integer gradeState;
     /**
+     * 班级总人数
+     */
+    private Integer totalCount;
+    /**
      * 校区名称
      */
     private String schoolName;
@@ -57,4 +61,5 @@ public class Grade {
      * 修改时间
      */
     private Long updateTime;
+
 }
