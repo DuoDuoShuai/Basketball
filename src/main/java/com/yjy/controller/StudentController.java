@@ -48,8 +48,8 @@ public class StudentController {
      */
     @RequestMapping("insert")
     @ResponseBody
-    public JsonResult insert(Student student, MultipartFile img){
-        Integer insert = studentService.insert(student, img);
+    public JsonResult insert(Student student,MultipartFile img){
+        Integer insert = studentService.insert(student,img);
         return JsonResult.success(insert);
     }
 
