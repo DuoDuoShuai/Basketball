@@ -3,6 +3,7 @@ package com.yjy.realm;
 
 import com.yjy.mapper.AdminMapper;
 import com.yjy.model.Admin;
+import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.*;
 import org.apache.shiro.authz.AuthorizationInfo;
 import org.apache.shiro.realm.AuthorizingRealm;
@@ -48,6 +49,18 @@ public class MyShiroRealm extends AuthorizingRealm {
         System.out.println(password);
         SimpleAuthenticationInfo simpleAuthenticationInfo = new SimpleAuthenticationInfo(username,password,getName());
         return simpleAuthenticationInfo;
+    }
+    /**
+     * RealmSecurityManager rsm = (RealmSecurityManager)SecurityUtils.getSecurityManager();
+     AuthRealm authRealm = (AuthRealm)rsm.getRealms().iterator().next();
+     authRealm.clearAuthz();
+     */
+    public void clearAuthor(){
+        this.clearCachedAuthorizationInfo(SecurityUtils.getSubject().getPrincipals());
+    }
+
+    public void clearAuthen(){
+        this.clearCachedAuthenticationInfo(SecurityUtils.getSubject().getPrincipals());
     }
 }
 
