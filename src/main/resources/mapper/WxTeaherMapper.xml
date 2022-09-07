@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.app.mapper.WxTeacherMapper">
+    <!--  登录认证  -->
+    <select id="loadByTeacherName" parameterType="String" resultType="com.yjy.model.Teacher">
+        select teacher_password as teacherPassword from t_user_teacher where teacher_name = #{teacherName}
+    </select>
+    <!--  查询所有教练名称  为班级模块提供接口  -->
+    <select id="listTeacherName" resultType="com.yjy.model.Teacher">
+        select t_user_teacher.teacher_name from t_user_teacher
+    </select>
+</mapper>

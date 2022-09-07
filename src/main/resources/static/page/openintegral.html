@@ -19,9 +19,19 @@
                 <form class="layui-form layui-form-pane" action="">
                     <div class="layui-form-item">
                         <div class="layui-inline">
-                            <label class="layui-form-label">校区名称</label>
+                            <label class="layui-form-label">积分渠道</label>
                             <div class="layui-input-inline">
-                                <input type="text" name="schoolName" autocomplete="off" class="layui-input">
+                                <input type="text" name="integralWay" autocomplete="off" class="layui-input">
+                            </div>
+                        </div>
+                        <div class="layui-inline">
+                            <label class="layui-form-label">是否展示</label>
+                            <div class="layui-input-inline">
+                                <select name="pure" id="pure">
+                                    <option value="">请选择</option>
+                                    <option value="0">不展示</option>
+                                    <option value="1">展示</option>
+                                </select>
                             </div>
                         </div>
                         <div class="layui-inline">
@@ -60,7 +70,7 @@
 
         table.render({
             elem: '#currentTableId',
-            url: '/OpenRotation/list',
+            url: '/OpenIntegral/list',
             toolbar: '#toolbarDemo',
             defaultToolbar: ['filter', 'exports', 'print', {
                 title: '提示',
@@ -69,17 +79,11 @@
             }],
             cols: [[
                 {type: "checkbox", width: 50},
-                {field: 'rotationId', width: 300, title: '轮播图ID', sort: true},
-                {field: 'schoolName', width: 120, title: '所属校区'},
+                {field: 'integralId', width: 300, title: '积分ID', sort: true},
+                {field: 'integralWay', width: 120, title: '积分渠道'},
                 {
-                    field: 'photo',
-                    width: 110,
-                    title: '轮播图',
-                    templet: '<div><img id="img" src="http://rhh64czm7.hn-bkt.clouddn.com/{{d.photo}}"></div>'
-                },
-                {
-                    field: 'rotation_type', width: 100, title: '信息类型', sort: true, templet: function (d) {
-                        if (d.isShow == "0") {
+                    field: 'integralType', width: 100, title: '信息类型', sort: true, templet: function (d) {
+                        if (d.integralType == "0") {
                             return "跳转";
                         } else {
                             return "排序";
@@ -87,6 +91,7 @@
                     }
                 },
                 {field: 'sort', width: 120, title: '排序优先级', sort: true},
+                {field: 'cutUrl', width: 200, title: '跳转路径', sort: true},
                 {
                     field: 'pure', width: 100, title: '是否展示', sort: true, templet: function (d) {
                         if (d.pure == "0") {
@@ -126,7 +131,8 @@
                     curr: 1
                 }
                 , where: {
-                    schoolName: data.field.schoolName
+                    integralWay: data.field.integralWay,
+                    pure: data.field.pure
                 }
             }, 'data');
 
@@ -139,13 +145,13 @@
         table.on('toolbar(currentTableFilter)', function (obj) {
             if (obj.event === 'add') {  // 监听添加操作
                 var index = layer.open({
-                    title: '添加轮播图',
+                    title: '添加积分获取渠道',
                     type: 2,
                     shade: 0.2,
                     maxmin: true,
                     shadeClose: true,
                     area: ['100%', '100%'],
-                    content: '/page/table/OpenRotation-add.html',
+                    content: '/page/table/openintegral-add.html',
                 });
                 $(window).on("resize", function () {
                     layer.full(index);
@@ -157,15 +163,15 @@
                 var str = "";
                 for (var i = 0; i < data.length; i++) {
                     flag++;
-                    str += data[i].rotationId + ",";
+                    str += data[i].integralId + ",";
                 }
                 $.ajax({
-                    url: '/OpenRotation/deleteMore',
+                    url: '/OpenIntegral/deleteMore',
                     type: 'post',
                     data: {
                         str: str
                     },
-                    success: function (dataa) {
+                    success: function (data) {
                         var index = layer.alert("删除成功", {
                             title: '删除成功'
                         }, function () {
@@ -187,27 +193,28 @@
 
         table.on('tool(currentTableFilter)', function (obj) {
             var data = obj.data;
-            json=JSON.stringify(data);
+            json = JSON.stringify(data);
             if (obj.event === 'edit') {
 
                 var index = layer.open({
-                    title: '编辑轮播图',
+                    title: '编辑积分获取渠道',
                     type: 2,
                     shade: 0.2,
                     maxmin: true,
                     shadeClose: true,
                     area: ['100%', '100%'],
-                    content: '/page/table/OpenRotation-edit.html',
+                    content: '/page/table/openintegral-edit.html',
                     success: function () {
                         var body = layer.getChildFrame('body', index);
-                        body.find('#rotationId').val(data.rotationId);
-                        body.find('#schoolName').val(data.schoolName);
-                        if (data.rotationType == 0) {
-                            body.find('#rotationType').val('跳转');
+                        body.find('#integralId').val(data.integralId);
+                        body.find('#integralWay').val(data.integralWay);
+                        if (data.integralType == 0) {
+                            body.find('#integralType').val('跳转');
                         } else {
-                            body.find('#rotationType').val('排序');
+                            body.find('#integralType').val('排序');
                         }
                         body.find('#sort').val(data.sort);
+                        body.find('#cutUrl').val(data.cutUrl);
                         if (data.pure == 0) {
                             body.find('#pure').val('不展示');
                         } else {
@@ -223,10 +230,10 @@
             } else if (obj.event === 'delete') {
                 layer.confirm('真的删除此条数据么', function (index) {
                     $.ajax({
-                        url: '/OpenRotation/delete',
+                        url: '/OpenIntegral/delete',
                         type: 'post',
                         data: {
-                            rotationId: data.rotationId
+                            integralId: data.integralId
                         },
                         success: function (data) {
                             var index = layer.alert("删除成功", {
@@ -236,7 +243,7 @@
                                 layer.close(index);
                                 var iframeIndex = parent.layer.getFrameIndex(window.name);
                                 parent.layer.close(iframeIndex);
-                              table.reload("currentTableId");
+                                table.reload("currentTableId");
                             });
                         }
                     });

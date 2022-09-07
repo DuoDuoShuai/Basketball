@@ -1,8 +1,8 @@
-package com.yjy.realm;
+package com.app.realm;
 
 
-import com.yjy.mapper.AdminMapper;
-import com.yjy.model.Admin;
+import com.app.mapper.WxTeacherMapper;
+import com.yjy.model.Teacher;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.*;
 import org.apache.shiro.authz.AuthorizationInfo;
@@ -16,10 +16,10 @@ import javax.annotation.Resource;
  * @date 2022/8/31 22:48
  * @describe:
  */
-public class MyShiroRealm extends AuthorizingRealm {
+public class TeacherShiroRealm extends AuthorizingRealm {
 
     @Resource
-    private AdminMapper adminMapper;
+    private WxTeacherMapper appTeacherMapper;
 
     /**
      * 授权
@@ -40,12 +40,12 @@ public class MyShiroRealm extends AuthorizingRealm {
     @Override
     protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken authenticationToken) throws AuthenticationException {
         String username = authenticationToken.getPrincipal().toString();
-        Admin admin = adminMapper.loadByAdminName(username);
-        System.out.println(username);
-        if (admin == null){
+        Teacher teacher = appTeacherMapper.loadByTeacherName(username);
+        System.out.println(teacher);
+        if (teacher == null){
             throw new UnknownAccountException("账号不存在");
         }
-        String password = admin.getAdminPassword();
+        String password = teacher.getTeacherPassword();
         System.out.println(password);
         SimpleAuthenticationInfo simpleAuthenticationInfo = new SimpleAuthenticationInfo(username,password,getName());
         return simpleAuthenticationInfo;
