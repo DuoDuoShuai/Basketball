@@ -116,14 +116,15 @@ public class StudentServiceImpl implements StudentService {
     /**
      * 增加
      * @param student
+     * @param img
      * @return 成功返回整数i=1
      */
     @Override
-    public Integer insert(Student student, MultipartFile img) {
+    public Integer insert(Student student,MultipartFile img) {
         Integer insert = null;
         try {
-            student.setPhoto(QiniuFile.uploadFile(img.getBytes()));
             student.setStudentId(String.valueOf(UUID.randomUUID()));
+            student.setPhoto(QiniuFile.uploadFile(img.getBytes()));
             student.setCreateTime(currentTime.getTime());
             student.setUpdateTime(currentTime.getTime());
             insert = studentMapper.insert(student);
