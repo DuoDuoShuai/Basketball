@@ -55,6 +55,10 @@ public class LayUiDto {
      */
     private Boolean gender;
     /**
+     * 班级名称
+     */
+    private Boolean gradeName;
+    /**
      * 年龄
      */
     private String age;
