@@ -71,9 +71,11 @@ public class OpenCourseController {
      * @return
      */
     @RequestMapping("deleteOpenCourse")
+    @ResponseBody
     public JsonResult deleteOpenCourse(String openId){
         Integer integer = openCourseService.deleteOpenCourse(openId);
-        return JsonResult.success(integer);
+        JsonResult success = JsonResult.success(integer);
+        return success;
     }
 
     /**
@@ -82,7 +84,8 @@ public class OpenCourseController {
      * @return
      */
     @RequestMapping("deleteOpen")
-    public JsonResult deleteOpen(@RequestParam("openIds")String[] openIds){
+    @ResponseBody
+    public JsonResult deleteOpen(@RequestParam("openIds[]")String[] openIds){
         Integer integer = openCourseService.deleteOpen(openIds);
         return JsonResult.success(integer);
     }

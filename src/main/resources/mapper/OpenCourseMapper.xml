@@ -7,7 +7,7 @@
     <select id="listOpenCourse" resultType="com.yjy.model.OpenCourse" parameterType="com.yjy.dto.LayUiDto">
         select open_course_id openId,
                course_name name,
-               photo openPhoto,
+               photo,
                course_hour opencoursehour,
                price openprice,
                course_state opencoursestate,
@@ -18,8 +18,8 @@
                school_name schoolName,
                shelf_time openshelfTime,
                shelf_left_time openShelfleftTime,
-               course_type opencourseType,
-               sort opensort,
+               course_type type,
+               sort,
                cut_url opencuturl,
                is_show pure,
                is_delete openisDelete,
@@ -33,6 +33,7 @@
         <if test="schoolName !=null and schoolName !='' ">
             and school_name like concat('%',#{schoolName},'%')
         </if>
+        order by is_delete asc
         limit #{dataNum},#{limit};
     </select>
 
@@ -51,7 +52,7 @@
     <!--添加-->
     <insert id="insertOpenCourse" parameterType="com.yjy.model.OpenCourse">
       insert into t_open_course(open_course_id,course_name,photo,course_hour,price,course_state,course_describe,start_time,end_time,school_name,shelf_time,course_type,sort,cut_url,is_show,is_delete,create_time,update_time)
-                        values (#{openId},#{name},#{openPhoto},#{opencoursehour},#{openprice},#{opencoursestate},#{opendescribe},#{openstartTime},#{openendTime},#{schoolName},#{openshelfTime},#{opencourseType},#{opensort},#{opencuturl},#{pure},#{openisDelete},#{createTime},#{updateTime})
+                        values (#{openId},#{name},#{photo},#{opencoursehour},#{openprice},#{opencoursestate},#{opendescribe},#{openstartTime},#{openendTime},#{schoolName},#{openshelfTime},#{type},#{sort},#{opencuturl},#{pure},#{isDelete},#{createTime},#{updateTime})
     </insert>
 
    <!--修改-->
@@ -59,7 +60,7 @@
         update t_open_course
         <trim prefix="set" suffixOverrides=",">
                 <if test="name !=null">course_name=#{name},</if>
-                <if test="openPhoto !=null">photo=#{openPhoto},</if>
+                <if test="photo !=null">photo=#{photo},</if>
                 <if test="opencoursehour !=null">course_hour=#{opencoursehour},</if>
                 <if test="openprice !=null">price=#{openprice},</if>
                 <if test="opencoursestate !=null">course_state=#{opencoursestate},</if>
@@ -68,8 +69,8 @@
                 <if test="openendTime !=null">end_time=#{openendTime},</if>
                 <if test="schoolName !=null">school_name=#{schoolName},</if>
                 <if test="openshelfTime !=null">shelf_time=#{openshelfTime},</if>
-                <if test="opencourseType !=null">course_type=#{opencourseType},</if>
-                <if test="opensort !=null">sort=#{opensort},</if>
+                <if test="type !=null">course_type=#{type},</if>
+                <if test="sort !=null">sort=#{sort},</if>
                 <if test="opencuturl !=null">cut_url=#{opencuturl},</if>
             <if test="pure !=null">is_show=#{pure},</if>
             <if test="updateTime !=null">update_time=#{updateTime},</if>

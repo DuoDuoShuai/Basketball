@@ -56,8 +56,9 @@ public class OpenCourseServiceImpl implements OpenCourseService {
             opencourse.setOpenId(UUID.randomUUID().toString());
             Date currentTime=new Date(System.currentTimeMillis());
             opencourse.setCreateTime(currentTime.getTime());
+            opencourse.setIsDelete(false);
             opencourse.setUpdateTime(currentTime.getTime());
-            opencourse.setOpenPhoto(QiniuFile.uploadFile(img.getBytes()));
+            opencourse.setPhoto(QiniuFile.uploadFile(img.getBytes()));
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -75,7 +76,7 @@ public class OpenCourseServiceImpl implements OpenCourseService {
         try {
             Date currentTime=new Date(System.currentTimeMillis());
             opencourse.setUpdateTime(currentTime.getTime());
-            opencourse.setOpenPhoto(QiniuFile.uploadFile(img.getBytes()));
+            opencourse.setPhoto(QiniuFile.uploadFile(img.getBytes()));
         } catch (IOException e) {
             e.printStackTrace();
         }

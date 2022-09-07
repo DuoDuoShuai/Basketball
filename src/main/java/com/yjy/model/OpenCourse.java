@@ -27,7 +27,7 @@ public class OpenCourse {
     /**
      * 课程头像
      */
-    private String openPhoto;
+    private String photo;
     /**
      * 共计课时
      */
@@ -71,11 +71,11 @@ public class OpenCourse {
     /**
      * 信息类型(0-跳转，1-排序)
      */
-    private  Boolean opencourseType;
+    private  Boolean type;
     /**
      *排序（0-asc，1-desc)
      */
-    private Boolean opensort;
+    private Boolean sort;
     /**
      * 切换路径
      */
@@ -87,7 +87,7 @@ public class OpenCourse {
     /**
      * 是否删除（0-否，1-是）
      */
-    private Boolean openisDelete;
+    private Boolean isDelete;
     /**
      * 创建时间
      */
