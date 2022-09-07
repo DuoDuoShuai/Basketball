@@ -58,8 +58,9 @@ public class CourseServiceImpl implements CourseService {
             Date currentTime=new Date(System.currentTimeMillis());
             course.setUpdateTime(currentTime.getTime());
             course.setStartTime(currentTime.getTime());
-            course.setPhoto(QiniuFile.uploadFile(img.getBytes()));
-
+            if (img !=null) {
+                course.setPhoto(QiniuFile.uploadFile(img.getBytes()));
+            }
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -76,7 +77,9 @@ public class CourseServiceImpl implements CourseService {
         try {
             Date currentTime=new Date(System.currentTimeMillis());
             course.setUpdateTime(currentTime.getTime());
-            course.setPhoto(QiniuFile.uploadFile(img.getBytes()));
+            if (img != null) {
+                course.setPhoto(QiniuFile.uploadFile(img.getBytes()));
+            }
         } catch (IOException e) {
             e.printStackTrace();
         }
