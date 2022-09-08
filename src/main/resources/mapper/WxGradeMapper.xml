@@ -22,16 +22,16 @@
 <!--        </if>-->
     </select>
 
-    <!-- 详情 -->
-    <select id="load" resultType="com.yjy.model.Grade">
+    <!-- 根据班级id查询单个班级信息 -->
+    <select id="loadById" resultType="com.yjy.model.Grade">
         select
         <include refid="start"></include>
         from t_grade_info
         where grade_id=#{gradeId}
     </select>
 
-    <!-- 修改 -->
-    <update id="update" parameterType="com.yjy.model.Grade">
+    <!-- 编辑班级详情 -->
+    <update id="updateInfo" parameterType="com.yjy.model.Grade">
         update t_grade_info
         <trim prefix="set " suffixOverrides=",">
             <if test="gradeName !=null">grade_name=#{gradeName},</if>

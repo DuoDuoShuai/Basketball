@@ -28,9 +28,18 @@ public interface WxGradeMapper {
     Integer insertGrade(Grade grade);
 
     /**
-     * 查询单个班级
+     * 根据班级id查询单个班级信息
      * @param gradeId
      * @return
      */
-    Grade load(String gradeId);
+    Grade loadById(String gradeId);
+
+    /**
+     * 编辑班级详情
+     * @param grade
+     * @return
+     */
+    Integer updateInfo(Grade grade);
+
+
 }
