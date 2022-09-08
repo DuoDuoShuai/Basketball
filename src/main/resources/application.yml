@@ -2,6 +2,10 @@ server:
   port: 8888
 #配置spring
 spring:
+  servlet:
+    multipart:
+      max-file-size: 300MB
+      max-request-size: 350MB
   redis:
     host: localhost
     database: 0
