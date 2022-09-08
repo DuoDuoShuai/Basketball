@@ -20,14 +20,14 @@
     <div class="layui-form-item">
         <label class="layui-form-label">风采图片上传</label>
         <div class="layui-input-block">
-            <input type="file" name="img"  placeholder="请选择图片" value="" class="province-selector">
+            <input type="file" name="img" id="picture" placeholder="请选择图片" value="" class="province-selector">
             <img src="" id="img" style="width: 200px">
         </div>
     </div>
     <div class="layui-form-item">
         <label class="layui-form-label">风采视屏上传</label>
         <div class="layui-input-block">
-            <input type="file" name="movie" id="" placeholder="请选择视屏" value="" class="province-selector" style="width: 200px;">
+            <input type="file" name="movie" id="video" placeholder="请选择视屏" value="" class="province-selector" style="width: 200px;">
             <video id="movie" width="320" height="240" controls loop src=""></video>
         </div>
     </div>
@@ -125,7 +125,7 @@
         //监听提交
         form.on('submit(saveBtn)', function (data) {
             var formData = new FormData();//form表单
-            formData.append("styleId", data.field.rotationId);
+            formData.append("styleId", data.field.styleId);
             formData.append("schoolName", data.field.schoolName);
             formData.append("styleType", $("input[name='styleType']:checked").val());
             formData.append("sort", data.field.sort);

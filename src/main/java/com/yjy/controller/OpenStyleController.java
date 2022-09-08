@@ -41,14 +41,15 @@ public class OpenStyleController {
 
     /**
      * 新增公共风采
+     *
      * @param openStyle
      * @param img
-     * @param movice
+     * @param movie
      * @return
      */
     @RequestMapping("insert")
-    public JsonResult insertOpenStyle(OpenStyle openStyle, MultipartFile img, MultipartFile movice) {
-        Integer insert = openStyleService.insertOpenStyle(openStyle, img,movice);
+    public JsonResult insertOpenStyle(OpenStyle openStyle, MultipartFile img, MultipartFile movie) {
+        Integer insert = openStyleService.insertOpenStyle(openStyle, img, movie);
         return JsonResult.success(insert);
     }
 
@@ -78,14 +79,15 @@ public class OpenStyleController {
 
     /**
      * 编辑公共风采
+     *
      * @param openStyle
      * @param img
-     * @param video
+     * @param movie
      * @return
      */
     @RequestMapping("update")
-    public JsonResult updateOpenStyle(OpenStyle openStyle, MultipartFile img,MultipartFile video) {
-        Integer update = openStyleService.updateOpenStyle(openStyle, img,video);
+    public JsonResult updateOpenStyle(OpenStyle openStyle, MultipartFile img, MultipartFile movie) {
+        Integer update = openStyleService.updateOpenStyle(openStyle, img, movie);
         return JsonResult.success(update);
     }
 }

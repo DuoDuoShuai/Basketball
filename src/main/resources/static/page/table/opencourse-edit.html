@@ -149,6 +149,7 @@
             elem:'#startTime',
             min:0,//最大值为当前日期
             trigger:'click',
+            format:'yyyy-MM-dd HH:mm:ss',
             type:'datetime',//日期选择器
             //value:getRecentDay(-3),//默认值30天前
             done:function(value,date) {
@@ -171,6 +172,7 @@
         var end=laydate.render({
             elem:'#endTime',
             type: 'datetime',//日期时间选择器
+            format:'yyyy-MM-dd HH:mm:ss',
             //min:0,//最大值为当前日期
             //value: getRecentDay(0),//默认值昨天
             done:function(value,date) {
