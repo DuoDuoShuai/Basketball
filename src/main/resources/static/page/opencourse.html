@@ -96,12 +96,12 @@
             }],
             cols: [[
                 {type: "checkbox", width: 50},
-                {field: 'openId', width:50, title: 'ID',templet:'#zizeng'},
-                {field: 'name', width: 80, title: '课程名字'},
-                {field: 'photo', width: 80, title: '课程图片', templet: '<div><img id="img" src="http://rhh64czm7.hn-bkt.clouddn.com/{{d.photo}}"></div>'},
-                {field: 'opencoursehour', width: 50, title: '课程课时'},
-                {field: 'openprice', width: 50, title: '价格', sort: true},
-                {field: 'opencoursestate', width: 50, title: '课程状态',templet: function (d) {
+                {field: 'openId', width:50,align: "center", title: 'ID',templet:'#zizeng'},
+                {field: 'name', width: 120,align: "center", title: '课程名字'},
+                {field: 'photo', width: 100,align: "center", title: '课程图片', templet: '<div><img id="img" src="http://rhh64czm7.hn-bkt.clouddn.com/{{d.photo}}"></div>'},
+                {field: 'opencoursehour', width: 80,align: "center", title: '课程课时'},
+                {field: 'openprice', width: 80,align: "center", title: '价格', sort: true},
+                {field: 'opencoursestate', width: 100,align: "center", title: '课程状态',templet: function (d) {
                         if (d.opencoursestate == 0) {
                             return "未开课";
                         } else if(d.opencoursestate ==1) {
@@ -110,14 +110,14 @@
                             return "已结束";
                         }
                     } },
-                {field: 'opendescribe', width: 135, title: '课程描述', sort: true},
-                {field: 'openstartTime', width: 150, title: '开课时间',sort: true,templet: "<div>{{layui.util.toDateString(d.openstartTime, 'yyyy-MM-dd HH:mm:ss')}}</div>"},
-                {field: 'openendTime', width: 150, title: '结束时间',sort: true,templet: "<div>{{layui.util.toDateString(d.openendTime, 'yyyy-MM-dd HH:mm:ss')}}</div>"},
-                {field: 'openpayNumber', width: 50, title: '购买人数'},
-                {field: 'schoolName', width: 120, title: '校区'},
-                {field: 'openshelfTime', width: 150, title: '上架时间',sort: true,templet: "<div>{{layui.util.toDateString(d.openshelfTime, 'yyyy-MM-dd HH:mm:ss')}}</div>"},
-                {field: 'openShelfleftTime', width: 150, title: '下架时间',sort: true,templet: "<div>{{layui.util.toDateString(d.openShelfleftTime, 'yyyy-MM-dd HH:mm:ss')}}</div>"},
-                {field: 'pure', width: 50, title: '上架状态',
+                {field: 'opendescribe', width: 135,align: "center", title: '课程描述', sort: true},
+                {field: 'openstartTime', width: 150,align: "center", title: '开课时间',sort: true,templet: "<div>{{layui.util.toDateString(d.openstartTime, 'yyyy-MM-dd HH:mm:ss')}}</div>"},
+                {field: 'openendTime', width: 150,align: "center", title: '结束时间',sort: true,templet: "<div>{{layui.util.toDateString(d.openendTime, 'yyyy-MM-dd HH:mm:ss')}}</div>"},
+                {field: 'openpayNumber', width: 80,align: "center", title: '购买人数'},
+                {field: 'schoolName', width: 120,align: "center", title: '校区'},
+                {field: 'openshelfTime', width: 150,align: "center", title: '上架时间',sort: true,templet: "<div>{{layui.util.toDateString(d.openshelfTime, 'yyyy-MM-dd HH:mm:ss')}}</div>"},
+                {field: 'openShelfleftTime', width: 150,align: "center", title: '下架时间',sort: true,templet: "<div>{{layui.util.toDateString(d.openShelfleftTime, 'yyyy-MM-dd HH:mm:ss')}}</div>"},
+                {field: 'pure', width: 100,align: "center", title: '上架状态',
                     templet: function (d) {
                         if (d.pure ==0) {
                             return "未上架";
@@ -126,7 +126,7 @@
                         }
                     }
                 },
-                {field: 'type', width: 120, title: '信息类型',
+                {field: 'type', width: 120,align: "center", title: '信息类型',
                 templet: function(d) {
                     if (d.type==0) {
                         return '跳转'
@@ -134,7 +134,7 @@
                         return '排序'
                     }
                 }},
-                {field: 'sort', width: 120, title: '排序',
+                {field: 'sort', width: 120,align: "center", title: '排序',
                 templet: function (d) {
                     if(d.sort==0){
                         return 'asc'
@@ -142,9 +142,9 @@
                         return 'desc'
                     }
                 }},
-                {field: 'opencuturl', width: 120, title: '切换路劲'},
-                {field: 'createTime', width: 150, title: '创建时间',sort: true,templet: "<div>{{layui.util.toDateString(d.createTime, 'yyyy-MM-dd HH:mm:ss')}}</div>"},
-                {field: 'updateTime', width: 150, title: '更新时间',sort: true,templet: "<div>{{layui.util.toDateString(d.updateTime, 'yyyy-MM-dd HH:mm:ss')}}</div>"},
+                {field: 'opencuturl', width: 120,align: "center", title: '切换路劲'},
+                {field: 'createTime', width: 150,align: "center", title: '创建时间',sort: true,templet: "<div>{{layui.util.toDateString(d.createTime, 'yyyy-MM-dd HH:mm:ss')}}</div>"},
+                {field: 'updateTime', width: 150, align: "center",title: '更新时间',sort: true,templet: "<div>{{layui.util.toDateString(d.updateTime, 'yyyy-MM-dd HH:mm:ss')}}</div>"},
                 {title: '操作', minWidth: 150, toolbar: '#currentTableBar', align: "center"}
             ]],
             limits: [10, 15, 20, 25, 50, 100],
