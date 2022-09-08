@@ -27,4 +27,14 @@ public class WxGradeStudentController {
     public WxJsonResult insertGrade(GradeStudent gradeStudent){
         return WxJsonResult.success(wxGradeStudentService.insertGrade(gradeStudent));
     }
+
+    /**
+     * 移除班级-改变学员状态
+     * @param gradeStudent
+     * @return
+     */
+    @RequestMapping("updateState")
+    public WxJsonResult updateState(GradeStudent gradeStudent){
+        return WxJsonResult.success(wxGradeStudentService.updateState(gradeStudent));
+    }
 }

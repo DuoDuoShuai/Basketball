@@ -69,8 +69,10 @@ public class StudentServiceImpl implements StudentService {
     public Integer update(Student student,MultipartFile img) {
         Integer update = null;
         try {
-            student.setPhoto(QiniuFile.uploadFile(img.getBytes()));
             student.setUpdateTime(currentTime.getTime());
+            if(img!=null){
+                student.setPhoto(QiniuFile.uploadFile(img.getBytes()));
+            }
             update = studentMapper.update(student);
         } catch (IOException e) {
             e.printStackTrace();
@@ -124,7 +126,9 @@ public class StudentServiceImpl implements StudentService {
         Integer insert = null;
         try {
             student.setStudentId(String.valueOf(UUID.randomUUID()));
-            student.setPhoto(QiniuFile.uploadFile(img.getBytes()));
+            if(img!=null){
+                student.setPhoto(QiniuFile.uploadFile(img.getBytes()));
+            }
             student.setCreateTime(currentTime.getTime());
             student.setUpdateTime(currentTime.getTime());
             insert = studentMapper.insert(student);

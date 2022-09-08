@@ -35,7 +35,7 @@
         <if test="schoolName !=null and schoolName !=''">
             and school_name like concat('%',#{schoolName},'%')
         </if>
-        <if test="pure !=null">
+        <if test="pure !=null and pure !=''">
             and is_show = #{pure}
         </if>
         order by style_id asc
@@ -57,7 +57,7 @@
         <if test="name !=null and name !=''">
             and school_name like concat('%',#{name},'%')
         </if>
-        <if test="pure !=null">
+        <if test="pure !=null  and pure !=''">
             and is_show = #{pure}
         </if>
     </select>

@@ -6,27 +6,34 @@
         id,grade_id gradeId,student_id studentId,student_state studentState,
         join_time joinTime,left_time leftTime
     </sql>
-    <!-- 列表+查询 -->
-    <select id="list" parameterType="com.yjy.dto.RelationDto" resultType="com.yjy.model.GradeStudent">
-        select
-        <include refid="start"></include>
+    <sql id="student">
+        student_id studentId,student_name studentName,birthday,age,gender,student_number studentNumber,student_code studentCode,photo,school_name schoolName,
+        create_time createTime,
+        update_time updateTime
+    </sql>
+    <resultMap id="studentMap" type="com.yjy.model.GradeStudent">
+        <id column="id" property="id"></id>
+        <result column="grade_id" property="gradeId"></result>
+        <result column="student_id" property="studentId"></result>
+        <result column="student_state" property="studentState"></result>
+        <result column="join_time" property="joinTime"></result>
+        <result column="left_time" property="leftTime"></result>
+        <collection property="student" ofType="com.yjy.model.Student">
+            <id column="student_id" property="studentId"></id>
+            <result column="student_name" property="studentName"></result>
+            <result column="birthday" property="birthday"></result>
+            <result column="age" property="age"></result>
+            <result column="gender" property="gender"></result>
+            <result column="student_number" property="student_number"></result>
+        </collection>
+    </resultMap>
+    <!-- 根据班级id查询班级下的所有学员 -->
+    <select id="listStudent" parameterType="java.lang.String" resultMap="studentMap">
+        select <include refid="student"></include>
         from r_grade_student
-        <where>
-            <if test="id !=null and id !=''">
-                and id like concat('%',#{id},'%')
-            </if>
-            <if test="mainId !=null and mainId !=''">
-                and grade_id like concat('%',#{mainId},'%')
-            </if>
-            <if test="otherId !=null and otherId !=''">
-                and student_id like concat('%',#{otherId},'%')
-            </if>
-            <if test="state !=null and state !=''">
-                and student_state like #{state}
-            </if>
-        </where>
-        order by id asc
-        limit #{dataNum},#{limit}
+        right join t_student_info
+        on r_grade_student.student_id=t_student_info.student_id
+        where r_grade_student.grade_id=#{0} and is_delete=0
     </select>
     <!-- 总数 -->
     <select id="count" parameterType="com.yjy.dto.RelationDto" resultType="java.lang.Integer">
@@ -58,15 +65,9 @@
     </select>
 
     <!-- 修改 -->
-    <update id="update" parameterType="com.yjy.model.GradeStudent">
+    <update id="updateState" parameterType="com.yjy.model.GradeStudent">
         update r_grade_student
-        <trim prefix="set " suffixOverrides=",">
-            <if test="gradeId !=null">grade_id=#{gradeId},</if>
-            <if test="studentId !=null">student_id=#{studentId},</if>
-            <if test="studentState !=null">student_state=#{studentState},</if>
-            <if test="joinTime !=null">join_time=#{joinTime},</if>
-            <if test="leftTime !=null">left_time=#{leftTime},</if>
-        </trim>
+        set student_state=1,left_time=#{leftTime}
         where id=#{id}
     </update>
     <!-- 增加 -->

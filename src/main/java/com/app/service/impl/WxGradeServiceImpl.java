@@ -25,6 +25,7 @@ public class WxGradeServiceImpl implements WxGradeService {
      * 获取当前时间
      */
     private Date currentTime=new Date(System.currentTimeMillis());
+
     /**
      * 根据校区名称查询该校区下所有的班级信息
      * @param dto
@@ -47,6 +48,27 @@ public class WxGradeServiceImpl implements WxGradeService {
         grade.setUpdateTime(currentTime.getTime());
         Integer insert = wxGradeMapper.insertGrade(grade);
         return insert;
+    }
+
+    /**
+     * 根据班级id查询单个班级信息
+     * @param gradeId
+     * @return
+     */
+    @Override
+    public Grade loadById(String gradeId) {
+        return wxGradeMapper.loadById(gradeId);
+    }
+
+    /**
+     * 编辑班级详情
+     * @param grade
+     * @return
+     */
+    @Override
+    public Integer updateInfo(Grade grade) {
+        grade.setUpdateTime(currentTime.getTime());
+        return wxGradeMapper.updateInfo(grade);
     }
 
 }

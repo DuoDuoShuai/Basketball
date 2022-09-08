@@ -47,12 +47,12 @@
                             </div>
                         </div>
                         <div class="layui-inline">
-                            <label class="layui-form-label">是否显示</label>
+                            <label class="layui-form-label">是否展示</label>
                             <div class="layui-input-inline">
                                 <select name="pure" id="pure">
                                     <option value="">请选择</option>
-                                    <option value="0">否</option>
-                                    <option value="1">是</option>
+                                    <option value="0">不展示</option>
+                                    <option value="1">展示</option>
                                 </select>
                             </div>
                         </div>
@@ -116,11 +116,11 @@
                 },
                 {field: 'sort', width: 150, title: '排序', sort: true},
                 {field: 'cutUrl', width: 150, title: '切换地址', sort: true},
-                {field: 'pure', width: 150, title: '是否显示', sort: true,templet: function (d) {
+                {field: 'pure', width: 150, title: '是否展示', sort: true,templet: function (d) {
                         if (d.pure == 0) {
-                            return "否";
+                            return "不展示";
                         } else {
-                            return "是";
+                            return "展示";
                         }
                     }
                 },

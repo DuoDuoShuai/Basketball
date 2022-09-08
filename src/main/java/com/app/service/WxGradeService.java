@@ -25,4 +25,17 @@ public interface WxGradeService {
      */
     Integer insertGrade(Grade grade);
 
+    /**
+     * 根据班级id查询单个班级信息
+     * @param gradeId
+     * @return
+     */
+    Grade loadById(String gradeId);
+
+    /**
+     * 编辑班级详情
+     * @param grade
+     * @return
+     */
+    Integer updateInfo(Grade grade);
 }
