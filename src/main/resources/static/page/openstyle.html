@@ -19,13 +19,25 @@
                 <form class="layui-form layui-form-pane" action="">
                     <div class="layui-form-item">
                         <div class="layui-inline">
-                            <label class="layui-form-label">回答信息</label>
+                            <label class="layui-form-label">校区名称</label>
                             <div class="layui-input-inline">
-                                <input type="text" name="answer" autocomplete="off" class="layui-input">
+                                <input type="text" name="schoolName" autocomplete="off" class="layui-input">
                             </div>
                         </div>
                         <div class="layui-inline">
-                            <button type="submit" class="layui-btn layui-btn-primary"  lay-submit lay-filter="data-search-btn"><i class="layui-icon"></i> 搜 索</button>
+                            <label class="layui-form-label">是否展示</label>
+                            <div class="layui-input-inline">
+                                <select name="pure" id="pure">
+                                    <option value="">请选择</option>
+                                    <option value="0">不展示</option>
+                                    <option value="1">展示</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="layui-inline">
+                            <button type="submit" class="layui-btn layui-btn-primary" lay-submit
+                                    lay-filter="data-search-btn"><i class="layui-icon"></i> 搜 索
+                            </button>
                         </div>
                     </div>
                 </form>
@@ -34,8 +46,8 @@
 
         <script type="text/html" id="toolbarDemo">
             <div class="layui-btn-container">
-                <button class="layui-btn layui-btn-normal layui-btn-sm data-add-btn" lay-event="add"> 添加 </button>
-                <button class="layui-btn layui-btn-sm layui-btn-danger data-delete-btn" lay-event="delete"> 删除 </button>
+                <button class="layui-btn layui-btn-normal layui-btn-sm data-add-btn" lay-event="add"> 添加</button>
+                <button class="layui-btn layui-btn-sm layui-btn-danger data-delete-btn" lay-event="delete"> 删除</button>
             </div>
         </script>
 
@@ -58,7 +70,7 @@
 
         table.render({
             elem: '#currentTableId',
-            url: '/answer/list',
+            url: '/OpenStyle/list',
             toolbar: '#toolbarDemo',
             defaultToolbar: ['filter', 'exports', 'print', {
                 title: '提示',
@@ -67,26 +79,58 @@
             }],
             cols: [[
                 {type: "checkbox", width: 50},
-                {field: 'openAnsewrId', width: 80, title: 'ID', sort: true},
-                {field: 'answer', width: 80, title: '回答'},
-                {field: 'ansewrType', width: 80, title: '回答类型', sort: true,templet: function (d) {
-                        if (d.ansewrType) {
+                {field: 'styleId', width: 120, title: '公共风采ID', sort: true},
+                {field: 'schoolName', width: 120, title: '所属校区'},
+                {
+                    field: 'picture',
+                    width: 110,
+                    title: '学员风采图片',
+                    templet: '<div><img id="img" src="http://rhh64czm7.hn-bkt.clouddn.com/{{d.picture}}"></div>'
+                },
+                {
+                    field: 'video',
+                    width: 320,
+                    height: 240,
+                    title: '学员风采视频',
+                templet: '<div><video width="320" height="240" controls loop src="http://rhh64czm7.hn-bkt.clouddn.com/{{d.video}}"></video></div>'
+                    // templet: '<div><video id="video" src="http://rhh64czm7.hn-bkt.clouddn.com/{{d.video}}"></div>'
+                },
+
+                {
+                    field: 'styleType', width: 100, title: '信息类型', sort: true, templet: function (d) {
+                        if (d.styleType == "0") {
                             return "跳转";
                         } else {
                             return "排序";
                         }
-                    }},
-                {field: 'cutUrl', width: 110, title: '切换路径'},
-                {field: 'isShow', title: '是否展示', width: 80, sort: true,templet: function (d) {
-                        if (d.isShow) {
-                            return "是";
+                    }
+                },
+                {field: 'sort', width: 120, title: '排序优先级', sort: true},
+                {field: 'cutUrl', width: 120, title: '跳转路径', sort: true},
+                {
+                    field: 'pure', width: 100, title: '是否展示', sort: true, templet: function (d) {
+                        if (d.pure == "0") {
+                            return "不展示";
                         } else {
-                            return "否";
+                            return "展示";
                         }
-                    }},
-                {field: 'createTime', width: 170, title: '创建时间', sort: true,templet: "<div>{{layui.util.toDateString(d.parentRegtime, 'yyyy-MM-dd HH:mm:ss')}}</div>"},
-                {field: 'updateTime', width: 170, title: '修改时间', sort: true,templet: "<div>{{layui.util.toDateString(d.updateTime, 'yyyy-MM-dd HH:mm:ss')}}</div>"},
-                {title: '操作', minWidth: 150, toolbar: '#currentTableBar', align: "center"}
+                    }
+                },
+                {
+                    field: 'createTime',
+                    width: 170,
+                    title: '创建时间',
+                    sort: true,
+                    templet: "<div>{{layui.util.toDateString(d.createTime, 'yyyy-MM-dd HH:mm:ss')}}</div>"
+                },
+                {
+                    field: 'updateTime',
+                    width: 170,
+                    title: '修改时间',
+                    sort: true,
+                    templet: "<div>{{layui.util.toDateString(d.updateTime, 'yyyy-MM-dd HH:mm:ss')}}</div>"
+                },
+                {title: '操作', minWidth: 120, toolbar: '#currentTableBar', align: "center"}
             ]],
             limits: [10, 15, 20, 25, 50, 100],
             limit: 15,
@@ -96,18 +140,14 @@
 
         // 监听搜索操作
         form.on('submit(data-search-btn)', function (data) {
-            var result = JSON.stringify(data.field);
-            layer.alert(result, {
-                title: '最终的搜索信息'
-            });
-
             //执行搜索重载
             table.reload('currentTableId', {
                 page: {
                     curr: 1
                 }
                 , where: {
-                    name:data.field.answer
+                    schoolName: data.field.schoolName,
+                    pure: data.field.pure
                 }
             }, 'data');
 
@@ -120,13 +160,13 @@
         table.on('toolbar(currentTableFilter)', function (obj) {
             if (obj.event === 'add') {  // 监听添加操作
                 var index = layer.open({
-                    title: '添加用户',
+                    title: '上传公共风采',
                     type: 2,
                     shade: 0.2,
-                    maxmin:true,
+                    maxmin: true,
                     shadeClose: true,
                     area: ['100%', '100%'],
-                    content: '../page/table/answer-add.html',
+                    content: '/page/table/openstyle-add.html',
                 });
                 $(window).on("resize", function () {
                     layer.full(index);
@@ -138,15 +178,15 @@
                 var str = "";
                 for (var i = 0; i < data.length; i++) {
                     flag++;
-                    str += data[i].openAnsewrId+",";
+                    str += data[i].styleId + ",";
                 }
                 $.ajax({
-                    url:'/answer/deleteAnswerMore',
-                    type:'post',
-                    data:{
-                        str:str
+                    url: '/OpenStyle/deleteMore',
+                    type: 'post',
+                    data: {
+                        str: str
                     },
-                    success:function (dataa) {
+                    success: function (data) {
                         var index = layer.alert("删除成功", {
                             title: '删除成功'
                         }, function () {
@@ -154,6 +194,7 @@
                             layer.close(index);
                             var iframeIndex = parent.layer.getFrameIndex(window.name);
                             parent.layer.close(iframeIndex);
+                            table.reload("currentTableId");
                         });
                     }
                 });
@@ -167,28 +208,35 @@
 
         table.on('tool(currentTableFilter)', function (obj) {
             var data = obj.data;
-            json=JSON.stringify(data);
+            json = JSON.stringify(data);
             if (obj.event === 'edit') {
 
                 var index = layer.open({
-                    title: '编辑用户',
+                    title: '编辑公共风采',
                     type: 2,
                     shade: 0.2,
-                    maxmin:true,
+                    maxmin: true,
                     shadeClose: true,
                     area: ['100%', '100%'],
-                    content: '../page/table/answer-edit.html',
-                    success:function () {
-                        var body = layer.getChildFrame('body',index);
-                        body.find('#openAnsewrId').val(data.openAnsewrId);
-                        body.find('#answer').val(data.answer);
+                    content: '/page/table/openstyle-edit.html',
+                    success: function () {
+                        var body = layer.getChildFrame('body', index);
+                        body.find('#styleId').val(data.styleId);
+                        body.find('#schoolName').val(data.schoolName);
+                        if (data.styleType == 0) {
+                            body.find('#styleType').val('跳转');
+                        } else {
+                            body.find('#styleType').val('排序');
+                        }
                         body.find('#sort').val(data.sort);
                         body.find('#cutUrl').val(data.cutUrl);
-                        if(data.ansewrType==0){
-                            body.find('#ansewrType').val('女');
-                        }else {
-                            body.find('#ansewrType').val('男');
+                        if (data.pure == 0) {
+                            body.find('#pure').val('不展示');
+                        } else {
+                            body.find('#pure').val('展示');
                         }
+                        body.find('#picture').val(data.picture);
+                        body.find('#movie').val(data.video);
                     }
                 });
                 $(window).on("resize", function () {
@@ -196,14 +244,14 @@
                 });
                 return false;
             } else if (obj.event === 'delete') {
-                layer.confirm('真的删除行么', function (index) {
+                layer.confirm('真的删除此条数据么', function (index) {
                     $.ajax({
-                        url:'/answer/deleteAnswer',
-                        type:'post',
-                        data:{
-                            answerId:data.openAnsewrId
+                        url: '/OpenStyle/delete',
+                        type: 'post',
+                        data: {
+                            styleId: data.styleId
                         },
-                        success:function (dataa) {
+                        success: function (data) {
                             var index = layer.alert("删除成功", {
                                 title: '删除成功'
                             }, function () {
@@ -211,14 +259,13 @@
                                 layer.close(index);
                                 var iframeIndex = parent.layer.getFrameIndex(window.name);
                                 parent.layer.close(iframeIndex);
-                                parent.layui.table.reload("currentTableId");
+                                table.reload("currentTableId");
                             });
                         }
                     });
                 });
             }
         });
-
     });
 </script>
 
