@@ -105,7 +105,7 @@
           "child": [
             {
               "title": "风采管理",
-              "href": "/page/style.html",
+              "href": "/page/openstyle.html",
               "icon": "fa fa-file-text",
               "target": "_self"
             },
@@ -117,13 +117,13 @@
             },
             {
               "title": "导航栏管理",
-              "href": "/page/button.html",
+              "href": "/page/opennavigation-table.html",
               "icon": "fa fa-file-text",
               "target": "_self"
             },
             {
               "title": "校区管理",
-              "href": "/page/layer.html",
+              "href": "/page/openschool-table.html",
               "icon": "fa fa-file-text",
               "target": "_self"
             },

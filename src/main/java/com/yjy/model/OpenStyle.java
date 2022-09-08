@@ -18,19 +18,15 @@ public class OpenStyle {
      */
     private String styleId;
     /**
-     * 学员id
+     * 校区名称
      */
-    private String studentId;
-    /**
-     * 所属校区
-     */
-    private String schoolId;
+    private String schoolName;
     /**
      * 学员风采图片
      */
     private String picture;
     /**
-     * 学员风采图片
+     * 学员风采视频
      */
     private String video;
     /**
@@ -40,7 +36,7 @@ public class OpenStyle {
     /**
      * 排序（0-asc，1-desc）
      */
-    private boolean sort;
+    private int sort;
     /**
      * 切换路径
      */
@@ -48,7 +44,7 @@ public class OpenStyle {
     /**
      * 是否展示（0-否，1-是）
      */
-    private boolean isShow;
+    private boolean pure;
     /**
      * 是否删除（0-否，1-是）
      */
