@@ -35,4 +35,15 @@ public class WxGradeStudentServiceImpl implements WxGradeStudentService {
         gradeStudent.setStudentState(false);
         return wxGradeStudentMapper.insertGrade(gradeStudent);
     }
+
+    /**
+     * 移除班级-改变学员状态
+     * @param gradeStudent
+     * @return
+     */
+    @Override
+    public Integer updateState(GradeStudent gradeStudent) {
+        gradeStudent.setLeftTime(currentTime.getTime());
+        return wxGradeStudentMapper.updateState(gradeStudent);
+    }
 }

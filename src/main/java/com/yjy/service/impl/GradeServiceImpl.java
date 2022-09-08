@@ -67,7 +67,9 @@ public class GradeServiceImpl implements GradeService {
         Integer update = null;
         try {
             grade.setUpdateTime(currentTime.getTime());
-            grade.setPhoto(QiniuFile.uploadFile(img.getBytes()));
+            if(img!=null){
+                grade.setPhoto(QiniuFile.uploadFile(img.getBytes()));
+            }
             update = gradeMapper.update(grade);
         } catch (IOException e) {
             e.printStackTrace();
@@ -121,7 +123,9 @@ public class GradeServiceImpl implements GradeService {
             grade.setGradeId(UUID.randomUUID().toString());
             grade.setCreateTime(currentTime.getTime());
             grade.setUpdateTime(currentTime.getTime());
-            grade.setPhoto(QiniuFile.uploadFile(img.getBytes()));
+            if(img!=null){
+                grade.setPhoto(QiniuFile.uploadFile(img.getBytes()));
+            }
             insert = gradeMapper.insert(grade);
         } catch (IOException e) {
             e.printStackTrace();

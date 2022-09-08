@@ -38,4 +38,24 @@ public class WxGradeController {
     public WxJsonResult insertGrade(Grade grade){
         return WxJsonResult.success(wxGradeService.insertGrade(grade));
     }
+
+    /**
+     * 根据班级id查询单个班级信息
+     * @param gradeId
+     * @return
+     */
+    @RequestMapping("loadById")
+    public WxJsonResult loadById(String gradeId){
+        return WxJsonResult.success(wxGradeService.loadById(gradeId));
+    }
+
+    /**
+     * 编辑班级详情
+     * @param grade
+     * @return
+     */
+    @RequestMapping("updateInfo")
+    public WxJsonResult updateInfo(Grade grade){
+        return WxJsonResult.success(wxGradeService.updateInfo(grade));
+    }
 }

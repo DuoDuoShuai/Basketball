@@ -20,7 +20,7 @@ public class WxGradeSupport {
      * @param gradeId
      */
     public void totalCount(String gradeId) {
-        Grade grade = wxGradeMapper.load(gradeId);
+        Grade grade = wxGradeMapper.loadById(gradeId);
         Integer totalCount = grade.getTotalCount();
         grade.setTotalCount(totalCount++);
     }
