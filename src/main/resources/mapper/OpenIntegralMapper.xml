@@ -27,7 +27,7 @@
         <if test="integralWay !=null and integralWay !=''">
             and integral_way like concat('%',#{integralWay},'%')
         </if>
-        <if test="pure !=null">
+        <if test="pure !=null and pure !=''">
             and is_show = #{pure}
         </if>
         order by open_integral_id asc

@@ -27,7 +27,7 @@
         <if test="schoolName !=null and schoolName !=''">
             and school_name like concat('%',#{schoolName},'%')
         </if>
-        <if test="pure !=null">
+        <if test="pure !=null and pure !=''">
             and is_show = #{pure}
         </if>
         order by open_style_id asc

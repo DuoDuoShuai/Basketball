@@ -28,7 +28,7 @@ spring:
     druid:
       url: jdbc:mysql://127.0.0.1:3306/basketball?serverTimezone=UTC
       username: root
-      password: 123456
+      password: zxc123...
       # 初始连接数
       initialSize: 5
       # 最小连接池数量
