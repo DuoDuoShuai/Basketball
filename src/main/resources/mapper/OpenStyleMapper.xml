@@ -3,30 +3,95 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.yjy.mapper.OpenStyleMapper">
-    <!-- 列表 -->
+    <!-- 需要查询字段 -->
+    <sql id="start">
+        open_style_id styleId,
+        school_name schoolName,
+        picture,
+        video,
+        style_type styleType,
+        sort,
+        cut_url cutUrl,
+        is_show pure,
+        is_delete isDelete,
+        create_time creatTime,
+        update_time updateTime
+    </sql>
+
+    <!-- 列表+查询 -->
     <select id="listOpenStyle" parameterType="com.yjy.dto.LayUiDto" resultType="com.yjy.model.OpenStyle">
-        select open_style_id styleId,
-               student_id studentId,
-               school_id schoolId,
-               picture,
-               video,
-               style_type styleType,
-               sort,
-               cut_url cutUrl,
-               is_show isShow,
-               is_delete isDelete,
-               DATE_FORMAT(from_unixtime(create_time / 1000), '%Y-%m-%d %H:%i:%s') createTime,
-               DATE_FORMAT(from_unixtime(update_time / 1000), '%Y-%m-%d %H:%i:%s') updateTime,
+        select
+        <include refid="start"></include>
         from t_open_style
-        where is_delete = 0
+        where is_delete=0
+        <if test="schoolName !=null and schoolName !=''">
+            and school_name like concat('%',#{schoolName},'%')
+        </if>
+        <if test="pure !=null">
+            and is_show = #{pure}
+        </if>
         order by open_style_id asc
-        #{dataNum},#{limit}
+        limit #{dataNum},#{limit}
     </select>
+
     <!-- 总数 -->
-    <select id="count" resultType="java.lang.Integer">
+    <select id="count" parameterType="com.yjy.dto.LayUiDto" resultType="java.lang.Integer">
         select
         count(1)
-        from t_demo
+        from t_open_style
         where is_delete=0
+        <if test="name !=null and name !=''">
+            and school_name like concat('%',#{name},'%')
+        </if>
+        <if test="pure !=null">
+            and is_show = #{pure}
+        </if>
     </select>
+
+    <!-- 详情 -->
+    <select id="loadOpenStyle" resultType="com.yjy.model.OpenStyle">
+        select
+        <include refid="start"></include>
+        from t_open_style
+        where open_style_id=#{0}
+    </select>
+
+    <!-- 添加用户信息 -->
+    <insert id="insertOpenStyle" parameterType="com.yjy.model.OpenStyle">
+        insert into t_open_style(open_style_id, school_name, picture,video, style_type, sort, cut_url,
+                                    is_show,
+                                    create_time, update_time)
+        values (#{styleId}, #{schoolName}, #{picture},  #{video},#{styleType}, #{sort}, #{cutUrl}, #{pure}, #{createTime},
+                #{updateTime})
+    </insert>
+
+    <!-- 删除 -->
+    <update id="deleteOpenStyle">
+        update t_open_style
+        set is_delete=1
+        where open_style_id = #{styleId}
+    </update>
+
+    <!-- 删除时改变修改时间 -->
+    <update id="updateTime" parameterType="com.yjy.model.OpenStyle">
+        update t_open_style
+        set update_time = #{updateTime}
+        where open_style_id = #{styleId}
+    </update>
+
+    <!-- 修改 -->
+    <update id="updateOpenStyle" parameterType="com.yjy.model.OpenStyle">
+        update t_open_style
+        <trim prefix="set " suffixOverrides=",">
+            <if test="schoolName !=null">school_name=#{schoolName},</if>
+            <if test="picture !=null">picture=#{picture},</if>
+            <if test="video !=null">video=#{video},</if>
+            <if test="styleType !=null">style_type=#{styleType},</if>
+            <if test="sort !=null">sort=#{sort},</if>
+            <if test="cutUrl !=null">cut_url=#{cutUrl},</if>
+            <if test="pure !=null">is_show=#{pure},</if>
+            <if test="updateTime !=null">update_time=#{updateTime},</if>
+        </trim>
+        where open_style_id = #{styleId}
+    </update>
 </mapper>
