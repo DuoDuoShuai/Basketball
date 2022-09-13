@@ -11,4 +11,12 @@
     <select id="listTeacherName" resultType="com.yjy.model.Teacher">
         select t_user_teacher.teacher_name from t_user_teacher
     </select>
+    <!--  登陆后展示教练基本信息，通过教练姓名查询  -->
+    <select id="loadTeacher" parameterType="String" resultType="com.yjy.model.Teacher">
+        select teacher_name as teacherName, teacher_phone as teacherPhone, teacher_photo as teacherPhoto, teacher_sex as teacherSex from t_user_teacher where teacher_name = #{teacherName}
+    </select>
+    <!-- 教练修改基本信息 -->
+    <update id="updateTeacherById" parameterType="com.yjy.model.Teacher">
+        update t_user_teacher set teacher_name= #{teacherName},teacher_phone = #{teacherPhone},teacher_photo = #{teacherPhoto},teacher_sex = #{teacherSex} where teacher_id = #{teacherId}
+    </update>
 </mapper>

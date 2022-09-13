@@ -56,7 +56,9 @@ public class ParentServiceImpl implements ParentService {
             parent.setParentId(UUID.randomUUID().toString());
             Date currentTime=new Date(System.currentTimeMillis());
             parent.setParentRegtime(currentTime.getTime());
-            parent.setParentPhoto(QiniuFile.uploadFile(img.getBytes()));
+            if (img != null){
+                parent.setParentPhoto(QiniuFile.uploadFile(img.getBytes()));
+            }
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -108,7 +110,9 @@ public class ParentServiceImpl implements ParentService {
         try {
             Date currentTime=new Date(System.currentTimeMillis());
             parent.setUpdateTime(currentTime.getTime());
-            parent.setParentPhoto(QiniuFile.uploadFile(img.getBytes()));
+            if (img != null){
+                parent.setParentPhoto(QiniuFile.uploadFile(img.getBytes()));
+            }
         } catch (IOException e) {
             e.printStackTrace();
         }

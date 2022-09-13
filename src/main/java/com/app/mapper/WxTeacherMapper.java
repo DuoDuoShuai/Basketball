@@ -24,4 +24,18 @@ public interface WxTeacherMapper {
      * @return
      */
     List<Teacher> listTeacherName();
+
+    /**
+     * 根据教练姓名查询教练基本信息
+     * @param name
+     * @return
+     */
+    Teacher loadTeacher(String name);
+
+    /**
+     * 教练修改基本信息
+     * @param teacher
+     * @return
+     */
+    Integer updateTeacherById(Teacher teacher);
 }
