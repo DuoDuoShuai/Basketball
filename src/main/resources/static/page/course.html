@@ -118,18 +118,18 @@
                         }
                     } },
                 {field: 'courseDescribe', width: 135, title: '课程描述',align: 'center', sort: true},
-                {field: 'startTime', width: 150, title: '开课时间',align: 'center',sort: true,templet: "<div>{{layui.util.toDateString(d.startTime, 'yyyy-MM-dd HH:mm:ss')}}</div>"},
-                {field: 'endTime', width: 150, title: '结束时间',align: 'center',sort: true,templet: "<div>{{layui.util.toDateString(d.endTime, 'yyyy-MM-dd HH:mm:ss')}}</div>"},
+                {field: 'startTime', width: 150, title: '开课时间',align: 'center',sort: true,templet: "<div>{{layui.util.toDateString(d.startTime, 'yyyy-MM-dd')}}</div>"},
+                {field: 'endTime', width: 150, title: '结束时间',align: 'center',sort: true,templet: "<div>{{layui.util.toDateString(d.endTime, 'yyyy-MM-dd')}}</div>"},
                 {field: 'payNumber', width: 80, title: '购买人数',align: 'center',},
                 {field: 'schoolName', width: 120, title: '校区',align: 'center',},
                 {field: 'shelfTime', width: 150, title: '上架时间',align: 'center',sort: true,templet: "<div>{{layui.util.toDateString(d.shelfTime, 'yyyy-MM-dd HH:mm:ss')}}</div>"},
                 {field: 'shelfLeftTime', width: 150, title: '下架时间',align: 'center',sort: true,templet: "<div>{{layui.util.toDateString(d.shelfLeftTime, 'yyyy-MM-dd HH:mm:ss')}}</div>"},
-                {field: 'pure', width: 50, title: '上架状态',align: 'center',
+                {field: 'pure', width: 80, title: '上架状态',align: 'center',
                     templet: function (d) {
-                        if (d.pure ==0) {
-                            return "未上架";
-                        }else {
-                            return "已上架";
+                        if (d.pure == 0) {
+                            return "<input type='checkbox' lay-filter='switchTest' name='" + d.courseId + "' lay-skin='switch' lay-text='已下架|已上架' checked>";
+                        } else {
+                            return "<input type='checkbox' lay-filter='switchTest' name='" + d.courseId + "' lay-skin='switch' lay-text='已下架|已上架'>";
                         }
                     }
                 },
@@ -208,6 +208,39 @@
         //监听表格复选框选择
         table.on('checkbox(currentTableFilter)', function (obj) {
             console.log(obj)
+        });
+        //轮播图的禁用
+        form.on('switch(switchTest)', function (data) {
+            console.log(data)
+            var id = data.elem.name;
+            var flag = data.elem.checked;
+            if (flag) {
+                $.ajax({
+                    type: "post",
+                    url: "/Course/courseState",
+                    data: "courseId=" + id + "&pure=" + 0,
+                    success: function (data) {
+                        if (data == "success") {
+                            layer.msg('下架失败！请重试！', {icon: 5, shade: 0.4, time: 1000});
+                        } else {
+                            layer.msg('下架成功！', {icon: 1, shade: 0.4, anim: 1, time: 1000});
+                        }
+                    }
+                });
+            } else {
+                $.ajax({
+                    type: "post",
+                    url: "/Course/courseState",
+                    data: "courseId=" + id + "&pure=" + 1,
+                    success: function (data) {
+                        if (data == "success") {
+                            layer.msg("上架失败！请重试！", {icon: 5, shade: 0.4, time: 1000});
+                        } else {
+                            layer.msg("上架成功！", {icon: 1, shade: 0.4, anim: 2, time: 1000});
+                        }
+                    }
+                });
+            }
         });
 
         table.on('tool(currentTableFilter)', function (obj) {
