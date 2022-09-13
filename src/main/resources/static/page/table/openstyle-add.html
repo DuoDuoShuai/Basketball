@@ -114,7 +114,7 @@
             var fileobj = $("#picture")[0].files[0];
             formData.append("img",fileobj);
             var videobj = $("#video")[0].files[0];
-            formData.append("movice",videobj);
+            formData.append("movie",videobj);
             $.ajax({
                 type:'post',
                 url:'/OpenStyle/insert',
