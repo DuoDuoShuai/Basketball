@@ -3,10 +3,12 @@ package com.app.service.impl;
 import com.app.mapper.WxGradeStudentMapper;
 import com.app.service.WxGradeStudentService;
 import com.yjy.model.GradeStudent;
+import com.yjy.model.Student;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
+import java.util.List;
 import java.util.UUID;
 
 /**
@@ -46,4 +48,6 @@ public class WxGradeStudentServiceImpl implements WxGradeStudentService {
         gradeStudent.setLeftTime(currentTime.getTime());
         return wxGradeStudentMapper.updateState(gradeStudent);
     }
+
+
 }

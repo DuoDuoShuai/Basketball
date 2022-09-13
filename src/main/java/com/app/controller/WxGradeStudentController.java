@@ -1,11 +1,15 @@
 package com.app.controller;
 
 import com.app.service.impl.WxGradeStudentServiceImpl;
+import com.app.support.WxGradeSupport;
 import com.app.vo.WxJsonResult;
 import com.yjy.model.GradeStudent;
+import com.yjy.model.Student;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.List;
 
 /**
  * @Author:黄文倩
@@ -17,7 +21,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class WxGradeStudentController {
     @Autowired
     private WxGradeStudentServiceImpl wxGradeStudentService;
-
+    private WxGradeSupport wxGradeSupport;
     /**
      * 添加到班级-新增班级学员关系
      * @param gradeStudent
@@ -25,6 +29,7 @@ public class WxGradeStudentController {
      */
     @RequestMapping("insertGrade")
     public WxJsonResult insertGrade(GradeStudent gradeStudent){
+        wxGradeSupport.totalCount(gradeStudent.getGradeId());
         return WxJsonResult.success(wxGradeStudentService.insertGrade(gradeStudent));
     }
 
@@ -37,4 +42,6 @@ public class WxGradeStudentController {
     public WxJsonResult updateState(GradeStudent gradeStudent){
         return WxJsonResult.success(wxGradeStudentService.updateState(gradeStudent));
     }
+
+
 }

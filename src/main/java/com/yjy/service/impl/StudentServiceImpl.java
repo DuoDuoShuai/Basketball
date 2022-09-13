@@ -128,6 +128,8 @@ public class StudentServiceImpl implements StudentService {
             student.setStudentId(String.valueOf(UUID.randomUUID()));
             if(img!=null){
                 student.setPhoto(QiniuFile.uploadFile(img.getBytes()));
+            }else {
+                student.setPhoto("FmEF-fjs-Qaw2opcZ5BtNVVasfsU");
             }
             student.setCreateTime(currentTime.getTime());
             student.setUpdateTime(currentTime.getTime());
