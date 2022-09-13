@@ -20,14 +20,15 @@
     <div class="layui-form-item">
         <label class="layui-form-label required">问题</label>
         <div class="layui-input-block">
-            <input type="text" name="problem" id="problem" lay-verify="required" lay-reqtext="用户名不能为空" placeholder="家长电话" value="" class="layui-input">
+            <input type="text" name="problem" id="problem" lay-verify="required" lay-reqtext="问题不能为空" placeholder="" value="" class="layui-input">
         </div>
     </div>
 
     <div class="layui-form-item">
         <label class="layui-form-label required">问题类型</label>
         <div class="layui-input-block">
-            <input type="text" name="problemType" id="problemType" lay-verify="required" lay-reqtext="用户名不能为空" placeholder="家长电话" value="" class="layui-input">
+            <input type="radio" name="problemType" value="true" title="跳转" checked="">
+            <input type="radio" name="problemType" value="false" title="排序">
         </div>
     </div>
 
@@ -42,7 +43,7 @@
     <div class="layui-form-item">
         <label class="layui-form-label required">切换路径</label>
         <div class="layui-input-block">
-            <input type="text" name="cutUrl" id="cutUrl" lay-verify="required" lay-reqtext="用户名不能为空" placeholder="家长电话" value="" class="layui-input">
+            <input type="text" name="cutUrl" id="cutUrl" lay-verify="required" lay-reqtext="切换路径不能为空" placeholder="" value="" class="layui-input">
         </div>
     </div>
 
@@ -63,7 +64,7 @@
         form.on('submit(saveBtn)', function (data) {
             var formData = new FormData();//form表单
             formData.append("problem",data.field.problem);
-            formData.append("problemType",data.field.problemType);
+            formData.append("problemType",$("input[name='problemType']:checked").val());
             formData.append("cutType",$("input[name='cutType']:checked").val());
             formData.append("cutUrl",data.field.cutUrl);
             $.ajax({

@@ -53,7 +53,6 @@
                 icon: 'layui-icon-tips'
             }],
             cols: [[
-                {type: "checkbox", width: 50},
                 {field: 'enrollId', width: 80, title: '报名记录ID', sort: true},
                 {field: 'schoolNme', width: 80, title: '校区名称'},
                 {field: 'studentName', width: 80, title: '学生姓名', sort: true},
@@ -77,10 +76,6 @@
 
         // 监听搜索操作
         form.on('submit(data-search-btn)', function (data) {
-            var result = JSON.stringify(data.field);
-            layer.alert(result, {
-                title: '最终的搜索信息'
-            });
 
             //执行搜索重载
             table.reload('currentTableId', {
