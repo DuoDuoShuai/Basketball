@@ -96,4 +96,17 @@ public class CourseController {
       JsonResult success = JsonResult.success(delete);
       return success;
   }
+
+    /**
+     * 更改状态
+     * @param course
+     * @return
+     */
+    @RequestMapping("courseState")
+    @ResponseBody
+  private JsonResult courseState(Course course){
+      Integer integer = courseService.courseState(course);
+      JsonResult success = JsonResult.success(integer);
+      return success;
+  }
 }

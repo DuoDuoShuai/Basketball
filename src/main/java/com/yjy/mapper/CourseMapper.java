@@ -59,4 +59,12 @@ public interface CourseMapper {
      */
 
     public Integer deleteTime(Course course);
+
+    /**
+     * 更改状态
+     * @param course
+     * @return
+     */
+
+    public Integer courseState(Course course);
 }

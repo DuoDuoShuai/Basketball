@@ -36,7 +36,7 @@
         count(1)
         from t_open_we
         where is_delete=0
-        <if test="pure !=null">
+        <if test="pure !=null and pure !=''">
             and is_show = #{pure}
         </if>
     </select>

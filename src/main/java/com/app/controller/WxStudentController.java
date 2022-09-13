@@ -23,7 +23,6 @@ public class WxStudentController {
     private WxStudentServiceImpl wxStudentService;
     @Autowired
     private WxStudentSupport wxStudentSupport;
-
     /**
      * 根据id查出对应学员信息、班级、校区、报名
      * @param studentId

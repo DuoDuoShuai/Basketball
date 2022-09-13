@@ -19,4 +19,12 @@ public interface WxHourMapper {
      * @return
      */
     public List<Hour> listHour(Hour hour);
+
+    /**
+     * 接口--根据id查销课记录
+     * @param hourId
+     * @return
+     */
+
+    public Hour hourById(String hourId);
 }

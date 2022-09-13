@@ -52,7 +52,7 @@
     <div class="layui-inline">
         <label class="layui-form-label required">开课时间</label>
         <div class="layui-input-inline">
-            <input type="text" id="startTime" name="startTime" placeholder="开始时间"  lay-verify="date"  class="layui-input">
+            <input type="text" id="startTime" name="startTime" placeholder="开始时间"   lay-verify="date" class="layui-input">
         </div>
     </div>
     <div class="layui-inline">
@@ -135,11 +135,11 @@
            elem:'#startTime',
            min:0,//最大值为当前日期
            trigger:'click',
-           format:'yyyy-MM-dd HH:mm:ss',
-           type:'datetime',//日期选择器
+           format:'yyyy-MM-dd',
+           type:'date',//日期选择器
            //value:getRecentDay(-3),//默认值30天前
            done:function(value,date) {
-               if(value && (value>$("#endTime").val())){
+               if(value && (value>$("#startTime").val())){
                    /*开始时间大于结束时间时，清空结束时间*/
                    $("#endTime").val("");
                }
@@ -157,10 +157,10 @@
        //结束日期
         var end=laydate.render({
             elem:'#endTime',
-            type: 'datetime',//日期时间选择器
+            type: 'date',//日期时间选择器
             //min:0,//最大值为当前日期
             //value: getRecentDay(0),//默认值昨天
-            format:'yyyy-MM-dd HH:mm:ss',
+            format:'yyyy-MM-dd',
             done:function(value,date) {
                 start.config.min={
                     year :date.year,
