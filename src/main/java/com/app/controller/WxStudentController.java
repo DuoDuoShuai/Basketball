@@ -19,7 +19,6 @@ public class WxStudentController {
     private WxStudentServiceImpl wxStudentService;
     @Autowired
     private WxStudentSupport wxStudentSupport;
-
     /**
      * 接口-根据id查出对应学员信息-给班级模块查看班级学员信息
      * @param studentId
