@@ -1,5 +1,6 @@
 package com.app.mapper;
 
+import com.app.dto.WxAllDto;
 import com.yjy.model.GradeStudent;
 import com.yjy.model.Student;
 import org.springframework.stereotype.Repository;
@@ -27,10 +28,5 @@ public interface WxGradeStudentMapper {
      */
     Integer updateState(GradeStudent gradeStudent);
 
-    /**
-     * 根据班级id查询班级下的所有学员
-     * @param gradeId
-     * @return
-     */
-    List<Student> listStudent(String gradeId);
+
 }

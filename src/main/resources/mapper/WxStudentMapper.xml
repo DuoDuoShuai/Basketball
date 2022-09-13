@@ -7,124 +7,105 @@
         create_time createTime,
         update_time updateTime
     </sql>
-    <!-- 列表+查询 -->
-    <select id="list" parameterType="com.yjy.dto.LayUiDto" resultType="com.yjy.model.Student">
-        select
-        <include refid="start"></include>
-        from t_student_info
-        where is_delete=0
-        <if test="id !=null and id !=''">
-            and student_id like concat('%',#{id},'%')
-        </if>
-        <if test="name !=null and name !=''">
-            and student_name like concat('%',#{name},'%')
-        </if>
-        <if test="number !=null and number !=''">
-            and student_number like concat('%',#{number},'%')
-        </if>
-        <if test="gender !=null and gender !=''">
-            and gender like concat('%',#{gender},'%')
-        </if>
-        <if test="age !=null and age !=''">
-            and age like concat('%',#{age},'%')
-        </if>
-        <if test="schoolName !=null and schoolName !=''">
-            and school_name like concat('%',#{schoolName},'%')
-        </if>
-        order by student_id asc
-        limit #{dataNum},#{limit}
-    </select>
-    <!-- 总数 -->
-    <select id="count" parameterType="com.yjy.dto.LayUiDto" resultType="java.lang.Integer">
-        select
-        count(1)
-        from t_student_info
-        where is_delete=0
-        <if test="id !=null and id !=''">
-            and student_id like concat('%',#{id},'%')
-        </if>
-        <if test="name !=null and name !=''">
-            and student_name like concat('%',#{name},'%')
-        </if>
-        <if test="number !=null and number !=''">
-            and student_number like concat('%',#{number},'%')
-        </if>
-        <if test="gender !=null and gender !=''">
-            and gender like concat('%',#{gender},'%')
-        </if>
-        <if test="age !=null and age !=''">
-            and age like concat('%',#{age},'%')
+    <sql id="student">
+        t_student_info.student_id studentId,t_student_info.student_name studentName,t_student_info.birthday,t_student_info.age,t_student_info.gender,
+        t_student_info.student_number studentNumber,t_student_info.student_code studentCode,t_student_info.photo,t_student_info.school_name schoolName,
+    </sql>
+    <resultMap id="studentMap" type="com.yjy.model.Student">
+        <id column="student_id" property="studentId"></id>
+        <result column="student_name" property="studentName"></result>
+        <result column="birthday" property="birthday"></result>
+        <result column="age" property="age"></result>
+        <result column="photo" property="photo"></result>
+        <collection property="gradeList" ofType="com.yjy.model.Grade">
+            <id  column="grade_id" property="gradeId"></id>
+            <result column="grade_name" property="gradeName"></result>
+        </collection>
+        <collection property="enrollList" ofType="com.yjy.model.Enroll">
+            <id column="enroll_id" property="enrollId"></id>
+            <result column="creat_time" property="creatTime"></result>
+        </collection>
+        <collection property="hourList" ofType="com.yjy.model.Hour">
+            <id column="hour_id" property="hourId"></id>
+            <result column="remain_hour" property="remainHour"></result>
+        </collection>
+    </resultMap>
+    <resultMap id="sMap" type="com.yjy.model.Student">
+        <id column="student_id" property="studentId"></id>
+        <result column="student_name" property="studentName"></result>
+        <collection property="gradeList" ofType="com.yjy.model.Grade">
+            <id column="grade_id" property="gradeId"></id>
+            <result column="grade_name" property="gradeName"></result>
+        </collection>
+        <collection property="hourList" ofType="com.yjy.model.Hour">
+            <id column="hour_id" property="hourId"></id>
+            <result column="remain_hour" property="remainHour"></result>
+        </collection>
+    </resultMap>
+    <!-- 根据班级id查询班级下的所有学员姓名、课时、所在班级 -->
+    <select id="listStudent" parameterType="com.app.dto.WxAllDto" resultMap="sMap">
+        select t_student_info.student_name,t_grade_info.grade_name,t_hour_info.remain_hour
+        from t_student_info right join r_grade_student on r_grade_student.student_id=t_student_info.student_id
+        right join t_grade_info on r_grade_student.grade_id=t_grade_info.grade_id
+        right join r_hour_student on r_hour_student.student_id=t_student_info.student_id
+        right join t_hour_info on t_hour_info.hour_id=r_hour_student.hour_id
+        where r_grade_student.grade_id=#{gradeId} and t_student_info.is_delete=0 and r_grade_student.student_state=0
+        <if test="search !=null and search !=''">
+            and concat(t_student_info.student_name,t_grade_info.grade_name,t_hour_info.remain_hour) like concat('%',#{search},'%')
         </if>
         <if test="schoolName !=null and schoolName !=''">
-            and school_name like concat('%',#{schoolName},'%')
+            and t_grade_info.school_name = #{schoolName}
         </if>
     </select>
-
-    <!-- 修改 -->
-    <update id="update" parameterType="com.yjy.model.Student">
-        update t_student_info
-        <trim prefix="set " suffixOverrides=",">
-            <if test="studentName !=null">student_name=#{studentName},</if>
-            <if test="birthday !=null">birthday=#{birthday},</if>
-            <if test="gender !=null">gender=#{gender},</if>
-            <if test="studentName !=null">student_number=#{studentName},</if>
-            <if test="photo !=null">photo=#{photo},</if>
-            <if test="schoolName !=null">school_name=#{schoolName},</if>
-            <if test="updateTime !=null">update_time=#{updateTime},</if>
-        </trim>
-        where student_id=#{studentId}
-    </update>
-    <!-- 删除 -->
-    <update id="delete">
-        update t_student_info
-        set is_delete=1
-        where student_id=#{arg0}
-    </update>
-    <!-- 删除时更新时间 -->
-    <update id="updateTime" parameterType="com.yjy.model.Student">
-        update t_student_info
-        set update_time=#{updateTime}
-        where student_id=#{studentId}
-    </update>
-    <!-- 增加 -->
-    <insert id="insert" parameterType="com.yjy.model.Student">
-        insert into t_student_info
-        <trim prefix="(" suffix=")" suffixOverrides=",">
-            <if test="studentId !=null">student_id,</if>
-            <if test="studentName !=null">student_name,</if>
-            <if test="birthday !=null">birthday,</if>
-            <if test="age !=null">age,</if>
-            <if test="gender !=null">gender,</if>
-            <if test="studentNumber !=null">student_number,</if>
-            <if test="photo !=null">photo,</if>
-            <if test="schoolName !=null">school_name,</if>
-            <if test="createTime !=null">create_time,</if>
-            <if test="updateTime !=null">update_time,</if>
-        </trim>
-        <trim prefix="values (" suffix=")" suffixOverrides=",">
-            <if test="studentId !=null">#{studentId},</if>
-            <if test="studentName !=null">#{studentName},</if>
-            <if test="birthday !=null">#{birthday},</if>
-            <if test="age !=null">#{age},</if>
-            <if test="gender !=null">#{gender},</if>
-            <if test="studentNumber !=null">#{studentNumber},</if>
-            <if test="photo !=null">#{photo},</if>
-            <if test="schoolName !=null">#{schoolName},</if>
-            <if test="createTime !=null">#{createTime},</if>
-            <if test="updateTime !=null">#{updateTime},</if>
-        </trim>
-    </insert>
-
-    <!-- 接口-根据id查获取单个学员对象 -->
+    <!-- 学员管理-学员列表 -->
+    <select id="listAllStudent" parameterType="com.app.dto.WxAllDto" resultMap="sMap">
+        select t_student_info.student_name,t_grade_info.grade_name,t_hour_info.remain_hour,t_student_info.student_id
+        from t_student_info right join r_grade_student on r_grade_student.student_id=t_student_info.student_id
+        right join t_grade_info on r_grade_student.grade_id=t_grade_info.grade_id
+        right join r_hour_student on r_hour_student.student_id=t_student_info.student_id
+        right join t_hour_info on t_hour_info.hour_id=r_hour_student.hour_id
+        where t_student_info.is_delete=0
+        <if test="search !=null and search !=''">
+            and concat(t_student_info.student_name,t_grade_info.grade_name,t_hour_info.remain_hour) like concat('%',#{search},'%')
+        </if>
+        <if test="schoolName !=null and schoolName !=''">
+            and t_grade_info.school_name = #{schoolName}
+        </if>
+        <if test="gradeId !=null and gradeId !=''">
+            and t_grade_info.grade_id = #{gradeId}
+        </if>
+        <if test="remainHour !=null and remainHour !=''">
+            and t_hour_info.remain_hour = #{remainHour}
+        </if>
+        <if test="age !=null and age !=''">
+            and t_student_info.age = #{age}
+        </if>
+        <if test="sort !=null and sort !=''">
+            order by t_student_info.student_id  #{sort}
+        </if>
+    </select>
+    <!-- 根据id查获取单个学员对象 -->
     <select id="loadById" resultType="com.yjy.model.Student">
         select
         <include refid="start"></include>
         from t_student_info
         where student_id=#{0}
     </select>
-    <select id="listAll" resultType="com.yjy.model.Student">
-        select
-        <include refid="start"></include>
-        from t_student_info
+    <!--    根据id查出对应学员信息、班级、校区、报名-->
+    <select id="loadInfo"  resultMap="studentMap">
+        select t_student_info.student_name,t_student_info.school_name,t_student_info.birthday,t_student_info.age,
+               t_grade_info.grade_name,t_enroll_info.creat_time,
+               t_hour_info.remain_hour
+        from t_student_info right join r_grade_student on r_grade_student.student_id=t_student_info.student_id
+                            right join t_grade_info on r_grade_student.grade_id=t_grade_info.grade_id
+                            right join r_hour_student on r_hour_student.student_id=t_student_info.student_id
+                            right join t_hour_info on t_hour_info.hour_id=r_hour_student.hour_id
+                            right join r_student_enroll on r_student_enroll.student_id=t_student_info.student_id
+                            right join t_enroll_info on t_enroll_info.enroll_id=r_student_enroll.enroll_id
+        where t_student_info.student_id=#{0}
     </select>
+<!--    生成新学员&#45;&#45;同时新增报名 最初课时-->
+    <insert id="insertStudent" parameterType="com.app.dto.WxAllDto">
+        insert into t_studen_info ()
+    </insert>
 </mapper>

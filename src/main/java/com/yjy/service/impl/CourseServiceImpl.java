@@ -123,6 +123,18 @@ public class CourseServiceImpl implements CourseService {
         return delete;
     }
 
+    /**
+     * 更改状态
+     * @param course
+     * @return
+     */
+    @Override
+    public Integer courseState(Course course) {
+        Date currentTime=new Date(System.currentTimeMillis());
+        course.setShelfLeftTime(currentTime.getTime());
+
+        return courseMapper.courseState(course);
+    }
 
 
 }

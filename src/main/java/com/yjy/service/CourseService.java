@@ -51,6 +51,12 @@ public interface CourseService {
      */
     public Integer delete(String[] courseIds);
 
+    /**
+     * 更改状态
+     * @param course
+     * @return
+     */
 
+  public Integer courseState(Course course);
 
 }
