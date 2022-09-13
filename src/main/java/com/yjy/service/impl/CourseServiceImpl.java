@@ -107,7 +107,6 @@ public class CourseServiceImpl implements CourseService {
      * @param courseIds
      * @return
      */
-
     @Override
     public Integer delete(String[] courseIds) {
         Integer delete=0;
@@ -132,9 +131,8 @@ public class CourseServiceImpl implements CourseService {
     public Integer courseState(Course course) {
         Date currentTime=new Date(System.currentTimeMillis());
         course.setShelfLeftTime(currentTime.getTime());
-
+        course.setUpdateTime(currentTime.getTime());
         return courseMapper.courseState(course);
     }
-
 
 }

@@ -56,7 +56,6 @@ public interface CourseService {
      * @param course
      * @return
      */
-
-  public Integer courseState(Course course);
+   public Integer courseState(Course course);
 
 }

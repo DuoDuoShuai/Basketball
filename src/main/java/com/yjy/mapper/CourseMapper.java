@@ -65,6 +65,5 @@ public interface CourseMapper {
      * @param course
      * @return
      */
-
     public Integer courseState(Course course);
 }

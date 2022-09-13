@@ -124,4 +124,16 @@ public class OpenCourseServiceImpl implements OpenCourseService {
         }
         return delete;
     }
+
+    /**
+     * 更改状态
+     * @param openCourse
+     * @return
+     */
+    @Override
+    public Integer openCourseState(OpenCourse openCourse) {
+        Date currentTime=new Date(System.currentTimeMillis());
+        openCourse.setUpdateTime(currentTime.getTime());
+        return openCourseMapper.openCourseState(openCourse);
+    }
 }
