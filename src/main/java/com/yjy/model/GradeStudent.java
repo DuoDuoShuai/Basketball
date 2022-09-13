@@ -4,6 +4,9 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * @Author:黄文倩
  * @CreatTime:2022/9/3
@@ -37,7 +40,10 @@ public class GradeStudent {
      * 离班时间
      */
     private Long leftTime;
-
+    /**
+     * 班级里面的学员
+     */
+    private List<Student> student=new ArrayList<>();
     public GradeStudent(String id, String gradeId, String studentId, Boolean studentState, Long joinTime) {
         this.id = id;
         this.gradeId = gradeId;

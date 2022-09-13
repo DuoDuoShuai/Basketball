@@ -24,18 +24,18 @@
     </div>
     <div class="layui-form-item">
         <label class="layui-form-label required">教练名称</label>
-        <div class="layui-input-block">
-            <input type="text" name="teacherName" id="teacherName" placeholder="请输入教练名称" value="" class="layui-input">
+        <div class="layui-input-inline" >
+            <input type="text" name="teacherName" id="teacherName" lay-verify="required" lay-reqtext="教练名称不能为空" placeholder="请输入教练名称" value="" class="layui-input">
         </div>
     </div>
     <div class="layui-form-item">
         <label class="layui-form-label required">上课时间</label>
         <div class="layui-input-block">
-            <input type="text" name="gradeTime" id="gradeTime" placeholder="请输入年龄" value="" class="layui-input">
+            <input type="text" name="gradeTime" id="gradeTime" placeholder="请输入上课时间" value="" class="layui-input">
         </div>
     </div>
     <div class="layui-form-item">
-        <label class="layui-form-label required">班级头像</label>
+        <label class="layui-form-label ">班级头像</label>
         <div class="layui-input-block">
             <input type="file" name="img" id="photo" placeholder="请选择班级头像" value="" class="province-selector" style="width: 200px;">
         </div>
@@ -47,13 +47,13 @@
         </div>
     </div>
     <div class="layui-form-item">
-        <label class="layui-form-label">班级状态</label>
+        <label class="layui-form-label required">班级状态</label>
         <input type="radio" name="gradeState" value="0" title="未开班" checked="">
         <input type="radio" name="gradeState" value="1" title="已开班">
         <input type="radio" name="gradeState" value="2" title="已结束">
     </div>
     <div class="layui-form-item">
-        <label class="layui-form-label">所属校区</label>
+        <label class="layui-form-label required">所属校区</label>
         <div class="layui-input-inline" style="width: 200px;">
             <select name="schoolName" id="schoolName" class="province-selector" >
                 <option value="">请选择校区</option>

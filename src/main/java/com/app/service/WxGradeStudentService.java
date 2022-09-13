@@ -1,7 +1,11 @@
 package com.app.service;
 
+import com.app.dto.WxAllDto;
 import com.yjy.model.GradeStudent;
+import com.yjy.model.Student;
 import org.springframework.stereotype.Repository;
+
+import java.util.List;
 
 /**
  * @Author:黄文倩
@@ -23,4 +27,6 @@ public interface WxGradeStudentService {
      * @return
      */
     Integer updateState(GradeStudent gradeStudent);
+
+
 }

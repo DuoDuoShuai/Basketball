@@ -26,4 +26,32 @@ public class WxAllDto {
      * 班级编号
      */
     private String gradeId;
+    /**
+     * 搜索
+     */
+    private String search;
+    /**
+     * 支付方式
+     */
+    private String payType;
+    /**
+     * 报名渠道
+     */
+    private Boolean model;
+    /**
+     * 排序
+     */
+    private String sort;
+    /**
+     * 剩余时间
+     */
+    private String remainHour;
+    /**
+     * 年龄
+     */
+    private String age;
+    /**
+     * 生日
+     */
+    private Long birthday;
 }

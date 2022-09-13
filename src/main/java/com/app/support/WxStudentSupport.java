@@ -1,5 +1,6 @@
 package com.app.support;
 
+import com.app.dto.WxAllDto;
 import com.app.mapper.WxStudentMapper;
 import com.yjy.model.Student;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,5 +33,14 @@ public class WxStudentSupport {
      */
     public List<Student> listAll(){
         return null;
+    }
+
+    /**
+     * 根据班级id查询班级下的所有学员
+     * @param wxAllDto
+     * @return
+     */
+    public List<Student> listStudent(WxAllDto wxAllDto){
+        return wxStudentMapper.listStudent(wxAllDto);
     }
 }

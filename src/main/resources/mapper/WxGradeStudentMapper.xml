@@ -11,30 +11,7 @@
         create_time createTime,
         update_time updateTime
     </sql>
-    <resultMap id="studentMap" type="com.yjy.model.GradeStudent">
-        <id column="id" property="id"></id>
-        <result column="grade_id" property="gradeId"></result>
-        <result column="student_id" property="studentId"></result>
-        <result column="student_state" property="studentState"></result>
-        <result column="join_time" property="joinTime"></result>
-        <result column="left_time" property="leftTime"></result>
-        <collection property="student" ofType="com.yjy.model.Student">
-            <id column="student_id" property="studentId"></id>
-            <result column="student_name" property="studentName"></result>
-            <result column="birthday" property="birthday"></result>
-            <result column="age" property="age"></result>
-            <result column="gender" property="gender"></result>
-            <result column="student_number" property="student_number"></result>
-        </collection>
-    </resultMap>
-    <!-- 根据班级id查询班级下的所有学员 -->
-    <select id="listStudent" parameterType="java.lang.String" resultMap="studentMap">
-        select <include refid="student"></include>
-        from r_grade_student
-        right join t_student_info
-        on r_grade_student.student_id=t_student_info.student_id
-        where r_grade_student.grade_id=#{0} and is_delete=0
-    </select>
+
     <!-- 总数 -->
     <select id="count" parameterType="com.yjy.dto.RelationDto" resultType="java.lang.Integer">
         select
