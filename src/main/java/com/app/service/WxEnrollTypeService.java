@@ -9,6 +9,7 @@ import com.yjy.model.EnrollType;
  */
 
 public interface WxEnrollTypeService {
+
     /**
      * 点击支付后生成支付状态
      * @param enrollType

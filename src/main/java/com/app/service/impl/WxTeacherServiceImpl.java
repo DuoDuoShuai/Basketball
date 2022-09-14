@@ -23,11 +23,21 @@ public class WxTeacherServiceImpl implements WxTeacherService {
     @Resource
     private WxTeacherMapper wxTeacherMapper;
 
+    /**
+     * 根据教练姓名查询教练基本信息
+     * @param name
+     * @return
+     */
     @Override
     public Teacher loadTeacher(String name) {
         return wxTeacherMapper.loadTeacher(name);
     }
 
+    /**
+     * 教练修改基本信息
+     * @param teacher
+     * @return
+     */
     @Override
     public Integer updateTeacherById(Teacher teacher, MultipartFile img) {
         try {

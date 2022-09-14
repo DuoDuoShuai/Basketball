@@ -22,4 +22,9 @@
         </if>
     </select>
 
+    <!--  支付成功后生成报名记录  -->
+    <insert id="insertEnroll" parameterType="com.yjy.model.Enroll">
+        insert into t_enroll_info(enroll_id,school_name,student_name,pay_type,model,course_name,creat_time)
+        values (#{enrollId},#{schoolNme},#{studentName},#{payType},1,#{courseName},#{creatTime})
+    </insert>
 </mapper>

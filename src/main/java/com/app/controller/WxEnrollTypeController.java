@@ -20,6 +20,11 @@ public class WxEnrollTypeController {
     @Autowired
     private WxEnrollTypeService wxEnrollTypeService;
 
+    /**
+     * 点击支付生成支付状态
+     * @param enrollType
+     * @return
+     */
     @RequestMapping("insertEnrollType")
     public WxJsonResult insertEnrollType(EnrollType enrollType){
         return WxJsonResult.success(wxEnrollTypeService.insertEnrollType(enrollType));

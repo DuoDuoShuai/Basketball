@@ -25,4 +25,5 @@ public class WxEnrollSupport {
     public List<Enroll> listByGrade(WxAllDto wxAllDto){
         return wxEnrollMapper.listByGrade(wxAllDto);
     }
+
 }

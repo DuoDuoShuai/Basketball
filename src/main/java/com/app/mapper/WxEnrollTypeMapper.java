@@ -21,4 +21,11 @@ public interface WxEnrollTypeMapper {
      * @return
      */
     Integer insertEnrollType(EnrollType enrollType);
+
+    /**
+     * 支付成功后修改支付状态
+     * @param enrollType
+     * @return
+     */
+    Integer updateEnrollType(EnrollType enrollType);
 }

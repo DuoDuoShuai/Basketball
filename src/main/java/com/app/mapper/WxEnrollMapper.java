@@ -21,4 +21,11 @@ public interface WxEnrollMapper {
      * @return
      */
     List<Enroll> listByGrade(WxAllDto wxAllDto);
+
+    /**
+     * 支付成功后生成报名记录
+     * @param enroll
+     * @return
+     */
+    Integer insertEnroll(Enroll enroll);
 }

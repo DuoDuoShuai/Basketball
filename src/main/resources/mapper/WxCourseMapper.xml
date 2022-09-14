@@ -43,7 +43,7 @@
               price,
               course_describe courseDescribe,
               start_time startTime,
-              end_time endTime,
+              end_time endTime
        from t_course_info
        where course_id=#{courseId}
    </select>

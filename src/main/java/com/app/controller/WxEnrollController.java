@@ -9,6 +9,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.annotation.Resource;
+
 /**
  * @Author:黄文倩
  * @CreatTime:2022/9/9
@@ -33,6 +35,11 @@ public class WxEnrollController {
         return WxJsonResult.success(wxEnrollSupport.listByGrade(wxAllDto));
     }
 
+    /**
+     * 报名页面显示报名课程信息
+     * @param courseId
+     * @return
+     */
     @RequestMapping("loadCourse")
     public WxJsonResult loadCourse(String courseId){
         return WxJsonResult.success(wxCourseSupport.loadCourseById(courseId));
