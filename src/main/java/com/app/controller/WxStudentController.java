@@ -1,6 +1,7 @@
 package com.app.controller;
 
 import com.app.dto.WxAllDto;
+import com.app.dto.WxInsertDto;
 import com.app.service.impl.WxStudentServiceImpl;
 import com.app.support.WxStudentSupport;
 import com.app.vo.WxJsonResult;
@@ -63,5 +64,15 @@ public class WxStudentController {
     @RequestMapping("listAllStudent")
     public WxJsonResult listAllStudent(WxAllDto wxAllDto) {
         return WxJsonResult.success(wxStudentService.listAllStudent(wxAllDto));
+    }
+
+    /**
+     * 生成新学员--同时新增报名 最初课时
+     * @param wxInsertDto
+     * @return
+     */
+    @RequestMapping("insertStudent")
+    public WxJsonResult insertStudent(WxInsertDto wxInsertDto){
+        return WxJsonResult.success(wxStudentService.insertStudent(wxInsertDto));
     }
 }

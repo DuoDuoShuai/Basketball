@@ -19,30 +19,12 @@
                 <form class="layui-form layui-form-pane" action="">
                     <div class="layui-form-item">
                         <div class="layui-inline">
-                            <label class="layui-form-label">编号</label>
-                            <div class="layui-input-inline">
-                                <input type="hidden" name="id" placeholder="编号" autocomplete="off" class="layui-input">
-                            </div>
-                        </div>
-                        <div class="layui-inline">
-                            <label class="layui-form-label">班级编号</label>
-                            <div class="layui-input-inline">
-                                <input type="hidden" name="gradeId" placeholder="班级编号" autocomplete="off" class="layui-input">
-                            </div>
-                        </div>
-                        <div class="layui-inline">
-                            <label class="layui-form-label">学生编号</label>
-                            <div class="layui-input-inline">
-                                <input type="hidden" name="studentId" placeholder="学生编号" autocomplete="off" class="layui-input">
-                            </div>
-                        </div>
-                        <div class="layui-inline">
                             <label class="layui-form-label">学生状态</label>
                             <div class="layui-input-inline">
                                 <select name="studentState" id="studentState">
-                                    <option value=" ">请选择</option>
-                                    <option value="false">在</option>
-                                    <option value="true">不在</option>
+                                    <option value="">请选择</option>
+                                    <option value="0">在</option>
+                                    <option value="1">不在</option>
                                 </select>
                             </div>
                         </div>
@@ -101,8 +83,8 @@
                             return "不在";
                         }
                     }},
-                {field: 'joinTime', width: 130, title: '入班时间', sort: true,templet: "<div>{{layui.util.toDateString(d.createTime, 'yyyy-MM-dd')}}</div>"},
-                {field: 'leftTime', width: 130, title: '离班时间', sort: true,templet: "<div>{{layui.util.toDateString(d.updateTime, 'yyyy-MM-dd')}}</div>"},
+                {field: 'joinTime', width: 130, title: '入班时间', sort: true,templet: "<div>{{layui.util.toDateString(d.joinTime, 'yyyy-MM-dd')}}</div>"},
+                {field: 'leftTime', width: 130, title: '离班时间', sort: true,templet: "<div>{{layui.util.toDateString(d.leftTime, 'yyyy-MM-dd')}}</div>"},
                 {title: '操作', minWidth: 150, toolbar: '#currentTableBar', align: "center"}
             ] ],
             limits: [10, 15, 20, 25, 50, 100],
