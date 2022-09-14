@@ -3,7 +3,7 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <!-- 命名空间，可以对sql进行分类的一个管理 -->
 <mapper namespace="com.app.mapper.WxHourMapper">
-    <!--查询-->
+    <!--课程列表-->
     <select id="listHour" resultType="com.yjy.model.Hour" parameterType="com.yjy.dto.LayUiDto">
        select hour_id hourId,
               student_name studentName,
