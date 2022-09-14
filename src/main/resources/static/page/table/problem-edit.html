@@ -16,14 +16,7 @@
 </head>
 <body>
 <div class="layui-form layuimini-form">
-
-    <div class="layui-form-item">
-        <label class="layui-form-label required">id</label>
-        <div class="layui-input-block">
-            <input type="text" name="openProblemId" id="openProblemId" lay-verify="required" lay-reqtext="用户名不能为空" placeholder="" value="" class="layui-input">
-        </div>
-    </div>
-
+    <input type="hidden" name="openProblemId" id="openProblemId">
     <div class="layui-form-item">
         <label class="layui-form-label required">问题</label>
         <div class="layui-input-block">
@@ -103,6 +96,7 @@
                         layer.close(index);
                         var iframeIndex = parent.layer.getFrameIndex(window.name);
                         parent.layer.close(iframeIndex);
+                        parent.layui.table.reload("currentTableId");
                     });
                 }
             });
