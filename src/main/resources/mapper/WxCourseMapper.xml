@@ -3,36 +3,21 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <!-- 命名空间，可以对sql进行分类的一个管理 -->
 <mapper namespace="com.app.mapper.WxCourseMapper">
-    <!--查询-->
+    <!--课程列表-->
     <select id="listCourse" resultType="com.yjy.model.Course" parameterType="com.yjy.dto.LayUiDto">
         select course_id courseId,
                course_name name,
                photo,
                course_hour courseHour,
-               is_shaky isShaky,
-               course_code courseCode,
                price,
-               course_state courseState,
                course_describe courseDescribe,
                start_time startTime,
-               end_time endTime,
-               pay_number payNumber,
-               school_name schoolName,
-               shelf_time shelfTime,
-               shelf_left_time shelfLeftTime,
-               is_show pure,
-               is_delete isDelete,
-               create_time createTime,
-               update_time updateTime
+               pay_number payNumber
         from t_course_info
-     where is_delete=0
+     where is_show=1
        <if test="name !=null and name !=''">
            and course_name like concat('%',#{name},'%')
        </if>
-        <if test="schoolName !=null and schoolName !='' ">
-            and school_name like concat('%',#{schoolName},'%')
-        </if>
-        limit #{dataNum},#{limit};
     </select>
 
     <!--接口 报名模块-->
@@ -43,7 +28,7 @@
               price,
               course_describe courseDescribe,
               start_time startTime,
-              end_time endTime,
+              end_time endTime
        from t_course_info
        where course_id=#{courseId}
    </select>
