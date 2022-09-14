@@ -70,6 +70,6 @@ public class WxStudentSupport {
         wxInsertDto.setStudentId(UUID.randomUUID().toString());
         wxInsertDto.setCreateTime(currentTime.getTime());
         wxInsertDto.setUpdateTime(currentTime.getTime());
-        return wxStudentMapper.insertByEnroll(wxInsertDto);
+        return wxStudentMapper.insertStudent(wxInsertDto);
     }
 }

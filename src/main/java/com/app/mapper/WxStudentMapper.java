@@ -45,18 +45,18 @@ public interface WxStudentMapper {
     List<Student> listAllStudent(WxAllDto wxAllDto);
 
     /**
-     * 生成新学员--同时新增报名 最初课时
+     * 生成新学员--同时新增报名 最初课时 + 报名时添加未有的学员
      * @param wxInsertDto
      * @return
      */
     Integer insertStudent(WxInsertDto wxInsertDto);
 
-    /**
-     * 添加新学员--报名时添加未有的学员
-     * @param wxInsertDto
-     * @return
-     */
-    Integer insertByEnroll(WxInsertDto wxInsertDto);
+//    /**
+//     * 添加新学员--报名时添加未有的学员
+//     * @param wxInsertDto
+//     * @return
+//     */
+//    Integer insertByEnroll(WxInsertDto wxInsertDto);
 
     /**
      * 查询校区下所有学员信息-报名支付选择学员

@@ -3,6 +3,7 @@ package com.app.support;
 import com.app.mapper.WxHourMapper;
 import com.yjy.model.Hour;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 /**
  * @author 哆哆
@@ -10,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
  * @date 2022-09-09 10:14:12
  * @describe: TODO
  */
+@Component
 public class WxHourSupport {
     @Autowired
     private WxHourMapper wxHourMapper;
