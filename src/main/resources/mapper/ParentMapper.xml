@@ -24,7 +24,7 @@
     </update>
     <!-- 修改用户信息 -->
     <update id="updateParent" parameterType="com.yjy.model.Parent">
-        update t_user_parent set parent_name= #{parentName},parent_phone = #{parentPhoto},parent_photo = #{parentPhoto},parent_sex = #{parentSex},update_time = #{updateTime} where parent_id = #{parentId}
+        update t_user_parent set parent_name= #{parentName},parent_phone = #{parentPhone},parent_photo = #{parentPhoto},parent_sex = #{parentSex},update_time = #{updateTime} where parent_id = #{parentId}
     </update>
     <!-- 删除时改变修改时间 -->
     <update id="updateTime" parameterType="com.yjy.model.Parent">

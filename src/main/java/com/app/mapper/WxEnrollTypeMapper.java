@@ -13,12 +13,12 @@ import java.util.List;
  * @Description:
  */
 @Repository
-public interface WxEnrollMapper {
+public interface WxEnrollTypeMapper {
 
     /**
-     * 接口--查询学员不在班级学员表中的报名记录
-     * @param wxAllDto
+     * 点击支付后生成支付状态
+     * @param enrollType
      * @return
      */
-    List<Enroll> listByGrade(WxAllDto wxAllDto);
+    Integer insertEnrollType(EnrollType enrollType);
 }

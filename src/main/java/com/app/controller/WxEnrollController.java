@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
  */
 @RestController
 @RequestMapping("wx_enroll")
-public class WxEnrollControll {
+public class WxEnrollController {
     @Autowired
     private WxEnrollSupport wxEnrollSupport;
     @RequestMapping("listByGrade")

@@ -57,6 +57,8 @@ public class TeacherServiceImpl implements TeacherService {
             teacher.setTeacherRegtime(currentTime.getTime());
             if (img != null){
                 teacher.setTeacherPhoto(QiniuFile.uploadFile(img.getBytes()));
+            } else {
+                teacher.setTeacherPhoto("Ft7t33aDzKOQ_-99zzefF1kWU7dw");
             }
         } catch (IOException e) {
             e.printStackTrace();
@@ -111,6 +113,8 @@ public class TeacherServiceImpl implements TeacherService {
             teacher.setUpdateTime(currentTime.getTime());
             if (img != null){
                 teacher.setTeacherPhoto(QiniuFile.uploadFile(img.getBytes()));
+            } else {
+                teacher.setTeacherPhoto("Ft7t33aDzKOQ_-99zzefF1kWU7dw");
             }
         } catch (IOException e) {
             e.printStackTrace();
