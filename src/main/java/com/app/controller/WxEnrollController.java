@@ -1,6 +1,8 @@
 package com.app.controller;
 
 import com.app.dto.WxAllDto;
+import com.app.dto.WxInsertDto;
+import com.app.service.WxEnrollService;
 import com.app.support.WxCourseSupport;
 import com.app.support.WxEnrollSupport;
 import com.app.vo.WxJsonResult;
@@ -24,6 +26,8 @@ public class WxEnrollController {
     private WxEnrollSupport wxEnrollSupport;
     @Autowired
     private WxCourseSupport wxCourseSupport;
+    @Autowired
+    private WxEnrollService wxEnrollService;
 
     /**
      * 查询为未班学员
@@ -43,5 +47,15 @@ public class WxEnrollController {
     @RequestMapping("loadCourse")
     public WxJsonResult loadCourse(String courseId){
         return WxJsonResult.success(wxCourseSupport.loadCourseById(courseId));
+    }
+
+    /**
+     * 支付成功后生成报名记录
+     * @param wxInsertDto
+     * @return
+     */
+    @RequestMapping("insertEnroll")
+    public WxJsonResult insertEnroll(WxInsertDto wxInsertDto){
+        return WxJsonResult.success(wxEnrollService.insertEnroll(wxInsertDto));
     }
 }

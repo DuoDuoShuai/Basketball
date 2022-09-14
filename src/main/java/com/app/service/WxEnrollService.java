@@ -1,5 +1,6 @@
 package com.app.service;
 
+import com.app.dto.WxInsertDto;
 import com.yjy.model.Enroll;
 import com.yjy.model.Student;
 
@@ -13,8 +14,8 @@ public interface WxEnrollService {
 
     /**
      * 支付成功后生成报名记录
-     * @param enroll
+     * @param wxInsertDto
      * @return
      */
-    Integer insertEnroll(Enroll enroll, Student student);
+    Integer insertEnroll(WxInsertDto wxInsertDto);
 }

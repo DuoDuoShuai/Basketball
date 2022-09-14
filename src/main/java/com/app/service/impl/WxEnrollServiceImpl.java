@@ -1,13 +1,19 @@
 package com.app.service.impl;
 
+import com.app.dto.WxInsertDto;
 import com.app.mapper.WxEnrollMapper;
 import com.app.mapper.WxEnrollTypeMapper;
 import com.app.service.WxEnrollService;
+import com.app.support.WxStudentSupport;
 import com.yjy.model.Enroll;
 import com.yjy.model.EnrollType;
 import com.yjy.model.Student;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.Date;
+import java.util.List;
+import java.util.UUID;
 
 /**
  * @author 徐晓瑞
@@ -22,18 +28,30 @@ public class WxEnrollServiceImpl implements WxEnrollService {
     private WxEnrollMapper wxEnrollMapper;
     @Autowired
     private WxEnrollTypeMapper wxEnrollTypeMapper;
+    @Autowired
+    private WxStudentSupport wxStudentSupport;
 
     /**
      * 支付成功后生成报名记录
-     * @param enroll
+     * @param wxInsertDto
      * @return
      */
     @Override
-    public Integer insertEnroll(Enroll enroll, Student student) {
-        String studentName = student.getStudentName();
+    public Integer insertEnroll(WxInsertDto wxInsertDto) {
+        String studentName = wxInsertDto.getStudentName();
         EnrollType enrollType = new EnrollType();
         enrollType.setStudentName(studentName);
         wxEnrollTypeMapper.updateEnrollType(enrollType);
-        return null;
+        wxStudentSupport.insertByEnroll(wxInsertDto);
+
+        Enroll enroll = new Enroll();
+        enroll.setEnrollId(UUID.randomUUID().toString());
+        Date currentTime=new Date(System.currentTimeMillis());
+        enroll.setCreatTime(currentTime.getTime());
+        enroll.setCourseName(wxInsertDto.getCourseName());
+        enroll.setPayType(wxInsertDto.getPayType());
+        enroll.setSchoolNme(wxInsertDto.getSchoolName());
+        enroll.setStudentName(wxInsertDto.getStudentName());
+        return wxEnrollMapper.insertEnroll(enroll);
     }
 }
