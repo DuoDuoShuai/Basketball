@@ -133,7 +133,7 @@
                         }
                     }
                 },
-                {field: 'createTime', width: 150, title: '创建时间',align: 'center',sort: true,templet: "<div>{{layui.util.toDateString(d.createTime, 'yyyy-MM-dd HH:mm:ss')}}</div>"},
+                {field: 'createTime', width: 150, title: '创建时间',align: 'center',sort: true, templet: "<div>{{ layui.util.toDateString(d.createTime, 'yyyy-MM-dd HH:mm:ss')}}</div>"},
                 {field: 'updateTime', width: 150, title: '更新时间',align: 'center',sort: true,templet: "<div>{{layui.util.toDateString(d.updateTime, 'yyyy-MM-dd HH:mm:ss')}}</div>"},
                 {title: '操作', minWidth: 150, toolbar: '#currentTableBar', align: "center"}
             ]],
@@ -142,7 +142,6 @@
             page: true,
             skin: 'line',
         });
-
         // 监听搜索操作
         form.on('submit(data-search-btn)', function (data) {
             //执行搜索重载
@@ -225,6 +224,9 @@
                         } else {
                             layer.msg('下架成功！', {icon: 1, shade: 0.4, anim: 1, time: 1000});
                         }
+                        setTimeout(function () {
+                            table.reload("currentTableId");/*重新加载页面表格*/
+                        },2100) ;
                     }
                 });
             } else {
@@ -238,6 +240,9 @@
                         } else {
                             layer.msg("上架成功！", {icon: 1, shade: 0.4, anim: 2, time: 1000});
                         }
+                        setTimeout(function () {
+                            table.reload("currentTableId");/*重新加载页面表格*/
+                        },2100) ;
                     }
                 });
             }
@@ -314,7 +319,7 @@
                                     layer.close(index);
                                     var iframeIndex = parent.layer.getFrameIndex(window.name);
                                     parent.layer.close(iframeIndex);
-                                    table.reload("currentTableId");
+                                    parent.layui.table.reload("currentTableId");
                                 });
                                 return false;
                             }

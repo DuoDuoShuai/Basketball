@@ -91,7 +91,7 @@
     <!--更改状态-->
     <update id="courseState" parameterType="com.yjy.model.Course">
         update t_course_info
-        set is_show=#{pure},shelf_left_time=#{shelfLeftTime}
+        set is_show=#{pure},shelf_left_time=#{shelfLeftTime},update_time=#{updateTime}
         where course_id=#{courseId}
     </update>
 </mapper>

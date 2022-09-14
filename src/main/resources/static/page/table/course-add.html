@@ -33,32 +33,32 @@
     <div class="layui-form-item">
         <label class="layui-form-label required">课程描述</label>
         <div class="layui-input-block">
-            <input type="text" name="courseDescribe" lay-verify="课程描述" placeholder="请输入课程描述" value="" class="layui-input">
+            <input type="text" name="courseDescribe"  lay-verify="required" lay-reqtext="课程描述不能为空" placeholder="请输入课程描述" value="" class="layui-input">
         </div>
     </div>
     <div class="layui-form-item">
         <label class="layui-form-label required">&nbsp;&nbsp;是否热门课程</label>
         <div class="layui-input-block">
-            <input type="radio" name="isShaky" value="1">
-            <input type="radio" name="isShaky" value="0">
+            <input type="radio" name="isShaky" value="1" title="是">
+            <input type="radio" name="isShaky" value="0" title="否">
         </div>
     </div>
     <div class="layui-form-item">
         <label class="layui-form-label required">课程价格</label>
         <div class="layui-input-block">
-            <input type="text" id="price" name="price" lay-verify="课程价格" placeholder="请输入课程价格"  class="layui-input">
+            <input type="text" id="price" name="price" lay-verify="required" lay-reqtext="课程价格不能为空" placeholder="请输入课程价格"  class="layui-input">
         </div>
     </div>
     <div class="layui-inline">
         <label class="layui-form-label required">开课时间</label>
         <div class="layui-input-inline">
-            <input type="text" id="startTime" name="startTime" placeholder="开始时间"   lay-verify="date" class="layui-input">
+            <input type="text" id="startTime" name="startTime" placeholder="开始时间"    lay-verify="required|date" class="layui-input">
         </div>
     </div>
     <div class="layui-inline">
         <label class="layui-form-label required">结束时间</label>
         <div class="layui-input-inline">
-            <input type="text" id="endTime" name="endTime" placeholder="结束时间" lay-verify="date" class="layui-input">
+            <input type="text" id="endTime" name="endTime" placeholder="结束时间" lay-verify="required|date" class="layui-input">
         </div>
     </div>
     <div class="layui-form-item">
@@ -89,22 +89,22 @@
     </div>-->
 
     <div class="layui-form-item">
-        <label class="layui-form-label">课程图</label>
+        <label class="layui-form-label required">课程图</label>
         <div class="layui-input-block">
-            <input type="file" name="photo" id="photo" placeholder="请输入头像" value="" class="layui-input">
+            <input type="file" name="photo" id="photo" lay-verify="required" placeholder="请输入头像" value="" class="layui-input">
         </div>
     </div>
     <div class="layui-inline">
         <label class="layui-form-label required">上架时间</label>
         <div class="layui-input-inline">
-            <input type="text" id="shelfTime" name="shelfTime" placeholder="选择开始时间" value="" autocomplete="off" lay-verify="required|time" class="layui-input">
+            <input type="text" id="shelfTime" name="shelfTime" placeholder="选择开始时间"  value="" autocomplete="off" lay-verify="required|time" class="layui-input">
         </div>
     </div>
 
     <div class="layui-inline">
         <label class="layui-form-label required">选择校区</label>
         <div class="layui-input-inline">
-            <select name="schoolName" id="schoolName" lay-verify="required" lay-search="">
+            <select name="schoolName" id="schoolName" lay-verify="required"  lay-search="">
                 <option value="直接选择或搜索选择" name="schoolName">直接选择或搜索选择</option>
             </select>
         </div>

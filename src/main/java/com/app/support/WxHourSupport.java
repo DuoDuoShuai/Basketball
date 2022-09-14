@@ -20,7 +20,7 @@ public class WxHourSupport {
      * @return
      */
 
-    public Hour hourById(String hourId){
-        return wxHourMapper.hourById(hourId);
+    public Hour loadHourById(String hourId){
+        return wxHourMapper.loadHourById(hourId);
     }
 }

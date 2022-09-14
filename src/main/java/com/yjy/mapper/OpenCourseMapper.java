@@ -57,4 +57,11 @@ public interface OpenCourseMapper {
      */
 
     public Integer deleteTime(OpenCourse opencourse);
+
+    /**
+     * 更改状态
+     * @param openCourse
+     * @return
+     */
+    public Integer openCourseState(OpenCourse openCourse);
 }
