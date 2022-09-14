@@ -21,6 +21,6 @@ public class WxHourSupport {
      */
 
     public Hour loadHourById(String hourId){
-        return wxHourMapper.hourById(hourId);
+        return wxHourMapper.loadHourById(hourId);
     }
 }
