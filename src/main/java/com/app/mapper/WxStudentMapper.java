@@ -1,6 +1,7 @@
 package com.app.mapper;
 
 import com.app.dto.WxAllDto;
+import com.app.dto.WxInsertDto;
 import com.yjy.model.GradeStudent;
 import com.yjy.model.Student;
 import org.springframework.stereotype.Repository;
@@ -45,8 +46,22 @@ public interface WxStudentMapper {
 
     /**
      * 生成新学员--同时新增报名 最初课时
+     * @param wxInsertDto
+     * @return
+     */
+    Integer insertStudent(WxInsertDto wxInsertDto);
+
+    /**
+     * 添加新学员--报名时添加未有的学员
+     * @param wxInsertDto
+     * @return
+     */
+    Integer insertByEnroll(WxInsertDto wxInsertDto);
+
+    /**
+     * 查询校区下所有学员信息-报名支付选择学员
      * @param wxAllDto
      * @return
      */
-    Integer insertStudent(WxAllDto wxAllDto);
+    List<Student> listByEnroll(WxAllDto wxAllDto);
 }

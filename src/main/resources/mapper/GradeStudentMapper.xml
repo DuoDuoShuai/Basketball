@@ -12,17 +12,8 @@
         <include refid="start"></include>
         from r_grade_student
         <where>
-            <if test="id !=null and id !=''">
-                and id like concat('%',#{id},'%')
-            </if>
-            <if test="mainId !=null and mainId !=''">
-                and grade_id like concat('%',#{mainId},'%')
-            </if>
-            <if test="otherId !=null and otherId !=''">
-                and student_id like concat('%',#{otherId},'%')
-            </if>
             <if test="state !=null and state !=''">
-                and student_state like #{state}
+                student_state = #{state}
             </if>
         </where>
         order by id asc

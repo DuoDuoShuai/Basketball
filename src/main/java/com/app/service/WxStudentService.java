@@ -1,6 +1,7 @@
 package com.app.service;
 
 import com.app.dto.WxAllDto;
+import com.app.dto.WxInsertDto;
 import com.yjy.model.Student;
 
 import java.util.List;
@@ -24,4 +25,11 @@ public interface WxStudentService {
      * @return
      */
     List<Student> listAllStudent(WxAllDto wxAllDto);
+    /**
+     * 生成新学员--同时新增报名 最初课时
+     * @param wxInsertDto
+     * @return
+     */
+    Integer insertStudent(WxInsertDto wxInsertDto);
+
 }

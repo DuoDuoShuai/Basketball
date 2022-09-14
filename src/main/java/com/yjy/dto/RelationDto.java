@@ -37,7 +37,7 @@ public class RelationDto {
     /**
      * 状态
      */
-    private Boolean state;
+    private String state;
     /**
      * id
      */

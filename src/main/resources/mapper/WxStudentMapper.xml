@@ -104,8 +104,51 @@
                             right join t_enroll_info on t_enroll_info.enroll_id=r_student_enroll.enroll_id
         where t_student_info.student_id=#{0}
     </select>
-<!--    生成新学员&#45;&#45;同时新增报名 最初课时-->
-    <insert id="insertStudent" parameterType="com.app.dto.WxAllDto">
-        insert into t_studen_info ()
+<!--    生成新学员 同时新增报名 最初课时-->
+    <insert id="insertStudent" parameterType="com.app.dto.WxInsertDto">
+        insert into t_student_info
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="studentId !=null">student_id,</if>
+            <if test="studentName !=null">student_name,</if>
+            <if test="birthday !=null">birthday,</if>
+            <if test="schoolName !=null">school_name,</if>
+            <if test="createTime !=null">create_time,</if>
+            <if test="updateTime !=null">update_time,</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="studentId !=null">#{studentId},</if>
+            <if test="studentName !=null">#{studentName},</if>
+            <if test="birthday !=null">#{birthday},</if>
+            <if test="schoolName !=null">#{schoolName},</if>
+            <if test="createTime !=null">#{createTime},</if>
+            <if test="updateTime !=null">#{updateTime},</if>
+        </trim>
     </insert>
+    <!--    添加新学员  报名时添加未有的学员-->
+    <insert id="insertStudent" parameterType="com.app.dto.WxInsertDto">
+        insert into t_student_info
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="studentId !=null">student_id,</if>
+            <if test="studentName !=null">student_name,</if>
+            <if test="birthday !=null">birthday,</if>
+            <if test="schoolName !=null">school_name,</if>
+            <if test="createTime !=null">create_time,</if>
+            <if test="updateTime !=null">update_time,</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="studentId !=null">#{studentId},</if>
+            <if test="studentName !=null">#{studentName},</if>
+            <if test="birthday !=null">#{birthday},</if>
+            <if test="schoolName !=null">#{schoolName},</if>
+            <if test="createTime !=null">#{createTime},</if>
+            <if test="updateTime !=null">#{updateTime},</if>
+        </trim>
+    </insert>
+<!--    查询校区下所有学员信息-报名支付选择学员-->
+    <select id="listByEnroll" parameterType="com.app.dto.WxAllDto" resultType="com.yjy.model.Student">
+        select
+        <include refid="start"></include>
+        from t_student_info
+        where is_delete=0 and school_name=#{schoolName}
+    </select>
 </mapper>
