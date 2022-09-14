@@ -26,5 +26,5 @@ public interface WxHourMapper {
      * @return
      */
 
-    public Hour hourById(String hourId);
+    public Hour loadHourById(String hourId);
 }

@@ -20,4 +20,11 @@ public interface WxCourseMapper {
      * @return
      */
     public List<Course> listCourse(LayUiDto dto);
+
+    /**
+     * 接口--报名模块
+     * @param courseId
+     * @return
+     */
+    public Course loadCourseById(String courseId);
 }

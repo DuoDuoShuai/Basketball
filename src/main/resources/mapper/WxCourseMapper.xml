@@ -35,4 +35,16 @@
         limit #{dataNum},#{limit};
     </select>
 
+    <!--接口 报名模块-->
+   <select id="loadCourseById" parameterType="String" resultType="com.yjy.model.Course">
+       select course_id courseId,
+              course_name name,
+              course_hour courseHour,
+              price,
+              course_describe courseDescribe,
+              start_time startTime,
+              end_time endTime,
+       from t_course_info
+       where course_id=#{courseId}
+   </select>
 </mapper>
