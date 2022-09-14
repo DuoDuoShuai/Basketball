@@ -90,5 +90,15 @@ public class OpenCourseController {
         return JsonResult.success(integer);
     }
 
-
+    /**
+     * 更改状态
+     * @param openCourse
+     * @return
+     */
+    @RequestMapping("openCourseState")
+    @ResponseBody
+    private JsonResult openCourseState(OpenCourse openCourse){
+        Integer integer = openCourseService.openCourseState(openCourse);
+        return JsonResult.success(integer);
+    }
 }

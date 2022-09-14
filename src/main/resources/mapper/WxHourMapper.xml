@@ -33,7 +33,7 @@
     </select>
 
     <!--接口 根据id查-->
-    <select id="hourById" resultType="com.yjy.model.Hour" parameterType="String">
+    <select id="loadHourById" resultType="com.yjy.model.Hour" parameterType="String">
         select hour_id hourId,
                student_name studentName,
                course_name courseName,

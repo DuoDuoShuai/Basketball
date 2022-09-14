@@ -91,4 +91,11 @@
         set update_time=#{updateTime}
         where open_course_id=#{openId}
     </update>
+
+    <!--更改状态-->
+    <update id="openCourseState" parameterType="com.yjy.model.OpenCourse">
+        update t_open_course
+        set shelf_left_time=#{openShelfleftTime},update_time=#{updateTime}
+        where open_course_id=#{openId}
+    </update>
 </mapper>

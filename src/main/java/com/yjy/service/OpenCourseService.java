@@ -54,4 +54,12 @@ public interface OpenCourseService {
      */
 
     public Integer deleteOpen(String[] openIds);
+
+    /**
+     * 更改状态
+     * @param openCourse
+     * @return
+     */
+
+    public Integer openCourseState(OpenCourse openCourse);
 }
