@@ -86,7 +86,7 @@
           "target": "_self"
         },
         {
-          "title": "销课管理",
+          "title": "销课记录",
           "href": "/page/hour.html",
           "icon": "fa fa-flag-o",
           "target": "_self"
