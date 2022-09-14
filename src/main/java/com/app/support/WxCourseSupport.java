@@ -3,6 +3,7 @@ package com.app.support;
 import com.app.mapper.WxCourseMapper;
 import com.yjy.model.Course;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 /**
  * @author 哆哆
@@ -10,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
  * @date 2022-09-14 10:00:06
  * @describe: TODO
  */
+@Component
 public class WxCourseSupport {
     @Autowired
     private WxCourseMapper wxCourseMapper;

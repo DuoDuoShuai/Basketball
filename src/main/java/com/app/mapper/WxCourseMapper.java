@@ -15,7 +15,7 @@ import java.util.List;
 @Repository
 public interface WxCourseMapper {
     /**
-     * 查询课程
+     * 课程列表
      * @param dto
      * @return
      */
@@ -27,4 +27,5 @@ public interface WxCourseMapper {
      * @return
      */
     public Course loadCourseById(String courseId);
+
 }
