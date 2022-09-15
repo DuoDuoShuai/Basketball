@@ -77,10 +77,9 @@
         </div>
     </div>
     <div class="layui-form-item">
-        <label class="layui-form-label required">排序</label>
+        <label class="layui-form-label">排序优先级</label>
         <div class="layui-input-block">
-            <input type="radio" name="sort" value="true" title="asc" >
-            <input type="radio" name="sort" value="false" title="desc">
+            <input type="text" name="sort" id="sort" placeholder="请输入排序优先级" value="" class="layui-input">
         </div>
     </div>
     <div class="layui-form-item">
@@ -277,7 +276,7 @@
             fromData.append("opencoursestate",$("input[name='opencoursestate']:checked").val());
             fromData.append("pure",$("input[name='pure']:checked").val());
             fromData.append("type",$("input[name='type']:checked").val());
-            fromData.append("sort",$("input[name='sort']:checked").val());
+            fromData.append("sort",data.field.sort);
             fromData.append("openshelfTime",longsage2);
             fromData.append("opencuturl",data.field.opencuturl);
             fromData.append("schoolName",data.field.schoolName);

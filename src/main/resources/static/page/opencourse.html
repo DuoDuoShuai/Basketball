@@ -134,14 +134,7 @@
                         return '排序'
                     }
                 }},
-                {field: 'sort', width: 120,align: "center", title: '排序',
-                templet: function (d) {
-                    if(d.sort==0){
-                        return 'asc'
-                    }else {
-                        return 'desc'
-                    }
-                }},
+                {field: 'sort', width: 120,align: "center", title: '排序'},
                 {field: 'opencuturl', width: 120,align: "center", title: '切换路劲'},
                 {field: 'createTime', width: 150,align: "center", title: '创建时间',sort: true,templet: "<div>{{layui.util.toDateString(d.createTime, 'yyyy-MM-dd HH:mm:ss')}}</div>"},
                 {field: 'updateTime', width: 150, align: "center",title: '更新时间',sort: true,templet: "<div>{{layui.util.toDateString(d.updateTime, 'yyyy-MM-dd HH:mm:ss')}}</div>"},

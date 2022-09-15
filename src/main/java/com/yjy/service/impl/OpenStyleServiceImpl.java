@@ -71,8 +71,12 @@ public class OpenStyleServiceImpl implements OpenStyleService {
             Date currentTime = new Date(System.currentTimeMillis());
             openStyle.setCreateTime(currentTime.getTime());
             openStyle.setUpdateTime(currentTime.getTime());
-            openStyle.setPicture(QiniuFile.uploadFile(img.getBytes()));
-            openStyle.setVideo(QiniuFile.uploadFile(movie.getBytes()));
+            if(img!=null) {
+                openStyle.setPicture(QiniuFile.uploadFile(img.getBytes()));
+            }
+            if(movie!=null) {
+                openStyle.setVideo(QiniuFile.uploadFile(movie.getBytes()));
+            }
         } catch (IOException e) {
             e.printStackTrace();
         }
