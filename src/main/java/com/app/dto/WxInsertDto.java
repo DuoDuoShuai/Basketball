@@ -27,14 +27,6 @@ public class WxInsertDto {
      */
     private String payType;
     /**
-     * 付款金额
-     */
-    private String price;
-    /**
-     * 课时
-     */
-    private String remainHour;
-    /**
      * 学员id
      */
     private String studentId;
@@ -50,4 +42,8 @@ public class WxInsertDto {
      * 更新时间
      */
     private Long updateTime;
+    /**
+     * 课程名称
+     */
+    private String courseName;
 }

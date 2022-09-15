@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.app.mapper.WxEnrollTypeMapper">
+    <!--    点击支付后生成支付状态 -->
+    <insert id="insertEnrollType" parameterType="com.yjy.model.EnrollType">
+        insert into t_enroll_type(pay_type,student_name) values (#{payType},#{studentName})
+    </insert>
+
+    <!--    支付成功后修改支付状态 -->
+    <update id="updateEnrollType" parameterType="com.yjy.model.EnrollType">
+        update t_enroll_type set pay_type= 1 where student_name= #{studentName}
+    </update>
+</mapper>

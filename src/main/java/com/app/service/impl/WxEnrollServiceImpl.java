@@ -1,25 +1,29 @@
-package com.app.support;
+package com.app.service.impl;
 
-import com.app.dto.WxAllDto;
 import com.app.dto.WxInsertDto;
 import com.app.mapper.WxEnrollMapper;
 import com.app.mapper.WxEnrollTypeMapper;
+import com.app.service.WxEnrollService;
+import com.app.support.WxStudentSupport;
 import com.yjy.model.Enroll;
 import com.yjy.model.EnrollType;
+import com.yjy.model.Student;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
 import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 
 /**
- * @Author:黄文倩
- * @CreatTime:2022/9/9
- * @Description:
+ * @author 徐晓瑞
+ * @date 2022/9/14 11:29
+ * @describe:
  */
-@Component
-public class WxEnrollSupport {
+
+@Service
+public class WxEnrollServiceImpl implements WxEnrollService {
+
     @Autowired
     private WxEnrollMapper wxEnrollMapper;
     @Autowired
@@ -28,18 +32,11 @@ public class WxEnrollSupport {
     private WxStudentSupport wxStudentSupport;
 
     /**
-     * 接口--查询学员不在班级学员表中的报名记录
-     * @return
-     */
-    public List<Enroll> listByGrade(WxAllDto wxAllDto){
-        return wxEnrollMapper.listByGrade(wxAllDto);
-    }
-
-    /**
-     * 接口--添加新学员时生成报名记录
+     * 支付成功后生成报名记录
      * @param wxInsertDto
      * @return
      */
+    @Override
     public Integer insertEnroll(WxInsertDto wxInsertDto) {
         String studentName = wxInsertDto.getStudentName();
         EnrollType enrollType = new EnrollType();
