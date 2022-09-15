@@ -2,6 +2,7 @@ package com.app.mapper;
 
 
 import com.yjy.model.Teacher;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
@@ -10,6 +11,7 @@ import java.util.List;
  * @create 2022/9/7 10:00
  * @describe
  */
+@Repository
 public interface WxTeacherMapper {
 
     /**

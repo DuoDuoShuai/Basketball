@@ -32,4 +32,10 @@ public interface WxStudentService {
      */
     Integer insertStudent(WxInsertDto wxInsertDto);
 
+    /**
+     * 学员列表--根据家长id查询名下学员--家长端学员列表
+     * @param parentId
+     * @return
+     */
+    List<Student> listByUser(String parentId);
 }

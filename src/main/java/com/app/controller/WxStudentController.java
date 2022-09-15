@@ -75,4 +75,14 @@ public class WxStudentController {
     public WxJsonResult insertStudent(WxInsertDto wxInsertDto){
         return WxJsonResult.success(wxStudentService.insertStudent(wxInsertDto));
     }
+
+    /**
+     * 学员列表--根据家长id查询名下学员--家长端学员列表
+     * @param parentId
+     * @return
+     */
+    @RequestMapping("listByUser")
+    public WxJsonResult listByUser(String parentId){
+        return WxJsonResult.success(wxStudentService.listByUser(parentId));
+    }
 }

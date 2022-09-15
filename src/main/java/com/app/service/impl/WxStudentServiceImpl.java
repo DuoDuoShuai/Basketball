@@ -59,4 +59,13 @@ public class WxStudentServiceImpl implements WxStudentService {
         return wxStudentMapper.insertStudent(wxInsertDto);
     }
 
+    /**
+     * 学员列表--根据家长id查询名下学员--家长端学员列表
+     * @param parentId
+     * @return
+     */
+    @Override
+    public List<Student> listByUser(String parentId){
+        return wxStudentMapper.listByUser(parentId);
+    }
 }
