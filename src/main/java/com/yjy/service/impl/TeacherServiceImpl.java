@@ -3,12 +3,10 @@ package com.yjy.service.impl;
 import com.yjy.dto.LayUiDto;
 import com.yjy.mapper.TeacherMapper;
 import com.yjy.model.Admin;
-import com.yjy.model.Parent;
 import com.yjy.model.Teacher;
 import com.yjy.service.TeacherService;
 import com.yjy.util.QiniuFile;
 import com.yjy.vo.JsonPageResult;
-import com.yjy.vo.JsonResult;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -57,7 +55,11 @@ public class TeacherServiceImpl implements TeacherService {
             teacher.setTeacherId(UUID.randomUUID().toString());
             Date currentTime=new Date(System.currentTimeMillis());
             teacher.setTeacherRegtime(currentTime.getTime());
-            teacher.setTeacherPhoto(QiniuFile.uploadFile(img.getBytes()));
+            if (img != null){
+                teacher.setTeacherPhoto(QiniuFile.uploadFile(img.getBytes()));
+            } else {
+                teacher.setTeacherPhoto("Ft7t33aDzKOQ_-99zzefF1kWU7dw");
+            }
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -109,7 +111,11 @@ public class TeacherServiceImpl implements TeacherService {
         try {
             Date currentTime=new Date(System.currentTimeMillis());
             teacher.setUpdateTime(currentTime.getTime());
-            teacher.setTeacherPhoto(QiniuFile.uploadFile(img.getBytes()));
+            if (img != null){
+                teacher.setTeacherPhoto(QiniuFile.uploadFile(img.getBytes()));
+            } else {
+                teacher.setTeacherPhoto("Ft7t33aDzKOQ_-99zzefF1kWU7dw");
+            }
         } catch (IOException e) {
             e.printStackTrace();
         }

@@ -11,6 +11,7 @@ import org.springframework.stereotype.Component;
  * @date 2022-09-14 10:00:06
  * @describe: TODO
  */
+
 @Component
 public class WxCourseSupport {
     @Autowired
