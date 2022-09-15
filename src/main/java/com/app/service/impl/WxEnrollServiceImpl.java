@@ -1,11 +1,13 @@
 package com.app.service.impl;
 
 import com.app.dto.WxInsertDto;
+import com.app.mapper.WxEnAndStuMapper;
 import com.app.mapper.WxEnrollMapper;
 import com.app.mapper.WxEnrollTypeMapper;
 import com.app.service.WxEnrollService;
 import com.app.support.WxStudentSupport;
 import com.yjy.model.Enroll;
+import com.yjy.model.EnrollAndStudent;
 import com.yjy.model.EnrollType;
 import com.yjy.model.Student;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,6 +32,8 @@ public class WxEnrollServiceImpl implements WxEnrollService {
     private WxEnrollTypeMapper wxEnrollTypeMapper;
     @Autowired
     private WxStudentSupport wxStudentSupport;
+    @Autowired
+    private WxEnAndStuMapper wxEnAndStuMapper;
 
     /**
      * 支付成功后生成报名记录
@@ -52,6 +56,11 @@ public class WxEnrollServiceImpl implements WxEnrollService {
         enroll.setPayType(wxInsertDto.getPayType());
         enroll.setSchoolNme(wxInsertDto.getSchoolName());
         enroll.setStudentName(wxInsertDto.getStudentName());
+
+        EnrollAndStudent enrollAndStudent = new EnrollAndStudent();
+        enrollAndStudent.setEnrollId(enroll.getEnrollId());
+        enrollAndStudent.setStudentId(wxInsertDto.getStudentId());
+        wxEnAndStuMapper.insertEnAndStu(enrollAndStudent);
         return wxEnrollMapper.insertEnroll(enroll);
     }
 }
