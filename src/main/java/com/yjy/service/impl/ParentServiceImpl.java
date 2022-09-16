@@ -114,8 +114,6 @@ public class ParentServiceImpl implements ParentService {
             parent.setUpdateTime(currentTime.getTime());
             if (img != null){
                 parent.setParentPhoto(QiniuFile.uploadFile(img.getBytes()));
-            } else {
-                parent.setParentPhoto("Ft7t33aDzKOQ_-99zzefF1kWU7dw");
             }
         } catch (IOException e) {
             e.printStackTrace();

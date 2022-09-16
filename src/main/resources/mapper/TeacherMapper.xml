@@ -24,7 +24,15 @@
     </update>
     <!-- 修改用户信息 -->
     <update id="updateTeacher" parameterType="com.yjy.model.Teacher">
-        update t_user_teacher set teacher_name= #{teacherName},teacher_phone = #{teacherPhone},teacher_photo = #{teacherPhoto},teacher_sex = #{teacherSex},update_time = #{updateTime} where teacher_id = #{teacherId}
+        update t_user_teacher
+        <trim prefix="set " suffixOverrides=",">
+            <if test="teacherName !=null">teacher_name=#{teacherName},</if>
+            <if test="teacherPhone !=null">teacher_phone=#{teacherPhone},</if>
+            <if test="teacherPhoto !=null">teacher_photo=#{teacherPhoto},</if>
+            <if test="teacherSex !=null">teacher_sex=#{teacherSex},</if>
+            <if test="updateTime !=null">update_time=#{updateTime},</if>
+        </trim>
+        where teacher_id=#{teacherId}
     </update>
     <!-- 删除时改变修改时间 -->
     <update id="updateTime" parameterType="com.yjy.model.Teacher">
