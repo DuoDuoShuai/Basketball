@@ -76,7 +76,8 @@ public class SchoolServiceImpl implements SchoolService {
         if(delete==1){
             School school=new School();
             school.setUpdateTime(currentTime.getTime());
-            return schoolMapper.updateTime(school);
+            school.setSchoolId(schoolId);
+            Integer integer = schoolMapper.updateTime(school);
         }
         return delete;
     }

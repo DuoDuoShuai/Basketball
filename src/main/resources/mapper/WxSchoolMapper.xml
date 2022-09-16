@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.app.mapper.WxSchoolMapper">
+    <sql id="start">
+        school_id schoolId,school_name schoolName,school_describe schoolDescribe,phone,address,
+        create_time createTime,
+        update_time updateTime
+    </sql>
+    <!-- 默认编号为1校区-->
+    <select id="loadDefault" resultType="com.yjy.model.School">
+        select
+        <include refid="start"></include>
+        from t_school_info
+        where school_id=1
+    </select>
+    <!-- 根据id查单个校区详情  选择校区-->
+    <select id="loadById" resultType="com.yjy.model.School">
+        select
+        <include refid="start"></include>
+        from t_school_info
+        where school_id=#{0}
+    </select>
+<!--    查询全部校区-->
+    <select id="listSchool" resultType="com.yjy.model.School">
+        select
+            school_id schoolId,school_name schoolName,school_describe schoolDescribe,phone
+        from t_school_info
+        where is_delete=0;
+    </select>
+</mapper>

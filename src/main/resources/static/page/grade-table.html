@@ -96,7 +96,7 @@
                 {field: 'gradeName', width: 80, title: '名称'},
                 {field: 'teacherName', width: 80, title: '教练名称'},
                 {field: 'gradeTime', width: 80, title: '上课时间'},
-                {field: 'photo', width: 120, title: '班级头像', sort: true,templet: '<div><img style="height: 47px" id="img" src="http://rhh64czm7.hn-bkt.clouddn.com/{{d.photo}}"></div>'},
+                {field: 'photo', width: 120, title: '班级头像',templet: '<div><img style="height: 47px" id="img" src="http://rhh64czm7.hn-bkt.clouddn.com/{{d.photo}}"></div>'},
                 {field: 'gradeDescribe', width: 120, title: '班级介绍', sort: true},
                 {
                     field: 'gradeState', width: 80, title: '班级状态', sort: true,templet: function (d) {
@@ -109,7 +109,7 @@
                         }
                     }
                 },
-                {field: 'schoolName', width: 150, title: '所属校区', sort: true},
+                {field: 'schoolName', width: 150, title: '所属校区'},
                 {field: 'createTime', width: 120, title: '创建时间', sort: true,templet: "<div>{{layui.util.toDateString(d.createTime, 'yyyy-MM-dd HH:mm:ss')}}</div>"},
                 {field: 'updateTime', width: 120, title: '更新时间', sort: true,templet: "<div>{{layui.util.toDateString(d.updateTime, 'yyyy-MM-dd HH:mm:ss')}}</div>"},
                 {title: '操作', minWidth: 150, toolbar: '#currentTableBar', align: "center"}

@@ -2,6 +2,7 @@ package com.app.mapper;
 
 import com.app.dto.WxAllDto;
 import com.app.dto.WxInsertDto;
+import com.app.dto.WxUpdateDto;
 import com.yjy.model.GradeStudent;
 import com.yjy.model.Student;
 import org.springframework.stereotype.Repository;
@@ -51,17 +52,24 @@ public interface WxStudentMapper {
      */
     Integer insertStudent(WxInsertDto wxInsertDto);
 
-//    /**
-//     * 添加新学员--报名时添加未有的学员
-//     * @param wxInsertDto
-//     * @return
-//     */
-//    Integer insertByEnroll(WxInsertDto wxInsertDto);
-
     /**
      * 查询校区下所有学员信息-报名支付选择学员
      * @param wxAllDto
      * @return
      */
     List<Student> listByEnroll(WxAllDto wxAllDto);
+
+    /**
+     * 学员列表--根据家长id查询名下学员--家长端学员列表
+     * @param parentId
+     * @return
+     */
+    List<Student> listByUser(String parentId);
+
+    /**
+     * 编辑学员--家长端学员
+     * @param wxUpdateDto
+     * @return
+     */
+    Integer updateStudent(WxUpdateDto wxUpdateDto);
 }

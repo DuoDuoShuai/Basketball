@@ -30,6 +30,21 @@
             <result column="remain_hour" property="remainHour"></result>
         </collection>
     </resultMap>
+    <resultMap id="studentMap2" type="com.yjy.model.Student">
+        <id column="student_id" property="studentId"></id>
+        <result column="student_name" property="studentName"></result>
+        <result column="birthday" property="birthday"></result>
+        <result column="school_name" property="schoolName"></result>
+        <result column="photo" property="photo"></result>
+        <collection property="gradeList" ofType="com.yjy.model.Grade">
+            <id  column="grade_id" property="gradeId"></id>
+            <result column="grade_name" property="gradeName"></result>
+        </collection>
+        <collection property="hourList" ofType="com.yjy.model.Hour">
+            <id column="hour_id" property="hourId"></id>
+            <result column="remain_hour" property="remainHour"></result>
+        </collection>
+    </resultMap>
     <resultMap id="sMap" type="com.yjy.model.Student">
         <id column="student_id" property="studentId"></id>
         <result column="student_name" property="studentName"></result>
@@ -131,4 +146,27 @@
         from t_student_info
         where is_delete=0 and school_name=#{schoolName}
     </select>
+<!--    学员列表 根据家长id查询名下学员 家长端学员列表-->
+    <select id="listByUser" resultMap="studentMap2">
+        select t_student_info.student_name,t_student_info.birthday,t_student_info.school_name,t_student_info.photo,
+               t_grade_info.grade_name,
+               t_hour_info.remain_hour
+        from t_student_info right join r_user_student on r_user_student.student_id=t_student_info.student_id
+                            right join r_hour_student on r_hour_student.student_id=t_student_info.student_id
+                            right join t_hour_info on t_hour_info.hour_id=r_hour_student.hour_id
+                            right join r_grade_student on r_grade_student.student_id=t_student_info.student_id
+                            right join t_grade_info on t_grade_info.grade_id=r_grade_student.grade_id
+        where r_user_student.parent_id = #{0}
+    </select>
+    <!-- 编辑学员  家长端学员-->
+    <update id="updateStudent" parameterType="com.app.dto.WxUpdateDto">
+        update t_student_info
+        <trim prefix="set " suffixOverrides=",">
+            <if test="studentName !=null">student_name=#{studentName},</if>
+            <if test="birthday !=null">birthday=#{birthday},</if>
+            <if test="photo !=null">photo=#{photo},</if>
+            <if test="updateTime !=null">update_time=#{updateTime},</if>
+        </trim>
+        where student_id=#{studentId}
+    </update>
 </mapper>

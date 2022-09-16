@@ -125,8 +125,6 @@ public class GradeServiceImpl implements GradeService {
             grade.setUpdateTime(currentTime.getTime());
             if(img!=null){
                 grade.setPhoto(QiniuFile.uploadFile(img.getBytes()));
-            }else {
-                grade.setPhoto("FmEF-fjs-Qaw2opcZ5BtNVVasfsU");
             }
             insert = gradeMapper.insert(grade);
         } catch (IOException e) {
