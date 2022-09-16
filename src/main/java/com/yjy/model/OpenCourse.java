@@ -75,7 +75,7 @@ public class OpenCourse {
     /**
      *排序（0-asc，1-desc)
      */
-    private Boolean sort;
+    private int sort;
     /**
      * 切换路径
      */

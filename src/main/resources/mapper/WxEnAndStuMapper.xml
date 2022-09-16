@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.app.mapper.WxEnAndStuMapper">
+
+    <!-- 添加报名记录后生成报名与学员关系 -->
+    <insert id="insertEnAndStu" parameterType="com.yjy.model.EnrollAndStudent">
+        insert into r_student_enroll(enroll_id,student_id) values (#{enrollId},#{studentId})
+    </insert>
+</mapper>

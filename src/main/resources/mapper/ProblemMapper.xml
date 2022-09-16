@@ -24,7 +24,7 @@
     </update>
     <!-- 修改用问题信息 -->
     <update id="updateProblem" parameterType="com.yjy.model.Problem">
-        update t_open_problem set problem= #{problem},problem_type = #{problemType},sort = #{sort},cut_type = #{cutType},update_time = #{updateTime} where open_problem_id = #{openProblemId}
+        update t_open_problem set problem= #{problem},problem_type = #{problemType},sort = #{sort},cut_type = #{cutType},cut_url = #{cutUrl},update_time = #{updateTime} where open_problem_id = #{openProblemId}
     </update>
     <!-- 删除时改变修改时间 -->
     <update id="updateTime" parameterType="com.yjy.model.Problem">
