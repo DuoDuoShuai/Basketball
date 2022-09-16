@@ -67,7 +67,7 @@
             <if test="studentName !=null">student_name=#{studentName},</if>
             <if test="birthday !=null">birthday=#{birthday},</if>
             <if test="gender !=null">gender=#{gender},</if>
-            <if test="studentName !=null">student_number=#{studentName},</if>
+            <if test="studentNumber !=null">student_number=#{studentNumber},</if>
             <if test="photo !=null">photo=#{photo},</if>
             <if test="schoolName !=null">school_name=#{schoolName},</if>
             <if test="updateTime !=null">update_time=#{updateTime},</if>

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.app.mapper.WxStyleMapper">
+    <!-- 删除时改变修改时间 -->
+    <update id="updateStyle" parameterType="com.app.dto.WxUpdateDto">
+        update t_style_info
+        <trim prefix="set " suffixOverrides=",">
+            <if test="pure !=null">is_show=#{pure},</if>
+            <if test="updateTime !=null">update_time=#{updateTime},</if>
+        </trim>
+        where student_id = #{studentId}
+    </update>
+
+</mapper>

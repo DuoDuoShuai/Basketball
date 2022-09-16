@@ -55,7 +55,8 @@ public class SchoolController {
     @RequestMapping("delete")
     @ResponseBody
     public JsonResult delete(String schoolId){
-        return JsonResult.success(schoolService.delete(schoolId));
+        Integer delete = schoolService.delete(schoolId);
+        return JsonResult.success(delete);
     }
 
     /**

@@ -24,8 +24,6 @@ public class WxEnrollSupport {
     private WxEnrollMapper wxEnrollMapper;
     @Autowired
     private WxEnrollTypeMapper wxEnrollTypeMapper;
-    @Autowired
-    private WxStudentSupport wxStudentSupport;
 
     /**
      * 接口--查询学员不在班级学员表中的报名记录
@@ -45,7 +43,6 @@ public class WxEnrollSupport {
         EnrollType enrollType = new EnrollType();
         enrollType.setStudentName(studentName);
         wxEnrollTypeMapper.updateEnrollType(enrollType);
-        wxStudentSupport.insertByEnroll(wxInsertDto);
 
         Enroll enroll = new Enroll();
         enroll.setEnrollId(UUID.randomUUID().toString());

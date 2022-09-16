@@ -2,6 +2,7 @@ package com.app.controller;
 
 import com.app.dto.WxAllDto;
 import com.app.dto.WxInsertDto;
+import com.app.dto.WxUpdateDto;
 import com.app.service.impl.WxStudentServiceImpl;
 import com.app.support.WxStudentSupport;
 import com.app.vo.WxJsonResult;
@@ -84,5 +85,15 @@ public class WxStudentController {
     @RequestMapping("listByUser")
     public WxJsonResult listByUser(String parentId){
         return WxJsonResult.success(wxStudentService.listByUser(parentId));
+    }
+
+    /**
+     * 编辑学员+修该该学员风采的是否展示状态--家长端学员
+     * @param wxUpdateDto
+     * @return
+     */
+    @RequestMapping("updateStudent")
+    public WxJsonResult updateStudent(WxUpdateDto wxUpdateDto){
+        return WxJsonResult.success(wxStudentService.updateStudent(wxUpdateDto));
     }
 }

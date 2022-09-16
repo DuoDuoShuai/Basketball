@@ -2,6 +2,7 @@ package com.app.service;
 
 import com.app.dto.WxAllDto;
 import com.app.dto.WxInsertDto;
+import com.app.dto.WxUpdateDto;
 import com.yjy.model.Student;
 
 import java.util.List;
@@ -38,4 +39,11 @@ public interface WxStudentService {
      * @return
      */
     List<Student> listByUser(String parentId);
+
+    /**
+     * 编辑学员--家长端学员
+     * @param wxUpdateDto
+     * @return
+     */
+    Integer updateStudent(WxUpdateDto wxUpdateDto);
 }

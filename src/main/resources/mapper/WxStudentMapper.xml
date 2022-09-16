@@ -158,4 +158,15 @@
                             right join t_grade_info on t_grade_info.grade_id=r_grade_student.grade_id
         where r_user_student.parent_id = #{0}
     </select>
+    <!-- 编辑学员  家长端学员-->
+    <update id="updateStudent" parameterType="com.app.dto.WxUpdateDto">
+        update t_student_info
+        <trim prefix="set " suffixOverrides=",">
+            <if test="studentName !=null">student_name=#{studentName},</if>
+            <if test="birthday !=null">birthday=#{birthday},</if>
+            <if test="photo !=null">photo=#{photo},</if>
+            <if test="updateTime !=null">update_time=#{updateTime},</if>
+        </trim>
+        where student_id=#{studentId}
+    </update>
 </mapper>
