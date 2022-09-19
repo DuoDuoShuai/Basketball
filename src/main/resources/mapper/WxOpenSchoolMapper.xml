@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yjy.mapper.WxOpenSchoolMapper">
+    <sql id="start">
+        open_school_id openSchoolId,school_name schoolName,school_describe schoolDescribe,phone,address,
+        school_type schoolType,sort,cut_url cutUrl,is_show pure,
+        create_time createTime,
+        update_time updateTime
+    </sql>
+    <!-- 列表+查询 -->
+    <select id="list" parameterType="com.yjy.dto.OpenDto" resultType="com.yjy.model.OpenSchool">
+        select
+        <include refid="start"></include>
+        from t_open_school
+        where is_delete=0
+        <if test="id !=null and id !=''">
+            and open_school_id like concat('%',#{id},'%')
+        </if>
+        <if test="name !=null and name !=''">
+            and school_name like concat('%',#{name},'%')
+        </if>
+        <if test="type !=null and type !=''">
+            and school_type like concat('%',#{type},'%')
+        </if>
+        <if test="cutUrl !=null and cutUrl !=''">
+            and cut_url like concat('%',#{cutUrl},'%')
+        </if>
+        <if test="pure !=null">
+            and is_show = #{pure}
+        </if>
+        order by open_school_id asc
+        limit #{dataNum},#{limit}
+    </select>
+    <!-- 总数 -->
+    <select id="count" parameterType="com.yjy.dto.OpenDto" resultType="java.lang.Integer">
+        select
+        count(1)
+        from t_open_school
+        where is_delete=0
+        <if test="id !=null and id !=''">
+            and open_school_id like concat('%',#{id},'%')
+        </if>
+        <if test="name !=null and name !=''">
+            and school_name like concat('%',#{name},'%')
+        </if>
+        <if test="type !=null and type !=''">
+            and school_type like #{type}
+        </if>
+        <if test="cutUrl !=null and cutUrl !=''">
+            and cut_url like concat('%',#{cutUrl},'%')
+        </if>
+        <if test="pure !=null">
+            and is_show = #{pure}
+        </if>
+    </select>
+
+</mapper>

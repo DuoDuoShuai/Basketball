@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 命名空间，可以对sql进行分类的一个管理 -->
+<mapper namespace="com.yjy.mapper.WxOpenCourseMapper">
+    <!--查询-->
+    <select id="listOpenCourse" resultType="com.yjy.model.OpenCourse" parameterType="com.yjy.dto.LayUiDto">
+        select open_course_id openId,
+               course_name name,
+               photo,
+               course_hour opencoursehour,
+               price openprice,
+               course_state opencoursestate,
+               course_describe opendescribe,
+               start_time openstartTime,
+               end_time openendTime,
+               pay_number openpayNumber,
+               school_name schoolName,
+               shelf_time openshelfTime,
+               shelf_left_time openShelfleftTime,
+               course_type type,
+               sort,
+               cut_url opencuturl,
+               is_show pure,
+               is_delete openisDelete,
+               create_time createTime,
+               update_time updateTime
+        from t_open_course
+     where is_delete=0
+       <if test="name !=null and name !=''">
+           and course_name like concat('%',#{name},'%')
+       </if>
+        <if test="schoolName !=null and schoolName !='' ">
+            and school_name like concat('%',#{schoolName},'%')
+        </if>
+        order by is_delete asc
+        limit #{dataNum},#{limit};
+    </select>
+
+    <!--总页数-->
+    <select id="count" resultType="java.lang.Integer" parameterType="com.yjy.dto.LayUiDto">
+        select count(1) from t_open_course
+         where is_delete=0
+        <if test="name !=null and name !=''">
+            and course_name like concat('%',#{name},'%')
+        </if>
+        <if test="schoolName !=null and schoolName !='' ">
+            and school_name like concat('%',#{schoolName},'%')
+        </if>
+    </select>
+
+</mapper>

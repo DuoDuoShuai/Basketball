@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yjy.mapper.AnsewrMapper">
+    <select id="list" parameterType="com.yjy.dto.LayUiDto" resultType="com.yjy.model.Ansewr">
+        select open_ansewr_id as openAnsewrId,answer,ansewr_type as ansewrType,cut_url as cutUrl,is_show as isShow,create_time as createTime,update_time as updateTime from t_open_ansewr where is_delete=0
+        <if test="name !=null and name !=''"> and answer like concat('%',#{name},'%') </if>
+        order by open_ansewr_id asc limit #{dataNum},#{limit}
+    </select>
+    <!--  总数  -->
+    <select id="count" parameterType="com.yjy.dto.LayUiDto" resultType="java.lang.Integer">
+        select count(1) from t_open_ansewr where is_delete=0
+        <if test="name !=null and name !=''"> and answer like concat('%',#{name},'%') </if>
+    </select>
+</mapper>
